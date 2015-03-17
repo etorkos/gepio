@@ -9,5 +9,11 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('HomeCtrl', function ($scope) {
+app.controller('HomeCtrl', function ($scope, VenuesFactory) {
+
+	$scope.doThis = function(){
+		VenuesFactory.getLocationsForesquare().then(function (backedData){
+			console.log(backedData.response);
+		})
+	}
 });

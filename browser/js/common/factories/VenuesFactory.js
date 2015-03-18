@@ -14,7 +14,14 @@ app.factory('VenuesFactory', function($http){
 				console.log("Yelp Data", res.data);
 				return res.data;
 			});
+		},
+		getLocationsOpenTable: function(data){
+			return $http.post('/api/opentable/search',{city:data}).then(function(res){
+				console.log("OpenTable", res.data);
+				return res.data;
+			});
 		}
+
 	}
 
 })

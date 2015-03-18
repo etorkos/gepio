@@ -16,4 +16,12 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory) {
 			console.log(returnedData);
 		});
 	}
+
+	$scope.openTable = function(){
+		VenuesFactory.getLocationsOpenTable($scope.city).then(function (returnedData){
+			$scope.openTableRestaurants = returnedData;
+		});
+	}
+
+	$scope.city = "New York";
 });

@@ -1,6 +1,8 @@
 'use strict';
 var router = require('express').Router();
 var yelp = require('yelp');
+var http = require('http');
+var querystring = require("querystring");
 module.exports = router;
 
 router.use('/tutorial', require('./tutorial'));
@@ -17,3 +19,26 @@ router.post('/yelp/search', function (req, res){
 		res.json(data);
 	});
 });
+
+//################################################################
+//Open Table
+router.post('/opentable/search',function(req,res,next){
+	var city = req.body.city;
+	var addon = querystring.stringify({city : city});
+	http.get('http://opentable.herokuapp.com/api/restaurants?'+addon,function(opres){
+		console.log("opentable" + opres.statusCode);
+		opres.setEncoding('utf8');
+		var body = "";
+		opres.on('data',function(chunk){
+			// console.log(chunk)
+			body += chunk;
+		});
+		opres.on('end',function(){
+			res.json(body);
+		});
+	})
+	.on('error',function(e){
+		console.log("error: " + e.message)
+	});
+});
+//################################################################

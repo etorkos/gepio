@@ -16,8 +16,8 @@ app.factory('VenuesFactory', function($http){
 			});
 		},
 		getLocationsOpenTable: function(data){
-			return $http.post('/api/opentable/search',{city:data}).then(function(res){
-				console.log("OpenTable", res.data);
+			return $http.post('/api/opentable/search', {city: data}).then(function(res){
+				console.log("OpenTable", res.data, typeof res.data);
 				return res.data;
 			});
 		}

@@ -12,8 +12,16 @@ app.config(function ($stateProvider) {
 app.controller('HomeCtrl', function ($scope, VenuesFactory) {
 
 	$scope.doThis = function(){
-		VenuesFactory.getLocationsForesquare().then(function (backedData){
-			console.log(backedData.response);
-		})
+		VenuesFactory.getLocationsYelp().then(function (returnedData){
+			console.log(returnedData);
+		});
 	}
+
+	$scope.openTable = function(){
+		VenuesFactory.getLocationsOpenTable($scope.city).then(function (returnedData){
+			$scope.openTableRestaurants = returnedData;
+		});
+	}
+
+	$scope.city = "New York";
 });

@@ -70,10 +70,30 @@ app.factory('PrefBuilder', function(){
 	}
 });
 
-app.controller('PrefCtrl', function ($scope, $state, $stateParams, PrefBuilder){
+app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $stateParams, PrefBuilder, $http){
 	$scope.preferences = PrefBuilder.preferenceInputs;
 	$scope.test = "Test";
 	$scope.foods = PrefBuilder.foods;
 	$scope.events = PrefBuilder.events;
 	$scope.nights = PrefBuilder.nights;
+
+	$scope.submitPreference = function(){
+		var path_to_save = '/api/user/' + $scope.user._id + '/savepreferences'; 
+		$http.post(path_to_save,$scope.preferences).then(function(res){
+			console.log(res.data);
+			$rootScope.$broadcast(AUTH_EVENTS.userUpdated);
+			$state.go('user');
+		});
+	};
 });
+
+
+
+
+
+
+
+
+
+
+

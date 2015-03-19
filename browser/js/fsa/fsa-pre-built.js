@@ -29,7 +29,8 @@
         logoutSuccess: 'auth-logout-success',
         sessionTimeout: 'auth-session-timeout',
         notAuthenticated: 'auth-not-authenticated',
-        notAuthorized: 'auth-not-authorized'
+        notAuthorized: 'auth-not-authorized',
+        userUpdated: 'user-updated'
     });
 
     app.config(function ($httpProvider) {

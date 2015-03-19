@@ -12,7 +12,11 @@ var schema = new mongoose.Schema({
         type: String
     },
     itineraries: [String],
-    preferences: [String],
+    preferences: {
+        foods: [String],
+        events: [String],
+        nights: [String]
+    },
     baseLocation: String, //or could do lat-lon
     salt: {
         type: String

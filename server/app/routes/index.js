@@ -5,3 +5,5 @@ module.exports = router;
 router.use('/tutorial', require('./tutorial'));
 
 router.use('/restaurants', require('./restaurants'));
+
+router.use('/user', require('./user'));

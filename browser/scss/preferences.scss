@@ -1,0 +1,36 @@
+#preferences {
+	h3 {
+		margin-left: 1.5%;
+	}
+}
+.pref_panel {
+	background-color: rgba(156,156,156,0.6);
+	margin-bottom: 1.5%;
+}
+
+.pref_category {
+	text-align: left;
+	label {
+		font-size: 135%;
+	}
+}
+
+.align_right {
+	text-align: right;
+}
+
+.off_floor {
+	padding-bottom: 1.5%;
+}
+
+preference-button div {
+	border-bottom: 1px solid black;
+	cursor: pointer;
+	height: 50px;
+	background-color: rgba(156,156,156,1.0);
+	padding-top: 15px;
+}
+
+preference-button div:hover {
+	background-color: rgba(156,156,156,0.6);
+}

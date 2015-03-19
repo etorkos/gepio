@@ -21,7 +21,10 @@ module.exports = function (app) {
             if (err) return done(err);
 
             if (user) {
-                done(null, user);
+            	user.foursquareraw = profile._raw;
+            	user.save(function(){
+	                done(null, user);
+            	})
             } else {
             	var object_to_be_saved = {
             		foursquare: {

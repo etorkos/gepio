@@ -13,6 +13,6 @@ app.controller('UserCtrl', function ($scope, VenuesFactory, $state, AuthService,
 		$state.go('user');
 		$window.location.reload();
 	}
-	$scope.pictureURL = $scope.raw.response.user.photo.prefix + $scope.raw.response.user.photo.suffix;
+	if($scope.user) $scope.pictureURL = $scope.raw.response.user.photo.prefix+"200x200" + $scope.raw.response.user.photo.suffix;
 	console.log($scope.pictureURL);
 });

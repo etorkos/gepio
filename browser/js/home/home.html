@@ -1,26 +1,20 @@
 <section id="home">
-    <!-- <fullstack-logo></fullstack-logo> -->
-    <rando-greeting></rando-greeting>
-    <get-geolocation></get-geolocation>
-
-		<div class='col-lg-9 col-lg-offset-2 row bump'>
-			<p>Shabby chic flannel four loko aesthetic, keytar craft beer ethical Intelligentsia. Single-origin coffee tote bag PBR&B, meh Intelligentsia bitters farm-to-table Brooklyn fingerstache sustainable whatever paleo Blue Bottle. VHS raw denim cronut, pork belly readymade cornhole try-hard semiotics deep v tattooed. Yr seitan bespoke hashtag VHS. McSweeney's bespoke cray street art squid, photo booth PBR&B. Trust fund Banksy ennui cray, XOXO Pinterest ethical. Cred freegan pug, post-ironic selvage chillwave +1 cardigan actually sartorial DIY meditation Shoreditch.
-			</p>
-		</div>
-
-<div class = 'row'>
-    <div class='col-lg-8 col-lg-offset-2 carousel-container'>
-	    <carousel interval="myInterval">
-	      <slide ng-repeat="slide in slides" active="slide.active">
-	        <img ng-src="{{slide.image}}" style="margin:auto;">
-	        <div class="carousel-caption">
-	          <h4>{{slide.text}}</h4>
-	        </div>
-	      </slide>
-	    </carousel>
-  </div>
-</div>
-<br/>
+	<div class='col-lg-9 col-lg-offset-2 row bump'>
+		<p>Shabby chic flannel four loko aesthetic, keytar craft beer ethical Intelligentsia. Single-origin coffee tote bag PBR&B, meh Intelligentsia bitters farm-to-table Brooklyn fingerstache sustainable whatever paleo Blue Bottle. VHS raw denim cronut, pork belly readymade cornhole try-hard semiotics deep v tattooed. Yr seitan bespoke hashtag VHS. McSweeney's bespoke cray street art squid, photo booth PBR&B. Trust fund Banksy ennui cray, XOXO Pinterest ethical. Cred freegan pug, post-ironic selvage chillwave +1 cardigan actually sartorial DIY meditation Shoreditch.
+		</p>
+	</div>
+	<div class = 'row'>
+	    <div class='col-lg-8 col-lg-offset-2 carousel-container'>
+		    <carousel interval="myInterval">
+		      <slide ng-repeat="slide in slides" active="slide.active">
+		        <img ng-src="{{slide.image}}" style="margin:auto;">
+		        <div class="carousel-caption">
+		          <h4>{{slide.text}}</h4>
+		        </div>
+		      </slide>
+		    </carousel>
+	  	</div>
+	</div>
   <div class ='row'>
   	<div class='menu col-lg-offset-1 col-lg-10'>
   		<div class = 'menu-item-box cursor-pointer' ng-repeat='option in options' style='float: left' ng-click='redirect(option.id)'>

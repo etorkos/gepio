@@ -8,24 +8,22 @@ app.config(function ($stateProvider) {
     });
 
     $stateProvider.state('room.date', {
-        url: '/plan/date_night',
+        url: 'date_night',
         controller: 'DateCtrl',
-        templateUrl: 'js/char_room/date.html'});
+        templateUrl: 'js/chat_room/date.html'});
 
 });
 
 app.controller('RoomCtrl', function($scope, $state){
 
-    // $scope.date= new Date();
-
     $scope.toMaps = function(){
-        $state.go('maps')//verify route destination
+        $state.go('map')//verify route destination
     }
 
 
     $scope.today = function() {
         $scope.dt = new Date(); //date object we are using
-      };
+    };
     $scope.today();
 
     $scope.clear = function () {
@@ -35,9 +33,12 @@ app.controller('RoomCtrl', function($scope, $state){
     $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
-
         $scope.opened = true;
     };
 
 
 });
+
+app.controller('DateCtrl', function($scope){
+
+    });

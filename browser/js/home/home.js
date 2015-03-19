@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     	url:'/login',
     	controller: 'LoginCtrl',
     	templateUrl: 'js/home/login.html'
-    })
+    });
 });
 
 app.controller('HomeCtrl', function ($scope, VenuesFactory, $state) {

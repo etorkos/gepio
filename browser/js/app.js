@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt']);
+var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap']);
 
 app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS) {
     //save login user info, don't delete, important
@@ -20,6 +20,16 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
         delete $scope.user;
         $scope.isAuthenticated = false;
     });
+
+    // Given to the <navbar> directive to show the menu.
+    $scope.menuItems = [
+        { label: 'Home', state: 'home' },
+        {label: 'Register', state:'home.register'},
+        {label: 'Login', state:'home.login'}
+    ];
+
+    $scope.editProfile = 
+    {label: 'Edit Profile', state: 'edit'}
 });
 
 

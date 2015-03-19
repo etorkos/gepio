@@ -10,8 +10,13 @@
   }
 }
 
+dropdown div h4 {
+	margin-bottom: 0%;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
 @import 'tutorial/main';
 @import 'preferences';
+@import 'map';

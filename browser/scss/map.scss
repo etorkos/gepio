@@ -1,0 +1,50 @@
+
+.active {
+	bottom: -460px;
+};
+
+.inactive {
+	bottom: -535px;
+};
+
+.chatActive {
+	height: 375px;
+	.angular-google-map-container { height: 375px };
+};
+
+.chatInactive {
+	height: 450px;
+	.angular-google-map-container { height: 450px };
+};
+
+#map {
+	padding: 0%;
+	height: 450px;
+	section {
+		padding: 0%;
+	}
+	aside {
+		padding: 0%;
+	}
+	aside div div:hover {
+		opacity: 0.7;
+	}
+};
+
+.chat_placeholder {
+	position: fixed;
+	left: 0%;
+	background-color: rgba(156,156,156,0.6);
+	height: 100%;
+	form text-area {
+		height: 100%;
+	}
+	div {
+		div {
+			color: black;
+			border: 3px inset #F7F7F7;
+			background-color: #FAFAFA;
+			padding-left: 1%;
+		}
+	}
+}

@@ -11,16 +11,36 @@ var yelp_client = yelp.createClient({
 	"token_secret": "dzKKvUE3WQjqb4aEIWT3Zza38vk"
 });
 
-var foursquare_client = {
-
-};
-var foursquareId = 0RJHOSIA5K2RGK3J3SPOYNMET0HFOLDI0SGMIGQ1YVO0JSMJ;
-var foursquareClientSecret=1POC3EVMA3WZ3S01X0AINBTTVY0VHALFN0IVD0PYHCG1AW1M;
+var foursquareId = "0RJHOSIA5K2RGK3J3SPOYNMET0HFOLDI0SGMIGQ1YVO0JSMJ";
+var foursquareClientSecret="1POC3EVMA3WZ3S01X0AINBTTVY0VHALFN0IVD0PYHCG1AW1M";
 var date = 20150317;
+
+var dateFunction = function(){
+	var fullDate = new Date();
+	var year = fullDate.getFullYear().toString();
+	var month = fullDate.getMonth().toString();
+	var day = fullDate.getDate();
+	if (day < 10) {
+		day = "0" + day;
+	}
+	if (month < 10) {
+		month = "0" + month;
+	}
+	return year+month+day;
+};
 
 router.post('/yelp/search', function (req, res){
 	yelp_client.search({term: "Fraunces", location: "New York"}, function (err, data){
 		res.json(data);
+	});
+});
+router.get('/foursquare/locations', function (req, res, next){
+	var date = dateFunction();
+	console.log(req.query);
+	http.get('https://api.foursquare.com/v2/venues/search?ll='+req.body.coordinates+'&oauth_token=UMSMDY2RN23B1VRQXPFUGIZHLZLD4FHPM2BJHNOJBGE13AIP&v='+dateFunction(), function (response){
+		console.log(response.data);
+		// return response.data;
+		res.send(200);
 	});
 });
 
@@ -39,7 +59,7 @@ router.post('/opentable/search',function (req, res, next){
 		});
 	})
 	.on('error',function (e){
-		console.log("error: " + e.message)
+		console.log("error: " + e.message);
 	});
 });
 

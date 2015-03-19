@@ -9,19 +9,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('HomeCtrl', function ($scope, VenuesFactory) {
+app.controller('HomeCtrl', function ($scope, VenuesFactory, DateFactory) {
 
 	$scope.doThis = function(){
-		VenuesFactory.getLocationsYelp().then(function (returnedData){
-			console.log(returnedData);
-		});
-	}
 
-	$scope.openTable = function(){
-		VenuesFactory.getLocationsOpenTable($scope.city).then(function (returnedData){
-			$scope.openTableRestaurants = returnedData;
+		VenuesFactory.getLocationsFoursquare($scope.coordinates).then(function (backedData){
+			console.log(backedData.response);
 		});
-	}
-
-	$scope.city = "New York";
+	};
 });

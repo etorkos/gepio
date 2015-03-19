@@ -1,6 +1,6 @@
 
 .active {
-	bottom: -460px;
+	bottom: -470px;
 };
 
 .inactive {
@@ -9,12 +9,12 @@
 
 .chatActive {
 	height: 375px;
-	.angular-google-map-container { height: 375px };
+	.angular-google-map-container { height: 405px };
 };
 
 .chatInactive {
 	height: 450px;
-	.angular-google-map-container { height: 450px };
+	.angular-google-map-container { height: 470px };
 };
 
 #map {

@@ -25,12 +25,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state) {
 		image:'http://www.musicalamerica.com/mablogs/wp-content/uploads/2011/06/MG_4338smaller1.jpg',
 		text: 'Explore family friendly culture'
 	}];
-	$scope.doThis = function(){
 
-		VenuesFactory.getLocationsFoursquare($scope.coordinates).then(function (backedData){
-			console.log(backedData.response);
-		});
-	};
 
 	$scope.city = "New York";
 

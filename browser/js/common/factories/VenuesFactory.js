@@ -6,11 +6,19 @@ var date = 20150317;
 app.factory('VenuesFactory', function($http){
 
 	return {
-		getLocationsFoursquare: function(realCoords){
+		getLocationsFoursquare: function(coordLat, coordLong){
 			// console.log('sending a request to Foursquare');
-			var data = {coordinates: realCoords};
+			var data = {latitude: coordLat, longitude: coordLong};
 
 			return $http.get('/api/restaurants/foursquare/locations', {params: data}).then(function(response){
+				console.log('response from server', response.data);
+				return response.data;
+			});
+		},
+		getLocationsEventbrite: function(coordLat, coordLong){
+			var data = {latitude: coordLat, longitude: coordLong};
+
+			return $http.get('/api/restaurants/eventbrite/events', {params: data}).then(function (response){
 				console.log('response from server', response.data);
 				return response.data;
 			});

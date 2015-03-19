@@ -6,10 +6,12 @@ app.controller('MainController', function ($scope) {
     // Given to the <navbar> directive to show the menu.
     $scope.menuItems = [
         { label: 'Home', state: 'home' },
-        { label: 'About', state: 'about' },
-        { label: 'Tutorial', state: 'tutorial' }
+        {label: 'Register', state:'home.register'},
+        {label: 'Login', state:'home.login'}
     ];
 
+    $scope.editProfile = 
+    {label: 'Edit Profile', state: 'edit'}
 });
 
 

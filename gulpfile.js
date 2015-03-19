@@ -96,6 +96,8 @@ gulp.task('build', function () {
 
 gulp.task('default', function () {
     livereload.listen();
+    gulp.start.apply(gulp, ['buildJS']);
+    gulp.start.apply(gulp, ['buildCSS']);
     gulp.watch('./server/**/*.js', ['lintJS']);
     gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
     gulp.watch('./browser/scss/**', ['buildCSS', 'reloadCSS']);

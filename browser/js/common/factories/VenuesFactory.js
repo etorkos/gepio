@@ -6,27 +6,22 @@ var date = 20150317;
 app.factory('VenuesFactory', function($http){
 
 	return {
-		getLocationsForesquare: function(searchTerm, location){
-			console.log('sending a request to Foursquare');
-			return $http.get('https://api.foursquare.com/v2/venues/search?ll=40.7,-74&query='+searchTerm+'&limit=5&client_id='+foursquareId+'client_secret='+foursquareClientSecret+'&v='+date).then(function(response){
+		getLocationsFoursquare: function(coordLat, coordLong){
+			// console.log('sending a request to Foursquare');
+			var data = {latitude: coordLat, longitude: coordLong};
+
+			return $http.get('/api/restaurants/foursquare/locations', {params: data}).then(function(response){
 				console.log('response from server', response.data);
 				return response.data;
-			})
-		},
-		getLocationsYelp: function(data){
-			return $http.post('/api/yelp/search').then(function (res){
-				console.log("Yelp Data", res.data);
-				return res.data;
 			});
 		},
-		getLocationsOpenTable: function(data){
-			return $http.post('/api/opentable/search', {city: data}).then(function(res){
-				console.log("OpenTable", res.data, typeof res.data);
-				return res.data;
+		getLocationsEventbrite: function(coordLat, coordLong){
+			var data = {latitude: coordLat, longitude: coordLong};
+
+			return $http.get('/api/restaurants/eventbrite/events', {params: data}).then(function (response){
+				console.log('response from server', response.data);
+				return response.data;
 			});
 		}
-
-	}
-
-})
-
+	};
+});

@@ -4,7 +4,7 @@
   "description": "Scaffolding for projects at Fullstack Academy",
   "main": "server/start.js",
   "scripts": {
-    "start": "node server/start.js",
+    "start": "nodemon server/start.js",
     "postinstall": "./node_modules/bower/bin/bower install && gulp build"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "morgan": "^1.5.1",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
+    "passport-foursquare": "^1.0.0",
     "passport-google-oauth": "^0.1.5",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.2",

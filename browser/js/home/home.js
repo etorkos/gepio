@@ -42,7 +42,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state) {
 	$scope.options = [{name: 'Romantic Night Out'},{name: 'Reunion with Friends'},{name: 'Barcrawl!'},{name: 'Whats for lunch?'} ];
 
 	$scope.redirect = function(id){
-		$state.go('page.id');
+		$state.go('room.date');
 	}
 });
 

@@ -14,8 +14,8 @@ var yelp_client = yelp.createClient({
 var foursquare_client = {
 
 };
-var foursquareId = 0RJHOSIA5K2RGK3J3SPOYNMET0HFOLDI0SGMIGQ1YVO0JSMJ;
-var foursquareClientSecret=1POC3EVMA3WZ3S01X0AINBTTVY0VHALFN0IVD0PYHCG1AW1M;
+var foursquareId = "0RJHOSIA5K2RGK3J3SPOYNMET0HFOLDI0SGMIGQ1YVO0JSMJ";
+var foursquareClientSecret= "1POC3EVMA3WZ3S01X0AINBTTVY0VHALFN0IVD0PYHCG1AW1M";
 var date = 20150317;
 
 router.post('/yelp/search', function (req, res){

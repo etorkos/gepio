@@ -9,6 +9,9 @@ var schema = new mongoose.Schema({
     password: {
         type: String
     },
+    itineraries: [String],
+    preferences: [String],
+    baseLocation: String, //or could do lat-lon
     salt: {
         type: String
     },

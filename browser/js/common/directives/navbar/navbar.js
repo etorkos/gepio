@@ -10,7 +10,7 @@ app.directive('navbar', function () {
     };
 });
 
-app.controller('NavbarCtrl', function($scope){
+app.controller('NavbarCtrl', function($scope, $state){
 
 
 	$scope.loggedIn = false; //will need to make a function dependent on session

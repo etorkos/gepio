@@ -1,0 +1,22 @@
+<div class="col-lg-12 chat_placeholder" ng-class="{ active: active, inactive: !active }">
+	<div class="col-lg-4">
+		<div class="col-lg-12">
+			<p ng-repeat="message in messages">Jin_So_Lonely: {{message}}</p>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<form name="textForm">
+			<div class="form-group">
+				<textarea class="form-control" ng-model="text" placeholder="Enter text here..."></textarea>
+			</div>
+		</form>
+	</div>
+	<div class="col-lg-3">
+		<div class="col-lg-12">
+			<h5>Jin_So_Lonely <span style="opacity: 0.7">--active</span></h5>
+		</div>
+	</div>
+	<div class="col-lg-1 align_right">
+		<button class="btn btn-warning" ng-click="makeActive()"><span ng-show="!active">Up</span><span ng-show="active">Down</span></button>
+	</div>
+</div>

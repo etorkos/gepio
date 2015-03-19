@@ -37,7 +37,7 @@ router.post('/yelp/search', function (req, res){
 router.get('/foursquare/locations', function (req, res, next){
 	var date = dateFunction();
 	console.log(req.query);
-	http.get('https://api.foursquare.com/v2/venues/search?ll='+req.body.coordinates+'&oauth_token=UMSMDY2RN23B1VRQXPFUGIZHLZLD4FHPM2BJHNOJBGE13AIP&v='+dateFunction(), function (response){
+	http.get('https://api.foursquare.com/v2/venues/search?ll='+req.query.coordinates+'&oauth_token=UMSMDY2RN23B1VRQXPFUGIZHLZLD4FHPM2BJHNOJBGE13AIP&v='+dateFunction(), function (response){
 		console.log(response.data);
 		// return response.data;
 		res.send(200);

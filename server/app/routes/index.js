@@ -6,4 +6,4 @@ router.use('/tutorial', require('./tutorial'));
 
 router.use('/restaurants', require('./restaurants'));
 
-router.use('/users', require('./users'));
+router.use('/user', require('./user'));

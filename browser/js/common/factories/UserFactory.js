@@ -5,5 +5,6 @@ app.factory('UserFactory', function($http){
 			$http.put('/user/'+ user._id).then(function(response){
 				return response.data;
 			});
+		}
 	};
 });

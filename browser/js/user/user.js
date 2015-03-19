@@ -7,12 +7,13 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('UserCtrl', function ($scope, VenuesFactory, $state, AuthService, $window) {
+app.controller('UserCtrl', function ($scope, $state, AuthService, $window) {
 	$scope.logout = function(){
 		AuthService.logout();
 		$state.go('user');
 		$window.location.reload();
 	}
-	if($scope.user) $scope.pictureURL = $scope.raw.response.user.photo.prefix+"200x200" + $scope.raw.response.user.photo.suffix;
-	console.log($scope.pictureURL);
+	if($scope.user) 
+		$scope.pictureURL = $scope.raw.response.user.photo.prefix+"100x100" + $scope.raw.response.user.photo.suffix;
+	console.log($scope.user);
 });

@@ -1,0 +1,34 @@
+<div class="preferences">
+	<h3>Updated Your Preferences</h3>
+	<main class="container pref_panel">
+		<form name="preferencesForm">
+			<section class="col-lg-4 col-md-4 col-sm-12 pref_category">
+				<div class="panel-success">
+					<div class="panel-heading"><h4>Food</h4></div>
+					<div class="panel-content">
+						<preference-button data="food" type="foods.type" ng-repeat="food in foods.array"></preference-button>
+					</div>
+				</div>
+			</section>
+			<section class="col-lg-4 col-md-4 col-sm-12 pref_category">
+				<div class="panel-success">
+					<div class="panel-heading"><h4>Events</h4></div>
+					<div class="panel-content">
+						<preference-button data="event" type="events.type" ng-repeat="event in events.array"></preference-button>
+					</div>
+				</div>
+			</section>
+			<section class="col-lg-4 col-md-4 col-sm-12 pref_category">
+				<div class="panel-success">
+					<div class="panel-heading"><h4>Night Life</h4></div>
+					<div class="panel-content">
+						<preference-button data="night" type="nights.type" ng-repeat="night in nights.array"></preference-button>
+					</div>
+				</div>
+			</section>
+			<section class="col-lg-12 align_right off_floor">
+				<button type="submit" class="btn btn-success">Update</button>
+			</section>
+		</form>
+	</main>
+</div>

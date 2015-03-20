@@ -2,47 +2,47 @@
 <section id="user">
 	<img ng-src="{{pictureURL}}" />
 	<button ng-click="logout()">Log Out</button>
-	<div class="panel-success col-lg-9">
+	<div class="panel-success col-lg-10">
 		<div class="panel-heading">User Settings</div>
-		<div class="panel-content">
-		<form name="userForm">
-			<div class="form-group">
-				<label for="firstName" class="col-sm-2 control-label">First Name:</label>
-				<div class="col-sm-10">
-					<input type="text" name="firstName" value="{{user.firstName}}">
+		<div class="panel-body">
+			<form name="userForm" ng-submit="updateUser()">
+				<div class="form-group">
+					<label for="firstName" class="col-sm-2 control-label">First Name:</label>
+					<div class="col-sm-10">
+						<input type="text" name="firstName" value="{{user.firstName}}">
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="lastName" class="col-sm-2 control-label">Last Name:</label>
-				<div class="col-sm-10">
-					<input type="text" name="lastName" value="{{user.lastName}}">
+				<div class="form-group">
+					<label for="lastName" class="col-sm-2 control-label">Last Name:</label>
+					<div class="col-sm-10">
+						<input type="text" name="lastName" value="{{user.lastName}}">
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="eMail" class="col-sm-2 control-label">E-mail:</label>
-				<div class="col-sm-10">
-					<input type="text" name="eMail" value="{{user.email}}">
+				<div class="form-group">
+					<label for="eMail" class="col-sm-2 control-label">E-mail:</label>
+					<div class="col-sm-10">
+						<input type="text" name="eMail" value="{{user.email}}">
+					</div>
 				</div>
-			</div>
-		</form>
-			<div class="form-group">
-				<label for="lastLoc" class="col-sm-2 control-label">Last Location:</label>
-				<div class="col-sm-10">
-					<input type="text" name="lastLoc" disabled>
+				<div class="form-group">
+					<label for="lastLoc" class="col-sm-2 control-label">Last Location:</label>
+					<div class="col-sm-10">
+						<input type="text" name="lastLoc" disabled>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="intineraries" class="col-sm-2 control-label">Itineraries:</label>
-				<table class="table">
-					<tr ng-repeat="itinerary in user.itineraries"><td>List of Itineraries</td></tr>
-					<tr><td>List of Itineraries</td></tr>
-					<tr><td>List of Itineraries</td></tr>
-					<tr><td>List of Itineraries</td></tr>
-				</table>
-			</div>
-			<div class="form-group" class="col-sm-2 control-label">
-				<preferences-edit></preferences-edit>
-			</div>
+				<button class="btn" type="submit">Update User</button>
+			</form>
+		</div>
+		<div class="col-lg-10 panel-heading">Itineraries:</div>
+			<table class="table">
+				<!-- <tr ng-repeat="itinerary in user.itineraries"><td>List of Itineraries</td></tr> -->
+				<tr><td>List of Itineraries</td></tr>
+				<tr><td>List of Itineraries</td></tr>
+				<tr><td>List of Itineraries</td></tr>
+			</table>
+		<div class="form-group" class="col-sm-2 control-label">
+			<preferences-edit></preferences-edit>
+		</div>
 		</div>
 	</div>
 	<!-- <pre>{{raw | json}}</pre> -->

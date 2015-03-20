@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('RoomCtrl', function($scope, $state){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory){
 
     $scope.toMaps = function(){
         $state.go('map');//verify route destination
@@ -35,6 +35,12 @@ app.controller('RoomCtrl', function($scope, $state){
         $event.stopPropagation();
         $scope.opened = true;
     };
+
+    $scope.active = MessageFactory.active;
+    $scope.makeActive = function(){
+        MessageFactory.changeActive();
+        $scope.active = !$scope.active;
+    }
 
 
 });

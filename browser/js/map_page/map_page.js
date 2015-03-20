@@ -14,9 +14,10 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 			zoom: 13
 		};
 	});
-	$scope.active = false;
+	$scope.active = MessageFactory.active;
 	$scope.messages = MessageFactory.messages;
 	$scope.makeActive = function (){
+		MessageFactory.changeActive();
 		$scope.active = !$scope.active;
 	};
 });

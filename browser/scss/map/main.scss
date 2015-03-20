@@ -1,13 +1,9 @@
-ui-gmap-google-map{
-	.active {
-		bottom: -470px;
-	};
-
-	.inactive {
-		bottom: -535px;
-	};
-}
-
+.chatBarActive {
+	bottom: -470px;
+};
+.chatBarInactive {
+	bottom: -535px;
+};
 
 .chatActive {
 	height: 375px;

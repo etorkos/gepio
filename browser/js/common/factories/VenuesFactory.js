@@ -1,23 +1,22 @@
 'use strict';
 
-app.factory('VenuesFactory', function($http){
+app.factory('VenuesFactory', function ($http, GeolocationFactory){
 
 	return {
-		getLocationsFoursquare: function(coordLat, coordLong){
-			// console.log('sending a request to Foursquare');
-			var data = {latitude: coordLat, longitude: coordLong};
+		getVenues: function(category){
+			var data = {latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude, categories: category};
 
-			return $http.get('/api/restaurants/foursquare/locations', {params: data}).then(function(response){
-				console.log('response from server', response.data);
-				return response.data;
-			});
-		},
-		getLocationsEventbrite: function(coordLat, coordLong){
-			var data = {latitude: coordLat, longitude: coordLong};
-
-			return $http.get('/api/restaurants/eventbrite/events', {params: data}).then(function (response){
-				console.log('response from server', response.data);
-				return response.data;
+			return $http.get('/api/venues/search', {params: data}).then(function(response){
+				var venues = [];
+				response.data.response.venues.forEach(function (venue){
+					var holder = {};
+					holder.category = venue.categories[0];
+					holder.contact = venue.contact.formattedPhone;
+					holder.name = venue.name;
+					holder.location = venue.location;
+					venues.push(holder);
+				});
+				return venues;
 			});
 		}
 	};

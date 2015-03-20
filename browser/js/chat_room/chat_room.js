@@ -17,8 +17,8 @@ app.config(function ($stateProvider) {
 app.controller('RoomCtrl', function($scope, $state){
 
     $scope.toMaps = function(){
-        $state.go('map')//verify route destination
-    }
+        $state.go('map');//verify route destination
+    };
 
 
     $scope.today = function() {

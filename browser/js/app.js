@@ -27,12 +27,12 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
     // Given to the <navbar> directive to show the menu.
     $scope.menuItems = [
         { label: 'Home', state: 'home' },
-        {label: 'Register', state:'home.register'},
-        {label: 'Login', state:'home.login'}
+        { label: 'Register', state:'home.register' },
+        { label: 'Login', state:'home.login' }
     ];
 
     $scope.editProfile = 
-    {label: 'Edit Profile', state: 'edit'}
+        { label: 'Edit Profile', state: 'edit' };
 });
 
 

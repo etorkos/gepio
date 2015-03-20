@@ -7,16 +7,17 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('UserCtrl', function ($http, $scope, VenuesFactory, $state, AuthService, $window) {
+app.controller('UserCtrl', function ($scope, $state, $http, AuthService, $window) {
 	$scope.logout = function(){
 		AuthService.logout();
 		$window.location.reload();
-	}
+	};
+
 	if($scope.user){
 		$scope.pictureURL = $scope.raw.response.user.photo.prefix+"200x200" + $scope.raw.response.user.photo.suffix;
 		var path_to_preferences = "/api/user/"+ $scope.user._id+'/preferences';
 		$http.get(path_to_preferences).then(function(response){
-			$scope.user.preferences = response.data
+			$scope.user.preferences = response.data;
 		});	
-	};
+	}
 });

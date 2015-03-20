@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, VenuesFactory, $state) {
+app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory) {
 
 	$scope.myInterval = 5000;
 	var slides = $scope.slides = [{
@@ -34,4 +34,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state) {
 	$scope.redirect = function(id){
 		$state.go('room.date');
 	}
+
+	GeolocationFactory.getGeo();
+
 });

@@ -35,7 +35,7 @@ app.factory('PrefBuilder', function(){
 				'Live Sports',
 				'Live Music',
 				'Live Theatre',
-				'Museaums',
+				'Museums',
 				'Art Exhibits',
 				'Family Friendly',
 				'Comedy',
@@ -67,7 +67,7 @@ app.factory('PrefBuilder', function(){
 			events: [],
 			nights: []
 		}
-	}
+	};
 });
 
 app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $stateParams, PrefBuilder, $http){

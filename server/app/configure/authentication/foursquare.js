@@ -22,7 +22,7 @@ module.exports = function (app) {
             	user.foursquareraw = profile._raw;
             	user.save(function(){
 	                done(null, user);
-            	})
+            	});
             } else {
             	var object_to_be_saved = {
             		foursquare: {

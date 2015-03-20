@@ -28,7 +28,7 @@ app.directive('preferenceButton', function (PrefBuilder) {
         			PrefBuilder.preferenceInputs[type].splice(index, 1);
         			scope.isSet = false;
         		}
-        	}
+        	};
         }
     };
 });

@@ -20,9 +20,13 @@
     <script src='/angular-bootstrap/ui-bootstrap.min.js'></script>
     <script src='/angular-bootstrap/ui-bootstrap-tpls.min.js'></script>
     <script src="/main.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:1337');
+    </script>
 </head>
 <body class="full" ng-app="FullstackGeneratedApp" ng-controller="MainController">
     <navbar items="menuItems"></navbar>
     <div ui-view></div>
+    <script src="socket/client_side_socket.js"></script>
 </body>
 </html>

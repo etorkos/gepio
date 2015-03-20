@@ -18,6 +18,6 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	$scope.messages = MessageFactory.messages;
 	$scope.makeActive = function (){
 		$scope.active = !$scope.active;
-	}
+	};
 });
 

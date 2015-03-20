@@ -15,7 +15,7 @@ module.exports = function (app) {
 	var profileg;
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
     	// console.log(profile);
-    	profileg = profile
+    	profileg = profile;
         UserModel.findOne({ 'foursquare.id': profile.id }, function (err, user) {
 
             if (err) return done(err);
@@ -24,7 +24,7 @@ module.exports = function (app) {
             	user.foursquareraw = profile._raw;
             	user.save(function(){
 	                done(null, user);
-            	})
+            	});
             } else {
             	var object_to_be_saved = {
             		foursquare: {

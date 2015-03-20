@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('IntineraryCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory){
+app.controller('IntineraryCtrl', function ($scope, $state, MessageFactory){
 
 });
 

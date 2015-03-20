@@ -13,9 +13,15 @@
 dropdown div h4 {
 	margin-bottom: 0%;
 }
+// .row {
+// 	margin-right: 15px;
+// 	margin-left: 15px;
+// }
 
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
 @import 'preferences/main';
 @import 'map/main';
+@import 'navbar/main';
+@import 'user/main';

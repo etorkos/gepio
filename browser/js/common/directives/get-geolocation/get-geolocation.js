@@ -3,27 +3,17 @@ app.directive('getGeolocation', function(){
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/get-geolocation/get-geolocation.html',
-		controller: function($scope, VenuesFactory){
-
-			$scope.getGeo = function(){
-				if(navigator.geolocation){
-					navigator.geolocation.getCurrentPosition(function (position){
-						$scope.latitude = position.coords.latitude;
-						$scope.longitude = position.coords.longitude;
-					});
-				} else
-					console.log("Geolocation is not supported by this browser");
-			};
+		controller: function($scope, VenuesFactory, EventsFactory, GeolocationFactory, MoviesFactory){
 
 			$scope.doFour = function(){
-				VenuesFactory.getLocationsFoursquare($scope.latitude, $scope.longitude).then(function (backedData){
-					console.log(backedData.response);
+				VenuesFactory.getVenues('4bf58dd8d48988d1cb941735').then(function (data){
+					$scope.data = data;
 				});
 			};
 
 			$scope.doEvent = function(){
-				VenuesFactory.getLocationsEventbrite($scope.latitude, $scope.longitude).then(function (backedData){
-					console.log(backedData.response);
+				EventsFactory.getEvents().then(function (data){
+					$scope.data = data;
 				});
 			};
 		}

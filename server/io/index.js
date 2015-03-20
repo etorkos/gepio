@@ -8,8 +8,17 @@ module.exports = function (server) {
 
     io = socketio(server);
 
-    io.on('connection', function (socket) {
-        // Now have access to socket, wowzers!
-    });
+	io.on('connection',function(client){
+		console.log("client connected")
 
+		client.emit('messages',"socket.io connection established");
+
+		client.on('join',function(data){
+			console.log(data);
+		});
+
+		client.on('disconnect',function(){
+			console.log("client disconnected");
+		});
+	});
 };

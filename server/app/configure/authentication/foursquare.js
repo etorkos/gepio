@@ -14,8 +14,6 @@ module.exports = function (app) {
 
 	var profileg;
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-    	// console.log(profile);
-    	profileg = profile;
         UserModel.findOne({ 'foursquare.id': profile.id }, function (err, user) {
 
             if (err) return done(err);

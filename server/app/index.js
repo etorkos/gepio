@@ -20,3 +20,4 @@ app.get('/*', function (req, res) {
 app.use(function (err, req, res, next) {
     res.status(err.status).send({ error: err.message });
 });
+

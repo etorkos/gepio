@@ -1,7 +1,10 @@
 'use strict';
 var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS) {
+app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS, GeolocationFactory) {
+    //save geolocation to scope
+    GeolocationFactory.getGeo()
+    console.log(GeolocationFactory);
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){

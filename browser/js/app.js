@@ -1,10 +1,7 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
+var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
 app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS, GeolocationFactory) {
-    //save geolocation to scope
-    GeolocationFactory.getGeo()
-    console.log(GeolocationFactory);
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
@@ -36,6 +33,13 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
 
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
+
+    GeolocationFactory.getGeo().then(function (){
+        if (GeolocationFactory.latitude && GeolocationFactory.longitude){
+            $rootScope.geoSet =  GeolocationFactory.latitude + ',' + GeolocationFactory.longitude;
+        };
+    });
+    
 });
 
 

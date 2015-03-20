@@ -1,25 +1,23 @@
 <nav class="navbar navbar-static-top navbar-default">
     <div class="container">
         <div class="navbar-header">
-            <!-- <fullstack-logo></fullstack-logo> -->
         </div>
         <ul class="nav navbar-nav right">
-            <!-- <li ng-repeat="item in items">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li> -->
             <li>
-                <a ui-sref-active="active" ng-click="toggleVisible()">Main</a>
+                <a ui-sref-active="active" ng-click="redirect('home')">Main</a>
             </li>
             <li>
-                <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Login</a>
+                <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Login / Register</a>
             </li>
             <li>
-                <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Register</a>
+                <a ui-sref-active="active" ng-show='loggedIn' ng-click='redirect("user")'>Edit Profile</a>
             </li>
             <li>
-                <a ui-sref-active="active" ng-show='loggedIn' >Edit Profile</a>
+                <a ui-sref-active="active" ng-show='loggedIn' ng-click='logOut()'>Log out</a>
             </li>
         </ul>
     </div>
 </nav>
-<!-- <dropdown class='dropdown' ng-show='loginClicked'></dropdown> -->
+<div>
+    <login ng-show='loginClicked' class='col-lg-3 col-lg-offset-9'></login>
+</div>

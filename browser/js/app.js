@@ -32,7 +32,7 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
     ];
 
     $scope.editProfile = 
-        { label: 'Edit Profile', state: 'edit' }
+        { label: 'Edit Profile', state: 'edit' };
 });
 
 

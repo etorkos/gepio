@@ -33,5 +33,5 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state) {
 
 	$scope.redirect = function(id){
 		$state.go('room.date');
-	}
+	};
 });

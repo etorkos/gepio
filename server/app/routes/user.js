@@ -25,7 +25,7 @@ router.post('/:id/savepreferences',function(req,res,next){
 			user.save(function(){
 				res.send("saved");
 			});
-		};
+		}
 	});
 });
 

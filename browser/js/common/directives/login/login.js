@@ -1,3 +1,4 @@
+'use strict';
 app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location,$http,$state){
 	return {
 		restrict : "E",

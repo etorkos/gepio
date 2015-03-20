@@ -67,7 +67,7 @@ app.factory('PrefBuilder', function(){
 			events: [],
 			nights: []
 		}
-	}
+	};
 });
 
 app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $stateParams, PrefBuilder, $http){

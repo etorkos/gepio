@@ -18,7 +18,7 @@ var foursquareClientSecret="1POC3EVMA3WZ3S01X0AINBTTVY0VHALFN0IVD0PYHCG1AW1M";
 var evbriteClient = {
 	client_secret: "5GEUAQ22R4666GUSXUUDWOZPJ7RDR3CORRFJFYKUP3UHPWTG4J",
 	anonymous_oauth: "KXPOP37CSFBT6PHADGFS"
-}
+};
 
 var dateFunction = function(){
 	var fullDate = new Date();
@@ -66,8 +66,8 @@ router.get('/eventbrite/events', function (req, res, next){
 		response.on('end', function(){
 			res.json(JSON.parse(body));
 		});
-	})
-})
+	});
+});
 
 router.post('/opentable/search',function (req, res, next){
 	var city = req.body.city;

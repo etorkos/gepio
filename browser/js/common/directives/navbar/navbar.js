@@ -10,7 +10,7 @@ app.directive('navbar', function () {
     };
 });
 
-app.controller('NavbarCtrl', function($scope, $state, AuthService){
+app.controller('NavbarCtrl', function($scope, $state, AuthService, $window){
 
 
 	$scope.loggedIn = false; //will need to make a function dependent on session
@@ -33,8 +33,10 @@ app.controller('NavbarCtrl', function($scope, $state, AuthService){
         $scope.loginClicked = !$scope.loginClicked;
     }
 
-    $scope.redirect = function(){
-        $state.go('home');
+    $scope.redirect = function(location){
+        console.log(location, typeof location);
+        if(location === 'home') $state.go('home');
+        if(location === 'user') $state.go('user');
     }
 
 })

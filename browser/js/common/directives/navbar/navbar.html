@@ -4,13 +4,13 @@
         </div>
         <ul class="nav navbar-nav right">
             <li>
-                <a ui-sref-active="active" ng-click="home()">Main</a>
+                <a ui-sref-active="active" ng-click="redirect('home')">Main</a>
             </li>
             <li>
                 <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Login / Register</a>
             </li>
             <li>
-                <a ui-sref-active="active" ng-show='loggedIn' >Edit Profile</a>
+                <a ui-sref-active="active" ng-show='loggedIn' ng-click='redirect("user")'>Edit Profile</a>
             </li>
             <li>
                 <a ui-sref-active="active" ng-show='loggedIn' ng-click='logOut()'>Log out</a>

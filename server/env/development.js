@@ -7,13 +7,13 @@ module.exports = {
     "callbackUrl": "http://127.0.0.1:1337/auth/twitter/callback"
   },
   "FACEBOOK": {
-    "clientID": "336560806541655",
-    "clientSecret": "2f117d2a289fd321e411fdb568d263f2",
+    "clientID": "670456933099660",
+    "clientSecret": "e7f3133254d2fe75f25998fbd348c6a0",
     "callbackURL": "http://localhost:1337/auth/facebook/callback"
   },
   "GOOGLE": {
-    "clientID": "369003002521-88250fc9kjpkfqvhicu7vokbnvu88ud6.apps.googleusercontent.com",
-    "clientSecret": "DB1-q81E4ODEuL8cFGCm5QS1",
+    "clientID": "602274302205-f68k5gte9299kbrpruekls7l81nih2og.apps.googleusercontent.com",
+    "clientSecret": "B6Uh-MoWc9VNCNJko1S7n4dT",
     "callbackURL": "http://localhost:1337/auth/google/callback"
   }
 };

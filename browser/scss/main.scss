@@ -13,10 +13,14 @@
 dropdown div h4 {
 	margin-bottom: 0%;
 }
-// .row {
-// 	margin-right: 15px;
-// 	margin-left: 15px;
-// }
+
+.row {
+	margin-right: 0;
+	margin-left: 0;
+}
+.btn {
+	margin: 5px;
+}
 
 @import 'directives/main';
 @import 'home/main';

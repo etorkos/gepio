@@ -40,6 +40,4 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		$state.go('room.date');
 	}
 
-	GeolocationFactory.getGeo();
-
 });

@@ -29,5 +29,12 @@ router.post('/:id/savepreferences',function(req,res,next){
 	});
 });
 
+router.put('/', function (req, res, next){
+	User.findOneAndUpdate({_id: req.body._id}, req.body, function (err,user){
+		user.save(function(err, user){
+			res.send(user);
+		});
+	});
+});
 module.exports = router;
 

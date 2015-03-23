@@ -47,4 +47,5 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory){
 
 app.controller('DateCtrl', function($scope){
 
-    });
+
+});

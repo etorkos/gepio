@@ -22,6 +22,15 @@ dropdown div h4 {
 	margin: 5px;
 }
 
+.align-center {
+  text-align: center;
+}
+#loader {
+  width: 200px;
+  height: auto;
+  margin-bottom: 5%;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

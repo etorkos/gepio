@@ -20,7 +20,7 @@ app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFac
 	};
 
 	if($scope.user){
-		$scope.pictureURL = $scope.raw.response.user.photo.prefix+"150x150" + $scope.raw.response.user.photo.suffix;
+		if ($scope.raw) $scope.pictureURL = $scope.raw.response.user.photo.prefix+"150x150" + $scope.raw.response.user.photo.suffix;
 		var path_to_preferences = "/api/user/"+ $scope.user._id+'/preferences';
 		$http.get(path_to_preferences).then(function (response){
 			$scope.user.preferences = response.data;

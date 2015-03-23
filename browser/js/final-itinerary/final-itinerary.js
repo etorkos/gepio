@@ -3,11 +3,11 @@ app.config(function ($stateProvider){
 	$stateProvider.state('final-itinerary', {
 		url: '/final-itinerary',
 		controller: 'IntineraryCtrl',
-		templateUrl: 'js/final_itinerary/final_itinerary.html'
+		templateUrl: 'js/final-itinerary/final-itinerary.html'
 	});
 });
 
-app.controller('IntineraryCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory){
-
+app.controller('IntineraryCtrl', function ($scope, $state, MessageFactory){
+	
 });
 

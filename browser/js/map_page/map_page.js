@@ -20,5 +20,10 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		MessageFactory.changeActive();
 		$scope.active = !$scope.active;
 	};
+
+	$scope.finalizeItinerary = function(allPlaces){
+		//do something with allPlaces
+		$state.go('final-itinerary');
+	}
 });
 

@@ -11,8 +11,12 @@
 }
 .row .carousel-container img{
 	width: 100%;
-	height: 300px;
+	// height: 300px;
 	height: 75vh;
+}
+
+.row {
+	margin-top: 4%;
 }
 .menu-item-box {
 	border: 7px solid gray;
@@ -23,17 +27,16 @@
 	opacity: 60%
 }
 .bump {
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-.right{
-	display: inline block;
-	float: right;
+	margin-top: 1%;
+	margin-bottom: 1%;
 }
 
-.cursor-pointer {
-	cursor: pointer;
+.beinner{
+	padding: 0 3%;
 }
-.clearfix {
-	overflow: auto;
-}
+// .cursor-pointer {
+// 	cursor: pointer;
+// }
+// .clearfix {
+// 	overflow: auto;
+// }

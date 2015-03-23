@@ -1,7 +1,7 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
+var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS) {
+app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q) {
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
@@ -33,6 +33,33 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
 
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
+
+    GeolocationFactory.getGeo().then(function (){
+        if (GeolocationFactory.latitude && GeolocationFactory.longitude){
+            if(!$scope.user){
+                $scope.dataSet = { movies: null, events: [], venues: [] };
+                MoviesFactory.getMovies().then(function (data){
+                    $scope.dataSet.movies = data;
+                });
+                var categories = ['103','109','119'];
+                categories.forEach(function (category){
+                    EventsFactory.getEvents(category).then(function (data){
+                        $scope.dataSet.events.push(data);
+                    });
+                });
+                var venueCategories = ['4bf58dd8d48988d10c941735','52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735'];
+                venueCategories.forEach(function (category){
+                    VenuesFactory.getVenues(category).then(function (data){
+                        $scope.dataSet.venues.push(data);
+                    });
+                });
+            }
+            else {
+                
+            }
+        };
+    });
+    
 });
 
 

@@ -36,7 +36,7 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
 
     GeolocationFactory.getGeo().then(function (){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
-            if(!$scope.user.preferences || ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0)){
+            if(!$scope.user || ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0)){
                 console.log("No user/preferences");
                 $scope.dataSet = { movies: null, events: [], venues: [] };
                 $scope.totals = 0;

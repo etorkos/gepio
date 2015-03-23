@@ -18,12 +18,23 @@
 	  	</div>
 	</div>
   <div class='row'>
-  	<div class='menu col-lg-12' ng-show="totals > 60">
-  		<button class='btn btn-default' ng-repeat='option in options' ng-click='redirect(option.name)'>
+  	<div id="options_menu" class='menu col-lg-12' ng-show="totals > 60">
+  		<div class="col-lg-11 dropdiv panel-success">
+  			<div class="panel-heading dropdiv_button" ng-show="!showOptions" ng-click="showOptionsClick()"><h4>{{selectedOption}}</h4></div>
+  			<div class="panel-content" ng-show="showOptions">
+  				<div class="col-lg-12 panel-heading dropdiv_button" ng-repeat="option in options" ng-click="showOptionsClick(option.name)">
+					<h5>{{option.name}}</h5>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="col-lg-1">
+  			<button id="go_btn" class="btn btn-primary" ng-click="redirect()">Go</button>
+  		</div>
+  		<!-- <button class='btn btn-default' ng-repeat='option in options' ng-click='redirect(option.name)'>
   			<h4>{{option.name}}</h4>
   		</button>
 		<button class="btn btn-default" ui-sref="preferences({ user: 'placeholder' })"><h4>Get Preferences!</h4></button>
-		<button class="btn btn-default" ui-sref="map"><h4>To Map!</h4></button>
+		<button class="btn btn-default" ui-sref="map"><h4>To Map!</h4></button> -->
   	</div>
   	<div class="col-lg-12 align-center" ng-show="!totals">
   		<img id="loader" src="http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_orange_512.gif"/>

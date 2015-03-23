@@ -1,0 +1,30 @@
+<button type="button" class="btn" data-toggle="modal" data-target="#createRoom">
+	Create Chatroom
+</button>
+
+<button type="button" class="btn" data-toggle="modal" data-target="#joinRoom">
+	Join Chatroom
+</button>
+
+<button ng-click="console.log('hi')">Shit</button>
+
+<button ng-click="alert('hi')" ng-init="count=0">
+  Increment
+</button>
+count: {{ count }}
+
+<div class="modal fade" id="createRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<button class="btn btn-primary" ng-click="createRoom()">Save changes</button>
+			<div class="modal-body">
+				<input type="text" class="form-control" placeholder="Please enter the name of your chatroom" ng-model="chatRoomName">
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal">Close</button>
+				<button class="btn btn-primary" ng-click="createRoom()">Save changes</button>
+			</div>
+		</div>
+		<button class="btn btn-primary" ng-click="createRoom()">Save changes</button>
+	</div>
+</div>

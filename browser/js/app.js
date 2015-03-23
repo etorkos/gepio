@@ -34,10 +34,16 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
 
-    GeolocationFactory.getGeo().then(function (){
+    GeolocationFactory.getGeo().then(function(){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
+            console.log(GeolocationFactory)
+            var geoloc = {
+                latitude: GeolocationFactory.latitude,
+                longitude: GeolocationFactory.longitude
+            };
+            socket.emit('location',geoloc);
             $rootScope.geoSet =  GeolocationFactory.latitude + ',' + GeolocationFactory.longitude;
-        };
+        };   
     });
     
 });

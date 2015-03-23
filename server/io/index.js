@@ -13,9 +13,11 @@ module.exports = function (server) {
 
 		client.emit('messages',"socket.io connection established");
 
-		client.on('join',function(data){
-			console.log(data);
+		client.on('location',function(data){
+			client.geo_location = data;
 		});
+
+		
 
 		client.on('disconnect',function(){
 			console.log("client disconnected");

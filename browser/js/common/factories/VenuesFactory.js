@@ -4,7 +4,7 @@ app.factory('VenuesFactory', function ($http, GeolocationFactory){
 
 	return {
 		getVenues: function(category){
-			var data = {latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude, categories: category};
+			var data = {latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude, categories: category, query: query};
 
 			return $http.get('/api/venues/search', {params: data}).then(function(response){
 				var venues = [];

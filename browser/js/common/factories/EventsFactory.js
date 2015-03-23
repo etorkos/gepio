@@ -29,7 +29,6 @@ app.factory('EventsFactory', function ($http, GeolocationFactory){
 				holder.venue = event.venue;
 				cleaned.push(holder);
 			});
-			console.log(cleaned);
 			return cleaned;
 		});
 	};

@@ -18,12 +18,15 @@
 	  	</div>
 	</div>
   <div class='row'>
-  	<div class='menu col-lg-12'>
+  	<div class='menu col-lg-12' ng-show="totals > 60">
   		<button class='btn btn-default' ng-repeat='option in options' ng-click='redirect(option.name)'>
   			<h4>{{option.name}}</h4>
   		</button>
 		<button class="btn btn-default" ui-sref="preferences({ user: 'placeholder' })"><h4>Get Preferences!</h4></button>
 		<button class="btn btn-default" ui-sref="map"><h4>To Map!</h4></button>
   	</div>
-</div>
+  	<div class="col-lg-12 align-center" ng-show="!totals">
+  		<img id="loader" src="http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_orange_512.gif"/>
+  	</div>
+  </div>
 </section>

@@ -10,7 +10,7 @@ app.config(function ($stateProvider){
 app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
-			center: $scope.geoSet, 
+			center: { latitude: 40.705786, longitude: -74.007672 },
 			zoom: 13
 		};
 	});
@@ -20,5 +20,10 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		MessageFactory.changeActive();
 		$scope.active = !$scope.active;
 	};
+
+	$scope.finalizeItinerary = function(allPlaces){
+		//do something with allPlaces
+		$state.go('final-itinerary');
+	}
 });
 

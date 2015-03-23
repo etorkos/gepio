@@ -1,11 +1,13 @@
-<section id="home">
-	<div class='col-lg-9 col-lg-offset-2 row bump'>
+<section id="home" class="beinner">
+	<div class='row'>
+		<div class='col-lg-12'>
 		{{geoSet}}
 		<p>Shabby chic flannel four loko aesthetic, keytar craft beer ethical Intelligentsia. Single-origin coffee tote bag PBR&B, meh Intelligentsia bitters farm-to-table Brooklyn fingerstache sustainable whatever paleo Blue Bottle. VHS raw denim cronut, pork belly readymade cornhole try-hard semiotics deep v tattooed. Yr seitan bespoke hashtag VHS. McSweeney's bespoke cray street art squid, photo booth PBR&B. Trust fund Banksy ennui cray, XOXO Pinterest ethical. Cred freegan pug, post-ironic selvage chillwave +1 cardigan actually sartorial DIY meditation Shoreditch.
 		</p>
+		</div>
 	</div>
-	<div class = 'row'>
-	    <div class='col-lg-8 col-lg-offset-2 carousel-container'>
+	<div class='row'>
+	    <div class='col-lg-12 carousel-container'>
 		    <carousel interval="myInterval">
 		      <slide ng-repeat="slide in slides" active="slide.active">
 		        <img ng-src="{{slide.image}}" style="margin:auto;">
@@ -16,13 +18,17 @@
 		    </carousel>
 	  	</div>
 	</div>
-  <div class ='row'>
-  	<div class='menu col-lg-offset-1 col-lg-10'>
-  		<div class = 'menu-item-box cursor-pointer' ng-repeat='option in options' style='float: left' ng-click='redirect(option.name)'>
-  			<h3>{{option.name}}</h3>
-  		</div>
+  <div class='row'>
+  	<div class='menu col-lg-12'>
+  		<button class='btn btn-default' ng-repeat='option in options' ng-click='redirect(option.name)'>
+  			<h4>{{option.name}}</h4>
+  		</button>
+		<button class="btn btn-default" ui-sref="preferences({ user: 'placeholder' })"><h4>Get Preferences!</h4></button>
+		<button class="btn btn-default" ui-sref="map"><h4>To Map!</h4></button>
   	</div>
   </div>
 <button ui-sref="preferences({ user: 'placeholder' })">Go!</button>
 <room-buttons></room-buttons>
+
+</div>
 </section>

@@ -44,13 +44,17 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
                 var categories = ['103','109','119'];
                 categories.forEach(function (category){
                     EventsFactory.getEvents(category).then(function (data){
-                        $scope.dataSet.events.push(data);
+                        console.log('Events ', data.length);
+                        // $scope.dataSet.events.push(data);
+                        $scope.dataSet.events = $scope.dataSet.events.concat(data) || data;
                     });
                 });
                 var venueCategories = ['4bf58dd8d48988d10c941735','52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735'];
                 venueCategories.forEach(function (category){
                     VenuesFactory.getVenues(category).then(function (data){
-                        $scope.dataSet.venues.push(data);
+                        console.log('Venues ', data.length);
+                        // $scope.dataSet.venues.push(data);
+                        $scope.dataSet.venues = $scope.dataSet.venues.concat(data) || data;
                     });
                 });
             }

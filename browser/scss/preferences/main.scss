@@ -47,14 +47,22 @@ preference-button div:hover {
 
 }
 
+.std-gray-background {
+	background-color: rgba(156,156,156, 0.6);
+	border-radius: 10px;
+}
 	.event{
-		height: 300px;
-		background: gray;
-		opacity: 60%;
+		height: 100%;
+		background-color: rgba(156,156,156, 0.6) ;
 		border-radius: 10px;
 	}
 
 .mini-container{
 	width: 200px;
 	opacity: 100%;
+}
+.box{
+	background: white;
+	color: black;
+	margin-bottom:15px;
 }

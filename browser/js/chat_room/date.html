@@ -1,10 +1,25 @@
-<div id='date'>
-	<div class='col-lg-3 col-lg-offset-1 event'>
+<div id='date' class='std-gray-background col-lg-12'>
+<!-- 	{{dataSet.events[0] | limitTo: 1 }}
+</br></br>
+	{{dataSet.venues[0] | limitTo: 1 }}
+ -->
+	<div class='col-lg-4 col-lg-offset-1'>
 		<h2>Dinner</h2>
-		<div class='bump'>First Thing</div>
+		<div class='bump box' ng-repeat='place in dataSet.venues[0] | limitTo:5'>
+			<h4>{{place.name}}</h4>
+			<h5>{{place.location.formattedAddress[0]}}, {{place.location.formattedAddress[1]}}</h5>
+			<h4>Reservations are not required</h4>
+			<button class='btn' ng-click='upvoteVenue(place)'>Like</button>
+			<button class='btn btn-danger' ng-click='removeVenue(place)'>remove</button>
+		</div>
 	</div>
-	<div class='col-lg-3 col-lg-offset-1 event'>
+	<div class='col-lg-4 col-lg-offset-1'>
 		<h2>Event</h2>
-		<div class='bump'>First Thing</div>
+		<div class='bump box' ng-repeat='event in dataSet.events[0] | limitTo:5 | orderBy:event.name'>
+			<h4>{{event.name}}</h4>
+			<h5>{{event.venue.address.address_1}}, {{event.venue.address.city}} </h5>
+			<button class='btn' ng-click='upvoteEvent(event)'>Like</button>
+			<button class='btn btn-danger' ng-click='removeEvent(event)'>remove</button>
+		</div>
 	</div>
 </div>

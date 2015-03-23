@@ -15,6 +15,7 @@ app.factory('EventsFactory', function ($http, GeolocationFactory){
 		else data['start_date.range_start']  = end_date;
 		return $http.get('/api/events/search', { params: data }).then(function (res){
 			var cleaned = [];
+			console.log(res.data.events[0]);
 			res.data.events.forEach(function (event){
 				var holder = {};
 				holder.name = event.name.text;
@@ -27,6 +28,7 @@ app.factory('EventsFactory', function ($http, GeolocationFactory){
 				holder.category = event.category_id;
 				holder.startTime = event.start.local;
 				holder.endTime = event.end.local;
+				holder.venue = event.venue;
 				cleaned.push(holder);
 			});
 			return cleaned;

@@ -31,18 +31,25 @@ app.controller('DateCtrl', function($scope, $filter){
 	}
 
 	$scope.upvoteEvent = function (event){
+		//for testing atm only
 		console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
 	}
+
 });
 
 app.filter('checkDate', function($filter)
 {
-    return function(input, scope)
+    return function(events, dt)
     {
-        if(input == null){ return ""; }
-        var _date = $filter('date')(new Date(input), 'dd/MM/yyyy');
-        var _userDate = $filter('date')(new Date(scope.dt), 'dd/MM/yyyy');
-        return _date === _userDate;
-        
+        if(events == null){ return ""; }
+        var newArray = [];
+        var _userDate = $filter('date')(new Date(dt), 'dd/MM/yyyy');
+        var truph = events.map(function(thing){
+        	var _date = $filter('date')(new Date(thing.startTime), 'dd/MM/yyyy');
+        	if(_date === _userDate){
+        		newArray.push(thing);
+        	}
+        });
+        return newArray;
     };
 });

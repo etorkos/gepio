@@ -1,8 +1,5 @@
 <div id='date' class='std-gray-background col-lg-12'>
-<!-- 	{{dataSet.events[0] | limitTo: 1 }}
-</br></br>
-	{{dataSet.venues[0] | limitTo: 1 }}
- -->
+
 	<div class='col-lg-4 col-lg-offset-1'>
 		<h2>Dinner</h2>
 		<div class='bump box' ng-repeat='place in dataSet.venues | limitTo:8'>
@@ -16,7 +13,7 @@
 	</div>
 	<div class='col-lg-4 col-lg-offset-1'>
 		<h2>Event</h2>
-		<div class='bump box' ng-repeat='event in dataSet.events | checkDate:this | limitTo:8 | orderBy:event.name'>
+		<div class='bump box' ng-repeat='event in dataSet.events | checkDate:dt'>
 			<h4>{{event.name}}</h4>
 			<h5 class='space-below' >{{event.venue.address.address_1}}, {{event.venue.address.city}} </h5>
 			<span>{{event.startTime | date: 'MMM d, h:mm a'}}</span>
@@ -26,3 +23,5 @@
 		</div>
 	</div>
 </div>
+
+<!-- | limitTo:8 | orderBy:event.name -->

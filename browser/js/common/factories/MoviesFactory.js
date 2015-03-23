@@ -23,7 +23,7 @@ app.factory('MoviesFactory', function ($http, GeolocationFactory){
 						}
 					});
 				});
-				console.log(movies);
+				// console.log(movies);
 				return movies;
 			});
 		}

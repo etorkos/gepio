@@ -5,11 +5,11 @@
 	<aside class="col-lg-3">
 		<div class="panel-success">
 			<div class="panel-heading"><h4>Restaurants</h4></div>
-			<div class="panel-body">Location Data</div>
+			<div class="panel-body" ng-repeat='place in dataSet.venues | limitTo:8' ><list-ranking my-place='place'></list-ranking></div>
 		</div>
 		<div class="panel-success">
 			<div class="panel-heading"><h4>Events</h4></div>
-			<div class="panel-body">Location Data</div>
+			<div class="panel-body" ng-repeat='event in dataSet.events | limitTo: 8' ><list-ranking my-place='event'></list-ranking></div>
 		</div>
 		<div class="panel-success">
 			<div class="panel-heading"><h4>Drinks</h4></div>

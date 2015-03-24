@@ -5,10 +5,9 @@
 		<div class='bump box' ng-repeat='place in dataSet.venues | limitTo:8'>
 			<h4>{{place.name}}</h4>
 			<h5>{{place.location.formattedAddress[0]}}, {{place.location.formattedAddress[1]}}</h5>
-			<h5 class='space-below'>Reservations are not required</h5>
+			<h5 class='space-below'>Thine Mother is a wench.</h5>
 			<button class='btn btn-xs btn-danger btn-floatright' ng-click='removeVenue(place)'>remove</button>
 			<button class='btn btn-xs btn-success btn-floatright' ng-click='upvoteVenue(place)'>Like</button>
-			
 		</div>
 	</div>
 	<div class='col-lg-4 col-lg-offset-1'>

@@ -10,13 +10,13 @@ module.exports = function (server) {
     io = socketio(server);
 
 	io.on('connection',function(client){
-		function nsp_communication(client){
-			var current_nsp = io.of(client.nsp);
-			
-			io.of(current_nsp).on('new_message',function(data){
-				io.of(current_nsp).
-			});
-		}
+		// function nsp_communication(client){
+		// 	var current_nsp = io.of(client.nsp);
+
+		// 	io.of(current_nsp).on('new_message',function(data){
+		// 		// io.of(current_nsp).
+		// 	});
+		// }
 		console.log("client connected");
 
 		client.on('location',function(data){
@@ -29,12 +29,15 @@ module.exports = function (server) {
 		});
 
 		client.on('create_room',function(data){
-			console.log(data);
+			// console.log(data);
 			var nsp = io.of('/'+data.room_name)
 			namespaces.push(nsp);
-			console.log(namespaces);
-			nsp.on('connection', function(socket){
-			  console.log('someone connected')
+			// console.log(namespaces);
+			  nsp.on('message',function(thing){
+			  	console.log(thing, "from nsp");
+			  });
+			nsp.on('connection', function(client_in_nsp){
+			  console.log('someone connected to' + data.room_name);
 
 			});
 			nsp.emit('hi', 'everyone!');

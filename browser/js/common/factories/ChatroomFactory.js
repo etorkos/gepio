@@ -3,10 +3,12 @@ app.factory('ChatroomFactory', function (){
 	var current_nsp;
 	return {
 		send_message_to_server : function(message_text){
-			alert(current_nsp)
-			socket.emit('message',{
-				message : message_text
-			});
+			// alert(current_nsp)
+			if(current_nsp){
+				socket.emit('message',{
+					message : message_text
+				});
+			}
 		},
 		create_room : function(room_name){
 			socket.emit('create_room',{
@@ -14,6 +16,7 @@ app.factory('ChatroomFactory', function (){
 			});
 			current_nsp = '/' + room_name;
 			socket = io(current_nsp);
+			console.log(socket)
 		},
 		join_room : function(room_name){
 			current_nsp = '/' + room_name;

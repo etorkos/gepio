@@ -7,9 +7,11 @@ app.directive('listRanking', function(){
 		},
 		controller: function($scope){
 
+			$scope.allPlaces = [];
+
 			function removeFromList (scopeDset, item){
 				var loc = -1;
-				for(var a = 0, len = scopeDset.length; a< len; a++){
+				for(var a = 0, len = scopeDset.length; a < len; a++){
 						if(scopeDset[a].name === item.name){
 							console.log('match at location',a)
 							loc = a;
@@ -27,16 +29,13 @@ app.directive('listRanking', function(){
 			$scope.downvote = function(item){
 				checkRanking(item)				
 				item.ranking--;
-				console.log(item.ranking);
-				// if(item.ranking === 5)
+				// if(item.ranking === -5) //check based on people in room for removal
 					// item.removeFromList($scope.dataSet.);
 			};
 
 			$scope.upvote = function(item){
 				checkRanking(item)
 				item.ranking++;
-				console.log(item.ranking);
-
 			};
 
 		},

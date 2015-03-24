@@ -14,7 +14,7 @@ app.directive('preferenceButton', function (PrefBuilder) {
 	        		elem.css('opacity', '0.3');
 	        		elem.css('color', 'black');
 	        		elem.css('font-weight', 'bold');
-	        		PrefBuilder.preferenceInputs[type].push(input);
+	        		PrefBuilder.preferenceInputs[type].push(JSON.stringify(input));
 	        		scope.isSet = true;
         		}
         		else {
@@ -23,7 +23,7 @@ app.directive('preferenceButton', function (PrefBuilder) {
         			elem.css('font-weight', 'normal');
         			var index = 0;
         			PrefBuilder.preferenceInputs[type].forEach(function (set, i){
-        				if (input == set) index = i;
+        				if (JSON.stringify(input) == set) index = i;
         			});
         			PrefBuilder.preferenceInputs[type].splice(index, 1);
         			scope.isSet = false;

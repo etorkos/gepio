@@ -7,7 +7,6 @@ app.factory('MoviesFactory', function ($http, GeolocationFactory){
 				lon: GeolocationFactory.longitude
 			};
 			return $http.get('/api/movies/search', { params: data }).then(function (res){
-				console.log(res.data)
 				var movies = [];
 				res.data.forEach(function (theater){
 					theater.movies.forEach(function (movie){
@@ -23,7 +22,6 @@ app.factory('MoviesFactory', function ($http, GeolocationFactory){
 						}
 					});
 				});
-				console.log(movies);
 				return movies;
 			});
 		}

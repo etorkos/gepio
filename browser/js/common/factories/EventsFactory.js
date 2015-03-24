@@ -1,13 +1,14 @@
 'use strict';
 app.factory('EventsFactory', function ($http, GeolocationFactory){
 	var factory = {};
-	factory.getEvents = function (category, start_date, end_date){
+	factory.getEvents = function (category, start_date, end_date, search){
 		var data = {
 			'location.within': '10km',
 			'location.latitude': GeolocationFactory.latitude,
 			'location.longitude': GeolocationFactory.longitude
 		}
 		data.categories = category;
+		data.q=search;
 		if (!start_date) data['start_date.range_start'] = '2015-03-21T17:16:55Z';
 		else data['start_date.range_start'] = start_date;
 		if (!end_date) data['start_date.range_end'] = '2015-04-16T17:16:55Z'
@@ -26,9 +27,11 @@ app.factory('EventsFactory', function ($http, GeolocationFactory){
 				holder.category = event.category_id;
 				holder.startTime = event.start.local;
 				holder.endTime = event.end.local;
+				holder.venue = event.venue;
 				cleaned.push(holder);
 			});
 			return cleaned;
+
 		});
 	};
 	return factory;

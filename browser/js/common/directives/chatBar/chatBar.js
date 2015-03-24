@@ -8,10 +8,21 @@ app.directive('chatBar', function(ChatroomFactory){
 			scope.message_to_display = [];
 			scope.submit_message = function(){
 				ChatroomFactory.send_message_to_server(scope.current_message)
+				scope.message_to_display.push(scope.current_message);
 			};
 			socket.on('new_message',function(data){
+				console.log(data)
 				scope.message_to_display.push(data);
+				scope.$digest();
 			});
+			scope.create_room = function(){
+				alert(scope.roomName);
+				ChatroomFactory.create_room(scope.roomName);
+			};
+			scope.join_room = function(){
+				alert(scope.roomName);
+				ChatroomFactory.join_room(scope.roomName);
+			};
 		}
 	};
 });

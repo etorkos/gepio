@@ -40,4 +40,11 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		$state.go('room.date');
 	}
 
+	$scope.selectedOption = "Start an itinerary";
+	$scope.showOptions = false;
+	$scope.showOptionsClick = function(str){
+		$scope.showOptions = !$scope.showOptions;
+		$scope.selectedOption = str;
+	}
+
 });

@@ -10,6 +10,9 @@
 				<textarea class="form-control" ng-model="current_message" placeholder="Enter text here..."></textarea>
 			</div>
 			<button ng-click="submit_message()">Submit</button>
+			<input type="text" ng-model='roomName'>
+			<button ng-click="create_room()">Create Room</button>
+			<button ng-click="join_room()">Join Room</button>
 			<pre>{{current_message|json}}</pre>
 		</form>
 	</div>
@@ -23,17 +26,5 @@
 	</div>
 </div>
 
-<!-- <div class="row">
-	<div class="col-xs-12">
-		<p ng-repeat="message in messages">
-			{{message}}
-		</p>
-	</div>
-	<div class="col-xs-12">
-		<input type="text">
-		<button>Submit</button>
-		<button>Up</button>
-	</div>
-</div> -->
 
 

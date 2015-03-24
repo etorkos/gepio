@@ -34,6 +34,25 @@
 .beinner{
 	padding: 0 3%;
 }
+
+.dropdiv_button {
+	cursor: pointer;
+}
+
+#go_btn {
+	height: 100%;
+	width: 100%;
+	margin: 0%;
+	padding: 20.5%;
+}
+
+#options_menu > div {
+	padding: 0%;
+}
+
+.dropdiv_button:hover {
+	background-color: rgba(55, 240, 141, 0.5);
+}
 // .cursor-pointer {
 // 	cursor: pointer;
 // }

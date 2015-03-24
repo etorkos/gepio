@@ -43,23 +43,40 @@ preference-button div:hover {
 	background: #A5A5A5;
 }
 .info-block{
-	height: 400px;
-
+	padding: auto 0% auto 0%;
 }
 
 .std-gray-background {
 	background-color: rgba(156,156,156, 0.6);
-	border-radius: 10px;
+	padding: auto 0% auto 0%;
 }
 	.event{
 		height: 100%;
 		background-color: rgba(156,156,156, 0.6) ;
 		border-radius: 10px;
 	}
+
+#lunch {
+	padding: auto 0% auto 0%;
+}
+
+.venue_item {
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	cursor: pointer;
+}
+
+.venue_item:hover {
+	background-color: rgba(156,156,156, 0.3);
+}
+
+
 #login-providers{
 	position: absolute;
 	z-index: 10;
 }
+
 .mini-container{
 	width: 200px;
 	opacity: 100%;
@@ -70,6 +87,23 @@ preference-button div:hover {
 	padding:15px;
 	min-height: 150px;
 	border-radius:5px;
+}
+
+.input-group {
+	width: 33%;
+	display: inline;
+	float: right;
+}
+
+.zero-margin {
+	margin: 0%;
+	div {
+		padding: auto 0% auto 0%;
+	}
+}
+
+.float_right {
+	float: right;
 }
 
 .space-below{

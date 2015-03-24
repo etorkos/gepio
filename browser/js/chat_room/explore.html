@@ -1,4 +1,4 @@
-<div id='date' class='std-gray-background col-lg-12'>
+<div id='explore' class='std-gray-background col-lg-12'>
 
 	<div class='col-lg-4 col-lg-offset-1'>
 		<h2>Dinner</h2>
@@ -13,7 +13,7 @@
 	</div>
 	<div class='col-lg-4 col-lg-offset-1'>
 		<h2>Event (may not have events on selected day)</h2>
-		<div class='bump box' ng-repeat='event in dataSet.events | checkDate:dt | limitTo: 8'>
+		<div class='bump box' ng-repeat='event in dataSet.events | checkDate:dt | limitTo: 8 '>
 			<h4>{{event.name}}</h4>
 			<h5 class='space-below' >{{event.venue.address.address_1}}, {{event.venue.address.city}} </h5>
 			<span>{{event.startTime | date: 'MMM d, h:mm a'}}</span>
@@ -24,5 +24,3 @@
 
 	</div>
 </div>
-
-<!-- | limitTo:8 | orderBy:event.name -->

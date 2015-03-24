@@ -30,21 +30,22 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.city = "New York";
 
 	$scope.options = [
-		{name: 'Whats for lunch?'},
-		{name: 'Reunion with Friends'},
-		{name: 'Romantic Night Out'},
-		{name: 'Barcrawl!'}];
+		{name: 'Whats for lunch?', state: 'room.lunch'},
+		{name: 'Reunion with Friends', state: 'room.explore'},
+		{name: 'Romantic Night Out', state: 'room.date'},
+		{name: 'Lets go out tonight', state: 'room.nightlife'}];
 
-	$scope.redirect = function(id){
-		console.log(id)
-		$state.go('room.date');
+	$scope.redirect = function(){
+		console.log('destination', $state.to);
+		$state.go($scope.to, {id: 1011010100101});
 	}
-
-	$scope.selectedOption = "Start an itinerary";
+	$scope.to;
+	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
 	$scope.showOptions = false;
 	$scope.showOptionsClick = function(str){
 		$scope.showOptions = !$scope.showOptions;
 		$scope.selectedOption = str;
+		$scope.to = str.state;
 	}
 
 });

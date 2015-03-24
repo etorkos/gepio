@@ -32,12 +32,14 @@ dropdown div h4 {
 .align-center {
   text-align: center;
 }
+
 #loader {
   width: 100px;
   height: auto;
   margin-bottom: 5%;
 }
 
+@import url(http://fonts.googleapis.com/css?family=Old+Standard+TT);
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

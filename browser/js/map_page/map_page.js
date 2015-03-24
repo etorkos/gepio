@@ -22,7 +22,6 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	};
 
 	$scope.finalizeItinerary = function(){
-		//do something with allPlaces
 
 		var mData = $scope.dataSet;
 		$scope.finalData = {

@@ -21,7 +21,7 @@ app.directive('listRanking', function(){
 				return scopeDset.splice(loc, 1);
 			}
 			
-			var checkRanking = function(item){
+			var checkRanking = function(item){//will probably change to set all rankings to 0
 				if(!item.hasOwnProperty('ranking'))
 					item.ranking = 0;
 			};

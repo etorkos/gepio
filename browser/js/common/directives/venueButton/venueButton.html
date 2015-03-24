@@ -1,0 +1,22 @@
+<div class="col-lg-12 venue_item" ng-click="setClicked()">
+	<div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+		<h5>{{data.name}}</h5>
+		<span ng-show="isClicked">
+			<span ng-show="!data.venue">
+				<h5>{{data.location.formattedAddress[0]}}, {{data.location.formattedAddress[1]}}</h5>
+				<h5>No Reservations Necessary</h5>
+			</span>
+			<span ng-show="data.venue">
+				<h5 class='space-below' >{{data.venue.address.address_1}}, {{data.venue.address.city}} </h5>
+				<span>{{data.startTime | date: 'MMM d, h:mm a'}}</span>
+			</span>
+		</span>
+	</div>
+	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+		<h5>Votes: {{votes}}</h5>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+		<button class='btn btn-xs btn-success btn-floatright' ng-click='upvoteVenue()' stop-propagation><img src="http://www.hipsterie.net/assets/images/avatar/thumbs.png" /></button>
+		<button class='btn btn-xs btn-warning btn-floatright' ng-click='downvoteVenue()' stop-propagation><img src="http://png-2.findicons.com/files/icons/2579/iphone_icons/30/hand_thumbsdown.png" /></button>
+	</div>
+</div>

@@ -55,7 +55,7 @@ preference-button div:hover {
 		background-color: rgba(156,156,156, 0.6) ;
 		border-radius: 10px;
 	}
-
+	
 #lunch {
 	padding: auto 0% auto 0%;
 }
@@ -69,6 +69,11 @@ preference-button div:hover {
 
 .venue_item:hover {
 	background-color: rgba(156,156,156, 0.3);
+}
+
+#login-providers{
+	position: absolute;
+	z-index: 10;
 }
 
 .mini-container{

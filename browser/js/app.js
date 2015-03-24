@@ -88,7 +88,7 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
                 if (events.length) {
                     events.forEach(function (category){
                         EventsFactory.getEvents(category).then(function (data){
-                            $scope.dataSet.events.push(data);
+                            $scope.dataSet.events = $scope.dataSet.events.concat(data) || data;
                             $scope.totals += data.length;
                         });
                     });
@@ -96,7 +96,7 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
                 if (foods.length) {
                     foods.forEach(function (category){
                         VenuesFactory.getVenues(category).then(function (data){
-                            $scope.dataSet.venues.push(data);
+                            $scope.dataSet.venues = $scope.dataSet.venues.concat(data) || data;
                             $scope.totals += data.length;
                         });
                     });

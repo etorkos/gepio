@@ -53,6 +53,17 @@
 .dropdiv_button:hover {
 	background-color: rgba(55, 240, 141, 0.5);
 }
+
+body {
+  font-family: 'Old Standard TT', serif;
+  .panel-heading {
+  	font-family: 'Old Standard TT', serif !important;
+  }
+  .panel-content { 
+  	font-family: 'Old Standard TT', serif !important;
+  }
+}
+
 // .cursor-pointer {
 // 	cursor: pointer;
 // }

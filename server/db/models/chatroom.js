@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var chatRoomSchema = new mongoose.Schema({
+	name : String,
 	messages :[{
 		type : Schema.Types.ObjectId, ref: 'Message'
 	}]

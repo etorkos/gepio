@@ -1,5 +1,5 @@
 'use strict';
-app.factory('ChatroomFactory', function (){
+app.factory('ChatroomFactory', function ($http){
 	var current_nsp;
 	return {
 		send_message_to_server : function(message_text){
@@ -8,13 +8,18 @@ app.factory('ChatroomFactory', function (){
 				message : message_text
 			});
 		},
+		save_message_to_database : function(username,message){
+			$http.post('/api/chatroom/');
+		},
 		create_room : function(room_name){
-			socket.emit('create_room',{
-				room_name : room_name
+			socket.emit('join_room',room_name);
+			$http.post('/api/chatroom/create',{
+				chatroom:{
+					name : room_name
+				}
+			}).then(function(response){
+				alert(response.data);
 			});
-			current_nsp = '/' + room_name;
-			socket = io(current_nsp);
-			console.log(socket)
 		},
 		join_room : function(room_name){
 			socket.emit('join_room',room_name)

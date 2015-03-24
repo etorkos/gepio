@@ -22,7 +22,7 @@ router.post('/create',function(req,res,next){
 	var new_room = new Chatroom(chatroom);
 	new_room.save(function(err){
 		if(err) next(err);
-		else res.sendStatus(200);
+		else res.send("saved");
 	})
 });
 

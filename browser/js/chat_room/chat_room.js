@@ -1,19 +1,4 @@
 'use strict';
-app.config(function ($stateProvider) {
-
-    $stateProvider.state('room', {
-        url: '/plan',
-        controller: 'RoomCtrl',
-        templateUrl: 'js/chat_room/chat_room.html'
-    });
-
-    $stateProvider.state('room.date', {
-        url: 'date_night',
-        controller: 'DateCtrl',
-        templateUrl: 'js/chat_room/date.html'});
-
-});
-
 app.controller('RoomCtrl', function($scope, $state, MessageFactory){
 
     $scope.toMaps = function(){

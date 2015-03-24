@@ -21,9 +21,9 @@
   <div class='row'>
   	<div id="options_menu" class='menu col-lg-12' ng-show="totals > 60">
   		<div class="col-lg-11 dropdiv panel-success">
-  			<div class="panel-heading dropdiv_button" ng-show="!showOptions" ng-click="showOptionsClick()"><h4>{{selectedOption}}</h4></div>
+  			<div class="panel-heading dropdiv_button" ng-show="!showOptions" ng-click="showOptionsClick()"><h4>{{selectedOption.name}}</h4></div>
   			<div class="panel-content" ng-show="showOptions">
-  				<div class="col-lg-12 panel-heading dropdiv_button" ng-repeat="option in options" ng-click="showOptionsClick(option.name)">
+  				<div class="col-lg-12 panel-heading dropdiv_button" ng-repeat="option in options" ng-click="showOptionsClick(option)">
 					<h5>{{option.name}}</h5>
   				</div>
   			</div>

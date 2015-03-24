@@ -39,8 +39,8 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		console.log('destination', $state.to);
 		$state.go($scope.to, {id: 1011010100101});
 	}
-
-	$scope.selectedOption = {name: "Start an itinerary"};
+	$scope.to;
+	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
 	$scope.showOptions = false;
 	$scope.showOptionsClick = function(str){
 		$scope.showOptions = !$scope.showOptions;

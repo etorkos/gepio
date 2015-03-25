@@ -39,7 +39,6 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		console.log('destination', $state.to);
 		AuthService.getLoggedInUser().then(function(user){
 			IdFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
-				debugger;
 				$state.go($scope.to.state, {id: itinerary._id});
 			})	
 		})

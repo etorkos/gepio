@@ -10,7 +10,7 @@ app.config(function ($stateProvider){
 app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
-			center: { latitude: 40.705786, longitude: -74.007672 }, 
+			center: { latitude: 40.705786, longitude: -74.007672 },
 			zoom: 13
 		};
 	});

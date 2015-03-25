@@ -1,14 +1,19 @@
 <div class="col-lg-12 chat_placeholder" ng-class="{ chatBarActive: active, chatBarInactive: !active }">
 	<div class="col-lg-4">
 		<div class="col-lg-12">
-			<p ng-repeat="message in messages">Jin_So_Lonely: {{message}}</p>
+			<p ng-repeat="message in message_to_display">{{message}}</p>
 		</div>
 	</div>
 	<div class="col-lg-4">
 		<form name="textForm">
 			<div class="form-group">
-				<textarea class="form-control" ng-model="text" placeholder="Enter text here..."></textarea>
+				<textarea class="form-control" ng-model="current_message" placeholder="Enter text here..."></textarea>
 			</div>
+			<button ng-click="submit_message()">Submit</button>
+			<input type="text" ng-model='roomName'>
+			<button ng-click="create_room()">Create Room</button>
+			<button ng-click="join_room()">Join Room</button>
+			<pre>{{current_message|json}}</pre>
 		</form>
 	</div>
 	<div class="col-lg-3">
@@ -20,3 +25,6 @@
 		<button class="btn btn-warning" ng-click="makeActive()"><span ng-show="!active">Up</span><span ng-show="active">Down</span></button>
 	</div>
 </div>
+
+
+

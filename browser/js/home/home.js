@@ -30,6 +30,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.city = "New York";
 
 	$scope.options = [
+		//should make it so that we pass a kind of parameter that will do search instead
 		{name: 'Whats for lunch?', state: 'room.lunch'},
 		{name: 'Reunion with Friends', state: 'room.explore'},
 		{name: 'Romantic Night Out', state: 'room.date'},

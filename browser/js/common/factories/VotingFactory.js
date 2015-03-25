@@ -20,13 +20,13 @@ app.factory('VotingFactory', function (){
 					item.votes = 0;
 			});
 		},
-		upVote: function(item){
-			item.votes++;
-		},
 		downVote: function(item){
 			item.votes--;
 			// if(item.ranking < roomMembers.length)
 			// 	removeItem(item);
+		},
+		upVote: function(item){
+			item.votes++;
 		}
 	};	
 });

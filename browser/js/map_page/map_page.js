@@ -30,11 +30,11 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 			events: []
 		};
 		for(var v = 0; v < mData.venues.length; v++){
-			if(mData.venues[v].hasOwnProperty('ranking') && mData.venues[v].ranking > 0)
+			if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
 				$scope.finalData.venues.push(mData.venues[v]);
 		}
 		for(var e = 0; e < mData.events.length; e++){
-			if(mData.events[e].hasOwnProperty('ranking') && mData.events[e].ranking > 0)
+			if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
 				$scope.finalData.events.push(mData.events[e]);	
 		};
 		// console.log($scope.finalData);
@@ -42,10 +42,10 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$state.go('final-itinerary');
 	}
 
-	setTimeout(function(){
+	// setTimeout(function(){
 		VotingFactory.setUpVotes($scope.dataSet.venues);
 		VotingFactory.setUpVotes($scope.dataSet.events);
-	},5000);
+	// },5000);
 });
 
 app.service('passService', function(){

@@ -34,6 +34,5 @@ app.controller('DateCtrl', function($scope, $filter){
 		//for testing atm only
 		console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
 	}
-
 });
 

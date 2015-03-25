@@ -9,4 +9,4 @@ var schema = new mongoose.Schema({
 		time: Date}]
 });
 
-var Itinerary = mongoose.model('Itinerary', schema);
+mongoose.model("Itinerary", schema);

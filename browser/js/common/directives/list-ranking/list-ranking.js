@@ -5,37 +5,14 @@ app.directive('listRanking', function(){
 		scope: {
 			myPlace: '='
 		},
-		controller: function($scope){
+		controller: function($scope, VotingFactory){
 
-			$scope.allPlaces = [];
-
-			function removeFromList (scopeDset, item){
-				var loc = -1;
-				for(var a = 0, len = scopeDset.length; a < len; a++){
-						if(scopeDset[a].name === item.name){
-							console.log('match at location',a)
-							loc = a;
-							break;
-						}
-					}
-				return scopeDset.splice(loc, 1);
-			}
-			
-			var checkRanking = function(item){//will probably change to set all rankings to 0
-				if(!item.hasOwnProperty('ranking'))
-					item.ranking = 0;
-			};
-			
 			$scope.downvote = function(item){
-				checkRanking(item)				
-				item.ranking--;
-				// if(item.ranking === -5) //check based on people in room for removal
-					// item.removeFromList($scope.dataSet.);
+				VotingFactory.downVote(item);
 			};
 
 			$scope.upvote = function(item){
-				checkRanking(item)
-				item.ranking++;
+				VotingFactory.upVote(item);
 			};
 
 		},

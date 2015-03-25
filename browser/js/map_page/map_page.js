@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, passService){
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: 40.705786, longitude: -74.007672 }, 
@@ -24,6 +24,7 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	$scope.finalizeItinerary = function(){
 
 		var mData = $scope.dataSet;
+
 		$scope.finalData = {
 			venues: [],
 			events: []
@@ -40,6 +41,11 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		passService.addFinal($scope.finalData);
 		$state.go('final-itinerary');
 	}
+
+	setTimeout(function(){
+		VotingFactory.setUpVotes($scope.dataSet.venues);
+		VotingFactory.setUpVotes($scope.dataSet.events);
+	},5000);
 });
 
 app.service('passService', function(){

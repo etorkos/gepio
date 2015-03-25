@@ -9,7 +9,7 @@ module.exports = function (server) {
     io = socketio(server);
 
 	io.on('connection',function(client){
-		console.log("client connected")
+		console.log("client connected");
 
 		client.emit('messages',"socket.io connection established");
 

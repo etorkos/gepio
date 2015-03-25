@@ -7,18 +7,18 @@ var mongoose = require('mongoose');
 var User = mongoose.model("User");
 
 // api/user/
-router.get('/:id/preferences',function(req,res,next){
+router.get('/:id/preferences',function (req, res, next){
 	var id = req.params.id;
-	User.findById(id,function(err,user){
+	User.findById(id, function (err, user){
 		if(err) next(err);
 		else res.json(user.preferences);
 	});
 });
 
-router.post('/:id/savepreferences',function(req,res,next){
+router.post('/:id/savepreferences',function (req, res, next){
 	console.log(req.params);
 	var id = req.params.id;
-	User.findById(id,function(err,user){
+	User.findById(id, function (err, user){
 		if(err) next(err);
 		else {
 			user.preferences = req.body;
@@ -31,7 +31,7 @@ router.post('/:id/savepreferences',function(req,res,next){
 
 router.put('/', function (req, res, next){
 	User.findOneAndUpdate({_id: req.body._id}, req.body, function (err,user){
-		user.save(function(err, user){
+		user.save(function (err, user){
 			res.send(user);
 		});
 	});

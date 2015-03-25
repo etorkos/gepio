@@ -1,5 +1,5 @@
 'use strict';
-app.directive('preferenceButton', function (PrefBuilder) {
+app.directive('preferenceButton', function (PrefBuilder, AuthService) {
     return {
         restrict: 'E',
         scope: {
@@ -8,19 +8,24 @@ app.directive('preferenceButton', function (PrefBuilder) {
         },
         templateUrl: 'js/common/directives/preferenceButton/preferenceButton.html',
         link: function (scope, elem, attr){
+            scope.userPreferences = PrefBuilder.preferenceInputs;
+            console.log(scope.userPreferences);
+            // AuthService.getLoggedInUser().then(function (user){
+            //     console.log(user);
+            //     scope.user = user;
+            // });
         	scope.isSet = false;
+            for (var key in scope.userPreferences){
+                scope.userPreferences[key].forEach(function (type){
+                    if (scope.data.text === JSON.parse(type).text) scope.isSet = true;
+                });
+            }
         	scope.setPreference = function (input, type){
         		if (!scope.isSet){
-	        		elem.css('opacity', '0.3');
-	        		elem.css('color', 'black');
-	        		elem.css('font-weight', 'bold');
 	        		PrefBuilder.preferenceInputs[type].push(JSON.stringify(input));
 	        		scope.isSet = true;
         		}
         		else {
-        			elem.css('opacity', '1.0');
-        			elem.css('color', 'white');
-        			elem.css('font-weight', 'normal');
         			var index = 0;
         			PrefBuilder.preferenceInputs[type].forEach(function (set, i){
         				if (JSON.stringify(input) == set) index = i;

@@ -14,6 +14,10 @@ app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $s
 	$scope.events = PrefBuilder.events;
 	$scope.nights = PrefBuilder.nights;
 
+	PrefBuilder.preferenceInputs.nights = $scope.user.preferences.nights;
+	PrefBuilder.preferenceInputs.foods = $scope.user.preferences.foods;
+	PrefBuilder.preferenceInputs.events = $scope.user.preferences.events;
+
 	$scope.submitPreference = function(){
 		prefFactory.savePreference($scope.user,$scope.preferences);
 		$rootScope.$broadcast(AUTH_EVENTS.userUpdated);

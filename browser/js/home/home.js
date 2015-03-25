@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory) {
+app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, IdFactory, AuthService) {
 
 	$scope.myInterval = 5000;
 	var slides = $scope.slides = [{
@@ -23,7 +23,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	},
 	{
 		image:'http://www.musicalamerica.com/mablogs/wp-content/uploads/2011/06/MG_4338smaller1.jpg',
-		text: 'Explore family friendly culture'
+   text: 'Explore family friendly culture'
 	}];
 
 
@@ -37,7 +37,12 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 
 	$scope.redirect = function(){
 		console.log('destination', $state.to);
-		$state.go($scope.to, {id: 1011010100101});
+		AuthService.getLoggedInUser().then(function(user){
+			IdFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
+				$state.go($scope.to.state, {id: itinerary._id});
+			})	
+		})
+		
 	}
 	$scope.to;
 	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
@@ -45,7 +50,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.showOptionsClick = function(str){
 		$scope.showOptions = !$scope.showOptions;
 		$scope.selectedOption = str;
-		$scope.to = str.state;
+		$scope.to = str;
 	}
 
 });

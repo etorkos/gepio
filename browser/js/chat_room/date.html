@@ -12,7 +12,7 @@
 		<div class="panel-success">
 			<div class="panel-heading"><h4>Events</h4></div>
 			<div class="panel-content">
-				<venue-button data="event" ng-repeat="event in dataSet.events | checkDate:dt | limitTo:8">
+				<venue-button data="event" ng-repeat="event in dataSet.events | checkDate:dt | limitTo:8 | orderBy:votes ">
 				</venue-button>
 			</div>
 		</div>

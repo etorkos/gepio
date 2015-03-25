@@ -11,3 +11,5 @@ router.use('/events', require('./events'));
 router.use('/movies', require('./movies'));
 
 router.use('/chatroom', require('./chatroom'));
+
+router.use('/itinerary', require('./itinerary'));

@@ -13,9 +13,9 @@ var schema = new mongoose.Schema({
     },
     itineraries: [String],
     preferences: {
-        foods: [String],
-        events: [String],
-        nights: [String]
+        foods: {type: [String], default: []},
+        events: {type: [String], default: []},
+        nights: {type: [String], default: []}
     },
     baseLocation: String, //or could do lat-lon
     salt: {

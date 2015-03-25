@@ -34,7 +34,7 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
 
-    GeolocationFactory.getGeo().then(function (){
+    GeolocationFactory.getGeo().then(function(){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
             if(!$scope.user || ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0)){
                 console.log("No user/preferences");

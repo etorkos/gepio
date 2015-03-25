@@ -114,3 +114,56 @@ preference-button div:hover {
 	float: right;
 	margin-left: 5px;
 }
+
+
+@media (min-height: 500px){
+	.chatBarActive {
+		bottom: -470px;
+	};
+	.chatBarInactive {
+		bottom: -535px;
+	};
+	.chatActive {
+		height: 375px;
+		.angular-google-map-container { height: 405px };
+	};
+
+	.chatInactive {
+		height: 450px;
+		.angular-google-map-container { height: 470px };
+	};
+	.notExtended > div > div > div > div {
+		height: 335px;
+		overflow-y: scroll;
+	}
+	.extended > div > div > div > div {
+		height: 270px;
+		overflow-y: scroll;
+	}
+}
+
+@media (min-height: 750px){
+	.chatBarActive {
+		bottom: -520px;
+	};
+	.chatBarInactive {
+		bottom: -585px;
+	};
+	.chatActive {
+		height: 375px;
+		.angular-google-map-container { height: 455px };
+	};
+
+	.chatInactive {
+		height: 450px;
+		.angular-google-map-container { height: 520px };
+	};
+	.notExtended > div > div > div > div {
+		height: 385px;
+		overflow-y: scroll;
+	}
+	.extended > div > div > div > div {
+		height: 520px;
+		overflow-y: scroll;
+	}
+}

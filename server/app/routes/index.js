@@ -9,3 +9,5 @@ router.use('/venues', require('./venues'));
 router.use('/events', require('./events'));
 
 router.use('/movies', require('./movies'));
+
+router.use('/itinerary', require('./itinerary'));

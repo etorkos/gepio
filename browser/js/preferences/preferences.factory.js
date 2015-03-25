@@ -1,3 +1,4 @@
+'use strict';
 app.factory('prefFactory',function($http){
 	return {
 		savePreference : function(user,preferences){

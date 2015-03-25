@@ -10,8 +10,10 @@ app.config(function ($stateProvider){
 app.controller('PlanCtrl', function($scope, $filter, VotingFactory){
 
 	console.log($scope.dataSet);
-	// VotingFactory.setUpVotes($scope.dataSet.venues);
-	// VotingFactory.setUpVotes($scope.dataSet.events);
+	setTimeout(function(){
+		VotingFactory.setUpVotes($scope.dataSet.venues);
+		VotingFactory.setUpVotes($scope.dataSet.events);
+	}, 6000);
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

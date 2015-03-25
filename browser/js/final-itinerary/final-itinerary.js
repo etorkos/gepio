@@ -8,7 +8,8 @@ app.config(function ($stateProvider){
 });
 
 app.controller('IntineraryCtrl', function ($scope, $state, passService){
-	// console.log($scope.finalData);
+	// console.log($scope.finalData)
+	//
 	$scope.finalData = passService.getFinal();
 	console.log($scope.finalData);
 });

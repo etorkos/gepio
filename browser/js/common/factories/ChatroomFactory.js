@@ -36,11 +36,15 @@ app.factory('ChatroomFactory', function ($http){
 		leave_room : function(){
 			socket.emit('leave_room');
 		},
-		up_vote: function(){
-			// socket.emit('')
+		up_vote: function(event){
+			socket.emit('up_vote',{
+				event : event
+			});
 		},
-		down_vote : function(){
-
+		down_vote : function(event){
+			socket.emit('down_vote',{
+				event : event
+			});
 		}
 	}
 });

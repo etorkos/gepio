@@ -39,9 +39,14 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.redirect = function(){
 		console.log('destination', $state.to);
 		AuthService.getLoggedInUser().then(function(user){
-			IdFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
-				$state.go($scope.to.state, {id: itinerary._id});
-			})	
+			//if you are a user and do not have any preferences, go to preference create
+			if(user && ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0))
+				{ $state.go('preferences', {user: user._id}) }
+			else{
+				IdFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
+					$state.go($scope.to.state, {id: itinerary._id});
+				});	
+			}
 		})
 		
 	}

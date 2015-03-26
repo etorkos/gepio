@@ -4,18 +4,34 @@
 	</section>
 	<aside class="col-lg-3">
 		<div class="panel-success">
-			<div class="panel-heading"><h4>Restaurants</h4></div>
-			<div class="panel-body">Location Data</div>
+			<div class="panel-heading">
+				<h4><a data-toggle="collapse" href="#collapsePlace" aria-expanded="true">Restaurants</a></h4>
+			</div>
+			<div id="collapsePlace" class="panel-collapse collapse in" >
+				<div class="panel-body" ng-repeat='place in dataSet.venues | limitTo:8 |orderBy: ranking' ><list-ranking my-place='place'></list-ranking></div>
+			</div>
 		</div>
 		<div class="panel-success">
-			<div class="panel-heading"><h4>Events</h4></div>
-			<div class="panel-body">Location Data</div>
+			<div class="panel-heading">
+				<h4><a data-toggle="collapse" href="#collapseEvent" aria-expanded="true">Events</a></h4>
+			</div>
+			<div id="collapseEvent" class="panel-collapse collapse in" >
+				<div class="panel-body" ng-repeat='event in dataSet.events | limitTo: 8 | orderBy: ranking' ><list-ranking my-place='event'></list-ranking></div>
+			</div>
 		</div>
 		<div class="panel-success">
-			<div class="panel-heading"><h4>Drinks</h4></div>
-			<div class="panel-body">Location Data</div>
+			<div class="panel-heading">
+				<h4><a data-toggle="collapse" href="#collapseDrink" aria-expanded="true">Drinks</h4>
+			</div>
+			<div id="collapseDrink" class="panel-collapse collapse in">
+				<div class="panel-body">Location Data</div>
+			</div>
 		</div>
-	<button class="btn btn-success" ng-click="finalizeItinerary(allData)">Finalize Information</button>
+	<button class="btn btn-success" ui-sref="plan-itinerary">Back to Plan</button>
+	<button class="btn btn-success" ng-click="finalizeItinerary()">Finalize Information</button>
 	</aside>
 </main>
 <chat-bar></chat-bar>
+
+
+

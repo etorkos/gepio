@@ -1,0 +1,43 @@
+<section id="plan-itinerary">
+	<div class="top-info bump row" style="display: inline-block">
+		<div class="col-lg-12 align_right">
+            <p class="input-group">
+	              <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min-date="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+	              <span class="input-group-btn">
+	                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	              </span>
+            </p>
+            <span class="float_right">
+	            <button class="btn btn-success">Invite Friends</button>
+	            <button class="btn btn-warning" ui-sref="map">Map</button>
+            </span>
+		</div>
+	</div>
+	<div class="row zero-margin">
+		<div class="col-lg-12 info-block">
+			<!-- beginning -->
+			<div id="explore" class="std-gray-background col-lg-12">
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="panel-success">
+						<div class="panel-heading"><h4>Restaurants</h4></div>
+						<div class="panel-content">
+							<venue-button data="place" ng-repeat="place in dataSet.venues | limitTo:8">
+							</venue-button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="panel-success">
+						<div class="panel-heading"><h4>Events</h4></div>
+						<div class="panel-content">
+							<venue-button data="event" ng-repeat="event in dataSet.events | limitTo:8">
+							</venue-button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end -->
+		</div>
+	</div>
+	<chat-bar></chat-bar>
+</section>

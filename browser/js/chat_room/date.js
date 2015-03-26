@@ -12,7 +12,7 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('DateCtrl', function($scope, $filter){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService){
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item
@@ -33,6 +33,25 @@ app.controller('DateCtrl', function($scope, $filter){
 	$scope.upvoteEvent = function (event){
 		//for testing atm only
 		console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
+	}
+
+	$scope.shuffle = function( arr ){
+		arr = ItemMixFactory.shuffle(arr);
+	}
+
+	$scope.blend = function( arr ){
+		AuthService.getLoggedInUser().then(function(user){
+			if (user){
+				arr = ItemMixFactory.blend( user.preferences.categories, arr);
+			}
+			else{
+				//generic
+				var cat = [{ id: '4bf58dd8d48988d10c941735'},{ id: '52e81612bcbc57f1066b79f1'},{ id: '4bf58dd8d48988d110941735'},{ id: '4bf58dd8d48988d1c2941735'}]
+				arr = ItemMixFactory.blend( cat, arr);
+			}
+
+		})
+		
 	}
 });
 

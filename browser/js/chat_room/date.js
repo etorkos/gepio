@@ -37,17 +37,22 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 
 	$scope.shuffle = function( arr ){
 		arr = ItemMixFactory.shuffle(arr);
+		console.log('length of array', arr.length);
 	}
 
-	$scope.blend = function( arr ){
+	$scope.blend = function( arr , type ){
+		console.log('arr length:', arr.length, arr);
 		AuthService.getLoggedInUser().then(function(user){
 			if (user){
-				arr = ItemMixFactory.blend( user.preferences.categories, arr);
+				console.log('user preferences', type, user.preferences[type]);
+				arr = ItemMixFactory.blend( user.preferences[type], arr);
+				console.log('Angular dataSet length:',arr.length, arr);
 			}
 			else{
 				//generic
 				var cat = [{ id: '4bf58dd8d48988d10c941735'},{ id: '52e81612bcbc57f1066b79f1'},{ id: '4bf58dd8d48988d110941735'},{ id: '4bf58dd8d48988d1c2941735'}]
 				arr = ItemMixFactory.blend( cat, arr);
+				console.log(arr.length);
 			}
 
 		})

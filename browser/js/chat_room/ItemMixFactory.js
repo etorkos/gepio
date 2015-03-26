@@ -4,29 +4,34 @@ app.factory('ItemMixFactory', function(){
 
 	return {
 		blend: function(categoriesArray, dataSet){
-			//want speed not size, catType
-			//call shuffle on data to presort(reduce time);
-			console.log('called blend');
+			// console.log('called blend');
 			if(categoriesArray.length < 1) return dataSet;
 			var newSortedArray = [];
 			var len = categoriesArray.length;
 			var infiniteLoop = 0;
-			while( dataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
-				console.log('into the while loop with ', dataSet.length, 'elements')
+			var newDataSet = dataSet.slice();
+			var parsedCategories = categoriesArray.map(function(thing){
+				return JSON.parse(thing);
+			});
+
+			console.log(parsedCategories[0], 'category Array', newDataSet);
+			while( newDataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
+				// console.log('into the while loop with ', newDataSet.length, 'elements')
 				for( var catIndex = 0 ; catIndex < len; catIndex++ ){ //loop through categories
-					for(var arrItem = 0, dlen = dataSet.length; arrItem < dlen; arrItem++){
-						if(categoriesArray[catIndex].id === dataSet[arrItem].category.id) {
-							console.log(dataSet[arrItem].category.name);
-							newSortedArray.push(dataSet.splice(arrItem, 1));
+					for(var arrItem = 0, dlen = newDataSet.length; arrItem < dlen; arrItem++){
+						// console.log(parsedCategories[catIndex]['id'] === newDataSet[arrItem].category.id) ;
+						if(parsedCategories[catIndex]['id'] === newDataSet[arrItem].category.id) {
+							// console.log(newDataSet[arrItem].category);
+							newSortedArray.push(newDataSet.splice(arrItem, 1)[0]);
 							infiniteLoop = 0;
 							break; //up to catIndex loop
 						}
 					}	
 				}
 				infiniteLoop++;
-			}
-			newSortedArray.concat(dataSet);
-			return newSortedArray;
+			};
+			console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
+			return newSortedArray.concat(newDataSet);
 		},
 		shuffle: function(orderedList){
 			//Sattolo shuffle

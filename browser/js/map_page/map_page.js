@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory){
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: 40.705786, longitude: -74.007672 },
@@ -21,9 +21,47 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$scope.active = !$scope.active;
 	};
 
-	$scope.finalizeItinerary = function(allPlaces){
-		//do something with allPlaces
+	$scope.finalizeItinerary = function(){
+
+		var mData = $scope.dataSet;
+
+		$scope.finalData = {
+			venues: [],
+			events: []
+		};
+		for(var v = 0; v < mData.venues.length; v++){
+			if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
+				$scope.finalData.venues.push(mData.venues[v]);
+		}
+		for(var e = 0; e < mData.events.length; e++){
+			if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
+				$scope.finalData.events.push(mData.events[e]);	
+		};
+		// console.log($scope.finalData);
+		passService.addFinal($scope.finalData);
 		$state.go('final-itinerary');
 	}
+
+	// setTimeout(function(){
+		VotingFactory.setUpVotes($scope.dataSet.venues);
+		VotingFactory.setUpVotes($scope.dataSet.events);
+	// },5000);
+});
+
+app.service('passService', function(){
+	//can remove once database persistence is working with each room
+	var finalData;
+
+	var addFinal = function(fData){
+		finalData = fData;
+	};
+	var getFinal = function(){
+		return finalData;
+	};
+
+	return{
+		addFinal: addFinal,
+		getFinal: getFinal
+	};
 });
 

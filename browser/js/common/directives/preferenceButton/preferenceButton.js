@@ -9,7 +9,6 @@ app.directive('preferenceButton', function (PrefBuilder, AuthService) {
         templateUrl: 'js/common/directives/preferenceButton/preferenceButton.html',
         link: function (scope, elem, attr){
             scope.userPreferences = PrefBuilder.preferenceInputs;
-            console.log(scope.userPreferences);
             // AuthService.getLoggedInUser().then(function (user){
             //     console.log(user);
             //     scope.user = user;

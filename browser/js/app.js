@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q) {
+app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory) {
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
@@ -36,29 +36,26 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
 
     GeolocationFactory.getGeo().then(function(){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
-            if(!$scope.user || ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0)){
+            if(!UserFactory.checkUser($scope.user)){
                 console.log("No user/preferences");
                 $scope.dataSet = { movies: null, events: [], venues: [] };
                 $scope.totals = 0;
-                MoviesFactory.getMovies().then(function (data){
-                    $scope.dataSet.movies = data;
-                    $scope.totals += data.length;
-                });
-                var categories = ['103','109','119'];
-                categories.forEach(function (category){
-                    EventsFactory.getEvents(category).then(function (data){
-                        console.log('Events ', data.length);                        // $scope.dataSet.events.push(data);
-                        $scope.dataSet.events = $scope.dataSet.events.concat(data) || data;
-                        $scope.totals += data.length;
-                    });
-                });
-                var venueCategories = ['4bf58dd8d48988d10c941735','52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735'];
-                venueCategories.forEach(function (category){
-                    VenuesFactory.getVenues(category).then(function (data){
-                        console.log('Venues ', data.length);
-                        // $scope.dataSet.venues.push(data);
-                        $scope.dataSet.venues = $scope.dataSet.venues.concat(data) || data;
-                        $scope.totals += data.length;
+                UserFactory.generateInitialGenericPOIs().then(function (data){
+                    $scope.dataSet.movies = data.movies;
+                    $scope.dataSet.events = data.events;
+                    $scope.dataSet.venues = data.venues;
+                    $scope.totals = data.totals;
+                }).then(function (){
+                    UserFactory.generateMorePOIs(['109', '119'], ['52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735']).then(function (data){
+                        data.events.forEach(function (arr){
+                            $scope.totals += arr.length;
+                            $scope.dataSet.events = $scope.dataSet.events.concat(arr);
+                        });
+                        data.venues.forEach(function (arr){
+                            $scope.totals += arr.length;
+                            $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
+                        });
+                        console.log($scope.dataSet, "Totals", $scope.totals);
                     });
                 });
             }
@@ -66,41 +63,34 @@ app.controller('MainController', function ($scope,$rootScope,AuthService, AUTH_E
                 console.log('User has preferences');
                 $scope.dataSet = { movies: null, events: [], venues: [] };
                 $scope.totals = 0;
-                var hasMovies = false;
-                var events = [];
-                var foods = [];
-                $scope.user.preferences.events.forEach(function (event){
-                    if (JSON.parse(event).id === 'movie') hasMovies = true;
-                    else events.push(JSON.parse(event).id);
-                });
-                $scope.user.preferences.nights.forEach(function (night){
-                    foods.push(JSON.parse(night).id);
-                });
-                $scope.user.preferences.foods.forEach(function (food){
-                    foods.push(JSON.parse(food).id);
-                });
-                if (hasMovies) {
-                    MoviesFactory.getMovies().then(function (data){
-                        $scope.dataSet.movies = data;
-                        $scope.totals += data.length;
-                    });
-                }
-                if (events.length) {
-                    events.forEach(function (category){
-                        EventsFactory.getEvents(category).then(function (data){
-                            $scope.dataSet.events = $scope.dataSet.events.concat(data) || data;
-                            $scope.totals += data.length;
+                var preferences = UserFactory.parseUserPreferences($scope.user);
+                UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
+                    $scope.dataSet.events = data.events;
+                    $scope.dataSet.venues = data.venues;
+                    $scope.totals += data.totals;
+                    preferences.events.unshift();
+                    preferences.foods.unshift();
+                }).then(function (){
+                    UserFactory.generateMorePOIs(preferences.events, preferences.foods).then(function (data){
+                        data.events.forEach(function (arr){
+                            $scope.totals += arr.length;
+                            $scope.dataSet.events = $scope.dataSet.events.concat(arr);
                         });
-                    });
-                }
-                if (foods.length) {
-                    foods.forEach(function (category){
-                        VenuesFactory.getVenues(category).then(function (data){
-                            $scope.dataSet.venues = $scope.dataSet.venues.concat(data) || data;
-                            $scope.totals += data.length;
+                        data.venues.forEach(function (arr){
+                            $scope.totals += arr.length;
+                            $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
                         });
+                    }).then(function (){
+                        if (preferences.hasMovies){
+                            MoviesFactory.getMovies().then(function (movies){
+                                $scope.dataSet.movies = movies;
+                                $scope.totals += movies.length;
+                                console.log($scope.dataSet, "Totals", $scope.totals);
+                            });
+                        }
+                        else console.log($scope.dataSet, "Totals", $scope.totals);
                     });
-                }
+                });
             }
         };
     });

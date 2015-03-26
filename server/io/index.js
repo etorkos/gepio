@@ -44,7 +44,14 @@ module.exports = function (server) {
 		});
 
 		client.on('open_invitation',function(data){
-			client.emit('open_invitation',{
+			client.broadcast.emit('open_invitation',{
+				room_name : client.room
+			})
+		});
+
+		client.on('close_invitation',function(){
+			client.broadcast.emit('close_invitation',{
+				room_name : client.room
 			})
 		});
 		

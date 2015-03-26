@@ -13,6 +13,9 @@
 			<input type="text" ng-model='roomName'>
 			<button ng-click="create_room()">Create Room</button>
 			<button ng-click="join_room()">Join Room</button>
+			<button ng-click="open_invitation()">Open Invitation</button>
+			<button ng-click="close_invitation()">Close Invitation</button>
+			<pre>All invitations: {{invitations}}</pre>
 			<pre>{{current_message|json}}</pre>
 		</form>
 	</div>

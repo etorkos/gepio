@@ -24,11 +24,14 @@ app.factory('ChatroomFactory', function ($http){
 		join_room : function(room_name){
 			socket.emit('join_room',room_name)
 		},
-		open_invitation : function(location,range,room_name){
+		open_invitation : function(location,range){
 			socket.emit('open_invitation',{
 				location: location,
 				range: range
 			})
+		},
+		close_invitation: function(){
+			socket.emit('close_invitation');
 		},
 		leave_room : function(){
 			socket.emit('leave_room');

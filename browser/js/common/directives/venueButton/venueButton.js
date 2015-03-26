@@ -10,7 +10,7 @@ app.directive('venueButton', function (PrefBuilder) {
             $scope.votes = 0;
             $scope.isClicked = false;
             $scope.setClicked = function (){
-                $scope.isClicked = !scope.isClicked;
+                $scope.isClicked = !$scope.isClicked;
             };
             $scope.downvoteVenue = function(item){
                 // console.log(item);

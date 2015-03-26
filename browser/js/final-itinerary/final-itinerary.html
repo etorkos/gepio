@@ -8,17 +8,15 @@
 		</div>
 	</div>
 	<div class="panel-success">
-		<div class="panel-heading"><h4>Restaurants</h4></div>
-		<div class="panel-body">
-			<!-- <div ng-repeat="restaurant in restaurants">Final Data</div> -->
-			Final Restaurant Data
+		<div class="panel-heading"><h4>Venues</h4></div>
+		<div class="panel-body" ng-repeat="venue in finalData.venues">
+			<list-ranking my-place="venue"></list-ranking>
 		</div>
 	</div>
 	<div class="panel-success">
 		<div class="panel-heading"><h4>Events</h4></div>
-		<div class="panel-body">
-			<!-- <div ng-repeat="event in events">Final Data</div> -->
-			Final Event Data
+		<div class="panel-body" ng-repeat="event in finalData.events">
+			<list-ranking my-place="event"></list-ranking>
 		</div>
 	</div>
 	<div class="panel-success">
@@ -28,6 +26,7 @@
 			Final Drink Data
 		</div>
 	</div>
-	<button class="btn btn-success" ui-sref="map">Create Another?</button>
-	<button class="btn btn-success" ui-sref="home">Back Home?</button>
+	<button class="btn btn-success" ui-sref="map">Edit Itinerary</button>
+	<button class="btn btn-success" ng-click="">Save Itinerary</button>
+	<button class="btn btn-success" ui-sref="home">Back Home</button>
 </main>

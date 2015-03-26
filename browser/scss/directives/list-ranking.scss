@@ -1,0 +1,25 @@
+.btn-vote{
+	padding: 5px;
+}
+
+h4 a{
+	text-decoration: none;
+	color: white;
+}
+
+h4 a:hover{
+	text-decoration: none;
+	color: white;	
+}
+
+#collapsePlace,
+#collapseEvent,
+#collapseDrink{
+	.panel-body{
+		margin-bottom: 0.5%;
+		padding: 2%;
+	}
+	span{
+		vertical-align: middle;
+	}
+}

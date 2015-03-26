@@ -7,18 +7,17 @@ var mongoose = require('mongoose');
 var User = mongoose.model("User");
 
 // api/user/
-router.get('/:id/preferences',function(req,res,next){
+router.get('/:id/preferences',function (req, res, next){
 	var id = req.params.id;
-	User.findById(id,function(err,user){
+	User.findById(id, function (err, user){
 		if(err) next(err);
 		else res.json(user.preferences);
 	});
 });
 
-router.post('/:id/savepreferences',function(req,res,next){
-	console.log(req.params);
+router.post('/:id/preferences',function (req, res, next){
 	var id = req.params.id;
-	User.findById(id,function(err,user){
+	User.findById(id, function (err, user){
 		if(err) next(err);
 		else {
 			user.preferences = req.body;
@@ -29,12 +28,20 @@ router.post('/:id/savepreferences',function(req,res,next){
 	});
 });
 
-router.put('/', function (req, res, next){
-	User.findOneAndUpdate({_id: req.body._id}, req.body, function (err,user){
-		user.save(function(err, user){
-			res.send(user);
-		});
+router.put('/:id/preferences', function (req, res, next){
+	User.findById(req.params.id, function (err, user){
+		if (err) console.log(err);
+		else {
+			user.preferences.foods = req.body.foods;
+			user.preferences.nights = req.body.nights;
+			user.preferences.events = req.body.events;
+			user.save(function (err, returned){
+				if (err) console.log(err);
+				else res.json(returned);
+			});
+		}
 	});
 });
+
 module.exports = router;
 

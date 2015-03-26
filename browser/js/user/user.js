@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFactory, $window) {
+app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFactory, $window, PreferenceFactory) {
 	$scope.logout = function(){
 		AuthService.logout();
 		$window.location.reload();

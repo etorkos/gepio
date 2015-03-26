@@ -7,17 +7,23 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $stateParams, PrefBuilder, $http, prefFactory){
+app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $stateParams, PrefBuilder, $http, PreferenceFactory){
 	$scope.preferences = PrefBuilder.preferenceInputs;
 	$scope.test = "Test";
 	$scope.foods = PrefBuilder.foods;
 	$scope.events = PrefBuilder.events;
 	$scope.nights = PrefBuilder.nights;
 
+	PrefBuilder.preferenceInputs.nights = $scope.user.preferences.nights;
+	PrefBuilder.preferenceInputs.foods = $scope.user.preferences.foods;
+	PrefBuilder.preferenceInputs.events = $scope.user.preferences.events;
+
 	$scope.submitPreference = function(){
-		prefFactory.savePreference($scope.user,$scope.preferences);
-		$rootScope.$broadcast(AUTH_EVENTS.userUpdated);
-		$state.go('user');
+		PreferenceFactory.savePreference($scope.user._id, $scope.preferences).then(function (data){
+			console.log(data);
+			$rootScope.$broadcast(AUTH_EVENTS.userUpdated);
+			$state.go('user');
+		});
 	};
 });
 

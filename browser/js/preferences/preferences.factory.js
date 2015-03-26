@@ -1,15 +1,4 @@
 'use strict';
-app.factory('prefFactory',function($http){
-	return {
-		savePreference : function(user,preferences){
-			var path_to_save = '/api/user/' + user._id + '/savepreferences'; 
-			$http.post(path_to_save,preferences).then(function(res){
-				console.log(res.data);
-			});
-		}
-	}
-});
-
 app.factory('PrefBuilder', function(){
 	return {
 		foods: {

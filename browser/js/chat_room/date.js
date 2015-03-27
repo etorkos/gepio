@@ -45,8 +45,14 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		AuthService.getLoggedInUser().then(function(user){
 			if (user){
 				console.log('user preferences', type, user.preferences[type]);
+				// $scope.dataSet.venues = ItemMixFactory.blend( user.preferences[type], arr);
 				arr = ItemMixFactory.blend( user.preferences[type], arr);
-				console.log('Angular dataSet length:',arr.length, arr);
+				if(type === 'foods' || type === 'nights'){
+					$scope.dataSet.venues = arr;
+				}
+				else if(type === 'events'){
+					$scope.dataSet.events = arr;
+				}
 			}
 			else{
 				//generic

@@ -31,7 +31,8 @@ app.factory('ItemMixFactory', function(){
 				infiniteLoop++;
 			};
 			console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
-			return newSortedArray.concat(newDataSet);
+			dataSet = newSortedArray.concat(newDataSet);
+			return dataSet;
 		},
 		shuffle: function(orderedList){
 			//Sattolo shuffle

@@ -47,15 +47,14 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     $scope.totals = data.totals;
                 }).then(function (){
                     UserFactory.generateMorePOIs(['109', '119'], ['52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735']).then(function (data){
-                        data.events.forEach(function (arr){
+                        data.events.forEach(function (arr, index){
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);
                         });
-                        data.venues.forEach(function (arr){
+                        data.venues.forEach(function (arr, index){
                             $scope.totals += arr.length;
                             $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
                         });
-                        console.log($scope.dataSet, "Totals", $scope.totals);
                     });
                 });
             }
@@ -85,10 +84,8 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                             MoviesFactory.getMovies().then(function (movies){
                                 $scope.dataSet.movies = movies;
                                 $scope.totals += movies.length;
-                                console.log($scope.dataSet, "Totals", $scope.totals);
                             });
                         }
-                        else console.log($scope.dataSet, "Totals", $scope.totals);
                     });
                 });
             }

@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, IdFactory, AuthService) {
+app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, ItineraryFactory, AuthService) {
 
 	$scope.myInterval = 5000;
 	var slides = $scope.slides = [{
@@ -42,9 +42,11 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		AuthService.getLoggedInUser().then(function(user){
 			//if you are a user and do not have any preferences, go to preference create
 			if(user && ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0))
-				{ $state.go('preferences', {user: user._id}) }
+				{ 
+					alert('Please set a few preferences first, so we can give you better reccommendations');
+					$state.go('preferences', {user: user._id}) }
 			else{
-				IdFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
+				ItineraryFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
 					$state.go($scope.to.state, {id: itinerary._id});
 				});	
 			}

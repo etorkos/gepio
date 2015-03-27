@@ -45,19 +45,12 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		AuthService.getLoggedInUser().then(function(user){
 			if (user){
 				console.log('user preferences', type, user.preferences[type]);
-				// $scope.dataSet.venues = ItemMixFactory.blend( user.preferences[type], arr);
-				arr = ItemMixFactory.blend( user.preferences[type], arr);
-				if(type === 'foods' || type === 'nights'){
-					$scope.dataSet.venues = arr;
-				}
-				else if(type === 'events'){
-					$scope.dataSet.events = arr;
-				}
+				angular.copy(ItemMixFactory.blend( user.preferences[type], arr), arr);
+
 			}
 			else{
-				//generic
 				var cat = [{ id: '4bf58dd8d48988d10c941735'},{ id: '52e81612bcbc57f1066b79f1'},{ id: '4bf58dd8d48988d110941735'},{ id: '4bf58dd8d48988d1c2941735'}]
-				arr = ItemMixFactory.blend( cat, arr);
+				angular.copy(ItemMixFactory.blend( cat, arr), arr);
 				console.log(arr.length);
 			}
 

@@ -4,24 +4,24 @@ app.factory('ItemMixFactory', function(){
 
 	return {
 		blend: function(categoriesArray, dataSet){
-			// console.log('called blend');
+			console.log('called blend with', categoriesArray, 'categories and ', dataSet, 'data');
 			if(categoriesArray.length < 1) return dataSet;
 			var newSortedArray = [];
 			var len = categoriesArray.length;
 			var infiniteLoop = 0;
 			var newDataSet = dataSet.slice();
-			var parsedCategories = categoriesArray.map(function(thing){
-				return JSON.parse(thing);
-			});
+			if( typeof categoriesArray === 'string'){
+				var categoriesArray = categoriesArray.map(function(thing){
+					return JSON.parse(thing);
+				});
+			}
 
-			console.log(parsedCategories[0], 'category Array', newDataSet);
+			console.log(categoriesArray[0], 'category', newDataSet);
 			while( newDataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
-				// console.log('into the while loop with ', newDataSet.length, 'elements')
 				for( var catIndex = 0 ; catIndex < len; catIndex++ ){ //loop through categories
 					for(var arrItem = 0, dlen = newDataSet.length; arrItem < dlen; arrItem++){
-						// console.log(parsedCategories[catIndex]['id'] === newDataSet[arrItem].category.id) ;
-						if(parsedCategories[catIndex]['id'] === newDataSet[arrItem].category.id) {
-							// console.log(newDataSet[arrItem].category);
+						console.log('midloop', categoriesArray[catIndex], newDataSet[arrItem].category.id)
+						if(categoriesArray[catIndex]['id'] === newDataSet[arrItem].category.id) {
 							newSortedArray.push(newDataSet.splice(arrItem, 1)[0]);
 							infiniteLoop = 0;
 							break; //up to catIndex loop

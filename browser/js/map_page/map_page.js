@@ -7,19 +7,27 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService){
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService, GeolocationFactory, POIFactory, $filter){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
-			center: { latitude: 40.705786, longitude: -74.007672 },
+			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },
 			zoom: 13
 		};
 	});
+	$scope.user_location = { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude };
 	$scope.active = MessageFactory.active;
 	$scope.messages = MessageFactory.messages;
 	$scope.makeActive = function (){
 		MessageFactory.changeActive();
 		$scope.active = !$scope.active;
 	};
+
+	$scope.hasEvents = POIFactory.hasEvents;
+
+	$scope.date = POIFactory.date;
+
+	$scope.data = $scope.dataSet;
+	console.log($scope.data.venues);
 
 	$scope.finalizeItinerary = function(){
 

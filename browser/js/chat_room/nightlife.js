@@ -1,4 +1,6 @@
-app.controller('NightlifeCtrl', function($scope, $filter){
+app.controller('NightlifeCtrl', function($scope, $filter, POIFactory){
+
+	POIFactory.hasEvents = false;
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

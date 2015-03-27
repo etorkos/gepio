@@ -24,12 +24,12 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				return data;
 			}).then(function (data){
 				return EventsFactory.getEvents('103').then(function (events){
-					data.events.push(events);
+					data.events = data.events.concat(events);
 					data.totals += events.length;
 					return data;
 				}).then(function (data){
 					return VenuesFactory.getVenues('4bf58dd8d48988d10c941735').then(function (venues){
-						data.venues.push(venues);
+						data.venues = data.venues.concat(venues);
 						data.totals += venues.length;
 						return data;
 					});

@@ -1,7 +1,11 @@
 <div id="explore" class="std-gray-background col-lg-12">
 	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 		<div class="panel-success">
-			<div class="panel-heading"><h4>Restaurants</h4></div>
+			<div class="panel-heading">
+				<h4 class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Restaurants</h4>
+				<button class=' btn btn-sm btn-info' ng-click='blend(dataSet.venues,"foods")'>Blend</button>
+				<button ng-click='shuffle(dataSet.venues)' class='clear-background'><img  src='http://www.villacountry.fm/content/modern_skin_dark/shuffle-button-over.png'/></button>
+			</div>
 			<div class="panel-content">
 				<venue-button data="place" ng-repeat="place in dataSet.venues | limitTo:8">
 				</venue-button>
@@ -10,7 +14,11 @@
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 		<div class="panel-success">
-			<div class="panel-heading"><h4>Events</h4></div>
+			<div class="panel-heading">
+				<h4 class='col-lg-9 col-md-9 col-sm-9 col-xs-9'>Events</h4>
+				<button class=' btn btn-sm btn-info' ng-click='blend(dataSet.events,"events")'>Blend</button>
+				<button ng-click='shuffle(dataSet.events)' class='clear-background' ><img src='http://www.villacountry.fm/content/modern_skin_dark/shuffle-button-over.png'/></button>
+			</div>
 			<div class="panel-content">
 				<venue-button data="event" ng-repeat="event in dataSet.events | checkDate:dt | limitTo:8 | orderBy:votes ">
 				</venue-button>

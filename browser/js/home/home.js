@@ -34,6 +34,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		{name: 'Whats for lunch?', state: 'room.lunch'},
 		{name: 'Reunion with Friends', state: 'room.explore'},
 		{name: 'Romantic Night Out', state: 'room.date'},
+		
 		{name: 'Lets go out tonight', state: 'room.nightlife'}];
 
 	$scope.redirect = function(){

@@ -12,8 +12,8 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('ExploreCtrl', function($scope, $filter){
+app.controller('ExploreCtrl', function($scope, $filter, POIFactory){
 
-
+	POIFactory.hasEvents = true;
 
 });

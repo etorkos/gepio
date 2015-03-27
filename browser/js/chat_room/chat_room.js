@@ -1,5 +1,5 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory){
 
     $scope.toMaps = function(){
         $state.go('map');//verify route destination
@@ -8,8 +8,13 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory){
 
     $scope.today = function() {
         $scope.dt = new Date(); //date object we are using
+        POIFactory.date = $scope.dt;
     };
     $scope.today();
+
+    $scope.exportDate = function(){
+        POIFactory.date = $scope.dt;
+    }
 
     $scope.clear = function () {
      $scope.dt = null;

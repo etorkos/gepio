@@ -12,7 +12,9 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('DateCtrl', function($scope, $filter){
+app.controller('DateCtrl', function($scope, $filter, POIFactory){
+
+	POIFactory.hasEvents = true;
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

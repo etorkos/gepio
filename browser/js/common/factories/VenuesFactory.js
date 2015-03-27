@@ -13,6 +13,7 @@ app.factory('VenuesFactory', function ($http, GeolocationFactory){
 					holder.category = venue.categories[0];
 					holder.contact = venue.contact.formattedPhone;
 					holder.name = venue.name;
+					holder.url = venue.url;
 					holder.location = venue.location;
 					venues.push(holder);
 				});

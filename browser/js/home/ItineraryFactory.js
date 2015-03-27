@@ -10,7 +10,14 @@ app.factory('ItineraryFactory', function($http){
 					console.log('got back to ItineraryFactory');
 					return response.data;
 				}
-			})
+			});
+		},
+		getUsers: function(itineraryId){
+			console.log('to the factory');
+			return $http.get('/api/itinerary/'+itineraryId).then(function(response){
+				console.log(response.data);
+				return response.data.users;
+			});
 		}
 	}
 

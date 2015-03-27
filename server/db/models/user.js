@@ -35,10 +35,10 @@ var schema = new mongoose.Schema({
     },
     foursquare: {
         id: String
-    },
-    foursquareraw: {
-        type: String
     }
+    // foursquareraw: {
+    //     type: String
+    // }
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

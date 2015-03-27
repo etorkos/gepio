@@ -1,0 +1,9 @@
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+	<div class="panel-success">
+		<div class="panel-heading"><h4>{{eventThing | uppercase}}</h4></div>
+		<div class="panel-content">
+			<venue-button data="place" ng-repeat="place in dataSet."+{{eventThing}}+" | limitTo:8">
+			</venue-button>
+		</div>
+	</div>
+</div>

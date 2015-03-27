@@ -41,6 +41,9 @@ router.post('/:id/message',function(req,res,next){
 	});
 });
 
+router.get('/',function(req,res,next){
+	res.json(req.user.preferences);
+});
 // router.post('')
 
 module.exports = router;

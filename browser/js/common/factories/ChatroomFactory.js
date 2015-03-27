@@ -9,7 +9,7 @@ app.factory('ChatroomFactory', function ($http){
 			});
 		},
 		save_message_to_database : function(username,message){
-			$http.post('/api/chatroom/');
+			$http.post('/api/chatroom/',message);
 		},
 		create_room : function(room_name){
 			socket.emit('join_room',room_name);

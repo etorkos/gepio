@@ -50,7 +50,7 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 					return VenuesFactory.getVenues(cat);
 				});
 				return $q.all(venues).then(function (venues){
-					data.venues = data.events.concat(venues);
+					data.venues = data.venues.concat(venues);
 					data.totals += venues.length;
 					return data;
 				});

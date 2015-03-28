@@ -5,7 +5,6 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory){
         $state.go('map');//verify route destination
     };
 
-
     $scope.today = function() {
         $scope.dt = new Date(); //date object we are using
         POIFactory.date = $scope.dt;

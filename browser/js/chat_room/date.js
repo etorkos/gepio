@@ -12,11 +12,11 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams){
 
 POIFactory.hasEvents = true;
 
-
+	console.log("Data Set", $scope.dataSet);
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item
 		//splice array
@@ -38,9 +38,15 @@ POIFactory.hasEvents = true;
 		console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
 	}
 
-	$scope.shuffle = function( arr ){
-		arr = ItemMixFactory.shuffle(arr);
-		console.log('length of array', arr.length);
+	$scope.shuffle = function(type){
+		if (type == 'venues'){
+			ItemMixFactory.shuffle($scope.dataSet.venues, type, $stateParams.id);
+		} 
+		else if (type == 'events') {
+			ItemMixFactory.shuffle($scope.dataSet.events, type, $stateParams.id);
+		} 
+		else console.log("No match");
+		//console.log('length of array', arr.length);
 	}
 
 	$scope.blend = function( arr , type ){

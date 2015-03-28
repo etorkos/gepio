@@ -46,7 +46,8 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					alert('Please set a few preferences first, so we can give you better reccommendations');
 					$state.go('preferences', {user: user._id}) }
 			else{
-				ItineraryFactory.createId({ user: user, title: $scope.to.name }).then(function(itinerary){
+				var dataForItinerary = ItineraryFactory.createDataSet($scope.to.name, $scope.dataSet);
+				ItineraryFactory.createItinerary({ user: user, title: $scope.to.name, events: dataForItinerary }).then(function(itinerary){
 					$state.go($scope.to.state, {id: itinerary._id});
 				});	
 			}
@@ -56,10 +57,10 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.to;
 	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
 	$scope.showOptions = false;
-	$scope.showOptionsClick = function(str){
+	$scope.showOptionsClick = function(obj){
 		$scope.showOptions = !$scope.showOptions;
-		$scope.selectedOption = str;
-		$scope.to = str;
+		$scope.selectedOption = obj;
+		$scope.to = obj;
 	}
 
 });

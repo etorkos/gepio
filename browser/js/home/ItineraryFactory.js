@@ -12,13 +12,35 @@ app.factory('ItineraryFactory', function($http){
 				}
 			});
 		},
-		getUsers: function(itineraryId){
+		getItinerary: function(itineraryId){
 			console.log('to the factory');
-			return $http.get('/api/itinerary/' + itineraryId + '/users').then(function(response){
+			return $http.get('/api/itinerary/' + itineraryId).then(function(response){
 				console.log(response.data);
 				return response.data.users;
 			});
+		},
+		createDataSet: function (type, data){
+			var venues = [];
+			var events = [];
+			for (var i = 0; i < 8; i++){
+				venues.push(data.venues[i]);
+			}
+			if (type == 'Whats for lunch?' || type == 'Lets go out tonight'){
+				return { venues: venues };
+			}
+			else {
+				for (var i = 0; i < 8; i++){
+					events.push(data.events[i]);
+				}
+				return { venues: venues, events: events };
+			}
+		},
+		updateDataSet: function (type, id, set){
+			var data = { type: type, id: id, data: set };
+			return $http.put('/api/itinerary/update', data).then(function (res){
+				console.log(res)
+				return res.data;
+			});
 		}
-	}
-
-})
+	};
+});

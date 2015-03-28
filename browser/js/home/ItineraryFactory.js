@@ -1,7 +1,7 @@
 'use strict';
 app.factory('ItineraryFactory', function($http){
 	return {
-		createId: function(data) { // will create a itinerary (pass in a user or no user)
+		createItinerary: function(data) { // will create a itinerary (pass in a user or no user)
 			return $http.post('/api/itinerary', data).then(function(response){
 				if(response.status === 500){
 					console.log('Database error', response.data);
@@ -14,7 +14,7 @@ app.factory('ItineraryFactory', function($http){
 		},
 		getUsers: function(itineraryId){
 			console.log('to the factory');
-			return $http.get('/api/itinerary/'+itineraryId).then(function(response){
+			return $http.get('/api/itinerary/' + itineraryId + '/users').then(function(response){
 				console.log(response.data);
 				return response.data.users;
 			});

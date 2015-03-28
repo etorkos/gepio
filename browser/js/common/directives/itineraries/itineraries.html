@@ -1,0 +1,12 @@
+<div bs-active-pane="tabs.activeTab" bs-tabs nav-class="nav-tabs nav-justified navbar-right" >
+	<div title="Sign In" bs-pane>
+		Active Itineraries
+		<form class="form-group" ng-repeat='item in activeItineraries'>
+			<a ng-click='toItinerary(item._id)'>{{item.title}}</a>
+		</form>
+		Past Itineraries
+		<form class="form-group" ng-repeat='item in activeItineraries'>
+			<a ng-click='toItinerary(item._id)'>{{item.title}}</a>
+		</form>
+	</div>
+</div>

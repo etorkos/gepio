@@ -22,6 +22,7 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$scope.active = !$scope.active;
 	};
 
+	$scope.refresh = true;
 	$scope.hasEvents = POIFactory.hasEvents;
 
 	$scope.date = POIFactory.date;

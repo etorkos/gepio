@@ -1,4 +1,5 @@
-app.directive('NavbarItineraries', function(){
+'use strict';
+app.directive('NavbarItineraries', function($window){
 	return {
 		restrict : "E",
 		templateUrl : "js/common/directives/itineraries/itineraries.html",
@@ -7,4 +8,5 @@ app.directive('NavbarItineraries', function(){
 				$window.location.href="/plan/"+dir.type+'/'+dir._id;
 			};
 		}
-})
+	};
+});

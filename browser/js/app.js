@@ -84,6 +84,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                             MoviesFactory.getMovies().then(function (movies){
                                 $scope.dataSet.movies = movies;
                                 $scope.totals += movies.length;
+                                console.log($scope.dataSet);
                             });
                         }
                     });

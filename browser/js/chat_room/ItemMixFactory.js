@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('ItemMixFactory', function(){
+app.factory('ItemMixFactory', function (ItineraryFactory){
 
 	return {
 		blend: function(categoriesArray, dataSet){
@@ -34,7 +34,7 @@ app.factory('ItemMixFactory', function(){
 			dataSet = newSortedArray.concat(newDataSet);
 			return dataSet;
 		},
-		shuffle: function(orderedList){
+		shuffle: function (orderedList, type, id){
 			//Sattolo shuffle
 			var len = orderedList.length;
 			while(len > 1){
@@ -44,7 +44,12 @@ app.factory('ItemMixFactory', function(){
 				orderedList[swapLocation] = orderedList[len];
 				orderedList[len] = temp;
 			}
-			return orderedList;
+			var list = orderedList.splice(0, 8);
+			console.log(list);
+			ItineraryFactory.updateDataSet(type, id, list).then(function (res){
+				console.log("Updated", res);
+				return list;
+			});
 		}
 	}
 })

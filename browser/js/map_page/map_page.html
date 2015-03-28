@@ -1,6 +1,6 @@
 <main id="map" class="col-lg-12" ng-class="{ chatActive: active, chatInactive: !active }">
 	<section class="col-lg-9">
-		<ui-gmap-google-map center="map.center" zoom="map.zoom" ng-class="{ chatActive: active, chatInactive: !active }">
+		<ui-gmap-google-map center="map.center" zoom="map.zoom" refresh="{ refresh }" ng-class="{ chatActive: active, chatInactive: !active }">
 			<ui-gmap-marker idKey="{ id: 'your location' }" coords="{ latitude: user_location.latitude, longitude: user_location.longitude }" options="{ title: 'Your Location' }"></ui-gmap-marker>
 			<ui-gmap-marker ng-repeat="location in data.venues | limitTo:8"
 			idKey= "{ id: location.name }"

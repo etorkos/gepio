@@ -12,6 +12,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     itineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itineraries" },
+    invites: { type: [mongoose.Schema.Types.ObjectId], ref: "Itineraries" },
     oldItineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itineraries" },
     preferences: {
         foods: {type: [String], default: []},

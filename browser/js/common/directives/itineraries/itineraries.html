@@ -1,12 +1,16 @@
 <div bs-active-pane="tabs.activeTab" bs-tabs nav-class="nav-tabs nav-justified navbar-right" >
 	<div title="Sign In" bs-pane>
+		Current Invites
+		<form class="form-group" ng-repeat='item in invites'>
+			<a ng-click='toItinerary(item)'>{{item.title}}</a>
+		</form>
 		Active Itineraries
 		<form class="form-group" ng-repeat='item in activeItineraries'>
-			<a ng-click='toItinerary(item._id)'>{{item.title}}</a>
+			<a ng-click='toItinerary(item)'>{{item.title}}</a>
 		</form>
 		Past Itineraries
-		<form class="form-group" ng-repeat='item in activeItineraries'>
-			<a ng-click='toItinerary(item._id)'>{{item.title}}</a>
+		<form class="form-group" ng-repeat='item in oldItineraries'>
+			<a ng-click='toItinerary(item)'>{{item.title}}</a>
 		</form>
 	</div>
 </div>

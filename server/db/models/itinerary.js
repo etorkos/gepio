@@ -4,14 +4,14 @@ var schema = new mongoose.Schema({
 	users: {type: [mongoose.Schema.Types.ObjectId], ref: 'User', required: true},
 	title: {type: String, required: true},
 	type: String,
-	date: {type: Date(), dafault: newDate()},
+	date: {type: Date, dafault: Date.now},
 	chosenEvents: [{
 		title: String,
 		location: [{
 			lat: Number,
 			lon: Number  }],
 		description: String,
-	}]
+	}],
 	otherEvents: [{
 		title: String,
 		description: String,
@@ -20,7 +20,7 @@ var schema = new mongoose.Schema({
 			lon: Number  }],
 		votes: [{
 			voter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-			upvote: boolean }],
+			upvote: Boolean }],
 		}],
 	chatRoom: {type: mongoose.Schema.Types.ObjectId, ref: 'Chatroom'}
 });

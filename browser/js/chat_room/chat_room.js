@@ -1,5 +1,5 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory, POIFactory){
 
     $scope.invite_friends = function(){
         var itinerary_id = ChatroomFactory.get_itinerary_id();
@@ -10,11 +10,15 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
         $state.go('map');//verify route destination
     };
 
-
     $scope.today = function() {
         $scope.dt = new Date(); //date object we are using
+        POIFactory.date = $scope.dt;
     };
     $scope.today();
+
+    $scope.exportDate = function(){
+        POIFactory.date = $scope.dt;
+    }
 
     $scope.clear = function () {
      $scope.dt = null;

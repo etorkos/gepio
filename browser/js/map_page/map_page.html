@@ -1,6 +1,30 @@
 <main id="map" class="col-lg-12" ng-class="{ chatActive: active, chatInactive: !active }">
 	<section class="col-lg-9">
-		<ui-gmap-google-map center="map.center" zoom="map.zoom" ng-class="{ chatActive: active, chatInactive: !active }"></ui-gmap-google-map>
+		<ui-gmap-google-map center="map.center" zoom="map.zoom" refresh="{ refresh }" ng-class="{ chatActive: active, chatInactive: !active }">
+			<ui-gmap-marker idKey="{ id: 'your location' }" coords="{ latitude: user_location.latitude, longitude: user_location.longitude }" options="{ title: 'Your Location' }"></ui-gmap-marker>
+			<ui-gmap-marker ng-repeat="location in data.venues | limitTo:8"
+			idKey= "{ id: location.name }"
+			icon="{ url: 'http://i.stack.imgur.com/rU427.png' }"
+			options= "{ title: location.name }" 
+			coords="{ latitude: location.location.lat, longitude: location.location.lng }">
+				<ui-gmap-window options="{ content: '<div style=\'height:150px;color:black;\'><span><b>' + location.name + '</b></span><br>' + 
+				'<span>' + location.location.address + '</span><br><span>' + location.location.city + '</span> <span>' + 
+				location.location.state + ', ' + location.location.postalCode + '<br>' + location.location.country + '</span><br> 
+				<span>' + location.contact + '</span><br><a target=\'_blank\' href=\'' + location.url + '\'>' + location.url + '</span></div>' }">
+				</ui-gmap-window>
+			</ui-gmap-marker>
+			<ui-gmap-marker ng-if="hasEvents" ng-repeat="location in data.events | checkDate:date | limitTo:8"
+			idKey= "{ id: location.name }"
+			icon="{ url: 'http://i.stack.imgur.com/EVb1C.png' }"
+			options= "{ title: location.name }" 
+			coords="{ latitude: location.venue.latitude, longitude: location.venue.longitude }">
+				<ui-gmap-window options="{ content: '<div style=\'height:150px;color:black;\'><img style=\'height:50px;width:auto;\' src=\'' + location.logo + '\'><br><span><b>' + location.name + '</b></span><br>' + 
+				'<span>' + location.venue.address.address_1 + '</span><br><span>' + location.venue.address.city + '</span> <span>' + 
+				location.venue.address.region + ', ' + location.venue.address.postal_code + ' ' + location.venue.address.country + '</span><br> 
+				<a target=\'_blank\' href=\'' + location.url + '\'>See Event on Eventbrite</a></div>' }">
+				</ui-gmap-window>
+			</ui-gmap-marker>
+		</ui-gmap-google-map>
 	</section>
 	<aside class="col-lg-3">
 		<div class="panel-success">

@@ -12,7 +12,9 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('ExploreCtrl', function($scope, $filter,$stateParams, ChatroomFactory){
+<<<<<<< HEAD
+app.controller('ExploreCtrl', function($scope, $filter,$stateParams, ChatroomFactory, POIFactory){
 	ChatroomFactory.set_itinerary_id($stateParams.id); //tears
+	POIFactory.hasEvents = true;
 
 });

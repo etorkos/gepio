@@ -9,9 +9,8 @@ app.service('SocketReaction',function(){
 			socket.on('open_invitation',function(data){
 				if(scope.invitations.indexOf(data.room_name) < 0) scope.invitations.push(data.room_name) ;
 				scope.$digest();
-			});
-			socket.on('open_invitation',function(data){
-				alert(data.room_name);
+
+				console.log("hi",data);
 			});
 			socket.on('close_invitation',function(data){
 				scope.invitations.splice(scope.invitations.indexOf(data.room_name),1)

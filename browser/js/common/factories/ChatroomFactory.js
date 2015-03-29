@@ -1,7 +1,13 @@
 'use strict';
 app.factory('ChatroomFactory', function ($http){
-	var current_nsp;
+	var current_itinerary_id;
 	return {
+		set_itinerary_id : function(id){
+			current_itinerary_id = id;
+		},
+		get_itinerary_id : function(){
+			return current_itinerary_id;
+		},
 		send_message_to_server : function(message_text){
 			socket.emit('message',{
 				// name : user.firstName,
@@ -24,8 +30,9 @@ app.factory('ChatroomFactory', function ($http){
 		join_room : function(room_name){
 			socket.emit('join_room',room_name)
 		},
-		open_invitation : function(location,range){
+		open_invitation : function(id,location,range){
 			socket.emit('open_invitation',{
+				room_id : id,
 				location: location,
 				range: range
 			})

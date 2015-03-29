@@ -1,5 +1,10 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory){
+
+    $scope.invite_friends = function(){
+        var itinerary_id = ChatroomFactory.get_itinerary_id();
+        ChatroomFactory.open_invitation(itinerary_id);
+    };
 
     $scope.toMaps = function(){
         $state.go('map');//verify route destination

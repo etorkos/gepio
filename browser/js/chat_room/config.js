@@ -1,6 +1,5 @@
 'use strict';
 app.config(function ($stateProvider) {
-
     $stateProvider.state('room', {
         url: '/plan',
         controller: 'RoomCtrl',

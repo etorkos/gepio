@@ -44,6 +44,9 @@ module.exports = function (server) {
 		});
 
 		client.on('open_invitation',function(data){
+			console.log(data);
+			client.room = data.room_id;
+			client.join(client.room);
 			client.broadcast.emit('open_invitation',{
 				room_name : client.room
 			})

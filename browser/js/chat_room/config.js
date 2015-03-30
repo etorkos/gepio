@@ -13,15 +13,16 @@ app.config(function ($stateProvider) {
                     })
                 });
             },
-            savedEvents: function($stateParams, ResolveUserFactory, ItemMixFactory, $scope){
+            // savedEvents: function($stateParams, ResolveUserFactory, ItemMixFactory, $scope){
+                savedEvents: function () {
                 console.log('into the second validation');
-                return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
-                    //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
-                    angular.copy( ItemMixFactory.removeDuplicates( pastItinerary.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
-                    angular.copy( ItemMixFactory.removeDuplicates( pastItinerary.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
-                    console.log('finishing the resolve');
-                    return pastItinerary;
-                });
+                // return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
+                //     //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
+                //     angular.copy( ItemMixFactory.removeDuplicates( pastItinerary.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
+                //     angular.copy( ItemMixFactory.removeDuplicates( pastItinerary.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
+                //     console.log('finishing the resolve');
+                //     return pastItinerary;
+                // });
             },
             roomType : function ($stateParams){
                 return $stateParams.type;
@@ -38,7 +39,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/chat_room/date.html',
         });
 
-})
+});
 //     $stateProvider.state('room.one', {
 //             url: '/',
 //             // resolve: {

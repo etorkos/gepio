@@ -16,7 +16,7 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 
 POIFactory.hasEvents = true;
 	console.log(roomType);
-	// $scope.config1 = ( roomType === 'config1' );
+	
 	console.log("Data Set", $scope.dataSet);
 
 	// $scope.removeVenue = function(place){

@@ -9,9 +9,10 @@ router.post('/', function(req, res, next){
 	console.log('Got to itinerary post with', req.body.user);
 	var user = req.body.user._id || 'tempUser' ; //want name as a string
 	var title = req.body.title;
+	var type = req.body.type;
 	var embedVenues = [];
 	var embedEvents = [];
-	Itinerary.create({users: [user], title: title}, function(err, itinerary){
+	Itinerary.create({users: [user], title: title, type: type}, function(err, itinerary){
 		if (err) res.status(500).send(err);
 		else {
 			for (var key in req.body.events){

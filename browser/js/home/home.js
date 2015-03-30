@@ -46,7 +46,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 			else{
 				console.log('redirecting');
 				var dataForItinerary = ItineraryFactory.createDataSet($scope.selectedOption.name, $scope.dataSet);
-				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary }).then(function(itinerary){
+				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary , type: $scope.selectedOption }).then(function(itinerary){
 					console.log('going to ', $scope.selectedOption.state, 'with', itinerary._id)
 					$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
 				});	

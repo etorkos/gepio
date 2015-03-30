@@ -19,7 +19,7 @@ router.get('/:id/preferences',function (req, res, next){
 router.get('/:id/itineraries', function (req, res, next){
 	var userId = req.user._id;
 	console.log('user ', userId, ' is requesting itinerary information');
-	User.findById(userId).populate( 'itineraries' ).exec(function (err, user){
+	User.findById(userId).populate('itineraries').exec(function (err, user){
 		if(err) next(err);
 		else {
 			console.log('user information', user);

@@ -1,31 +1,33 @@
 'use strict';
 
 
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents){
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams){
-
-// function removeFromList (scopeDset, item){
-// 	var loc = -1;
-// 	for(var a = 0, len = scopeDset.length; a< len; a++){
-// 			if(scopeDset[a].name === item.name){
-// 				console.log('match at location',a)
-// 				loc = a;
-// 				break;
-// 			}
-// 		}
-// 	return scopeDset.splice(loc, 1);
-// }
-
-POIFactory.hasEvents = true;
-
+	POIFactory.hasEvents = true;
+	console.log(roomType);
+	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);
-	// $scope.removeVenue = function(place){
-	// 	//cycle through all items in the dataset for the specific item
-	// 	//splice array
-	// 	//if we have less than 5 items, request a new call
-	// 	var removed = removeFromList($scope.dataSet.venues, place);
-	// 	console.log(removed[0].name, ' was removed from the array' );
-	// }
+
+	if(!$scope.dataSet){
+		$scope.dataSet.events = savedEvents.otherEvents;
+		$scope.dataSet.venues = savedEvents.otherVenues;
+	}
+	else{
+		// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
+	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
+   		angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
+	    angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
+   
+
+    }               
+
+	$scope.removeVenue = function(place){
+		//cycle through all items in the dataset for the specific item
+		//splice array
+		//if we have less than 5 items, request a new call
+		var removed = removeFromList($scope.dataSet.venues, place);
+		console.log(removed[0].name, ' was removed from the array' );
+	}
 
 	// $scope.removeEvent = function(item){
 	// 	//cycle through all items in the dataset for the specific item

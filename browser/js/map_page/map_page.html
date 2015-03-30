@@ -1,5 +1,5 @@
-<main id="map" class="col-lg-12" ng-class="{ chatActive: active, chatInactive: !active }">
-	<section class="col-lg-9">
+<main id="map" class="col-lg-12">
+	<section class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 		<ui-gmap-google-map center="map.center" zoom="map.zoom" refresh="{ refresh }" ng-class="{ chatActive: active, chatInactive: !active }">
 			<ui-gmap-marker idKey="{ id: 'your location' }" coords="{ latitude: user_location.latitude, longitude: user_location.longitude }" options="{ title: 'Your Location' }"></ui-gmap-marker>
 			<ui-gmap-marker ng-repeat="location in data.venues | limitTo:8"
@@ -26,33 +26,33 @@
 			</ui-gmap-marker>
 		</ui-gmap-google-map>
 	</section>
-	<aside class="col-lg-3">
+	<aside class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+		<button class="btn btn-primary" ui-sref="plan-itinerary">Back to Plan</button>
+		<button class="btn btn-primary" ng-click="finalizeItinerary()">Finalize Information</button>
 		<div class="panel-success">
 			<div class="panel-heading">
-				<h4><a data-toggle="collapse" href="#collapsePlace" aria-expanded="true">Restaurants</a></h4>
+				<h4><a data-toggle="collapse" data-target="#collapsePlace" aria-expanded="true">Restaurants</a></h4>
 			</div>
-			<div id="collapsePlace" class="panel-collapse collapse in" >
+			<div id="collapsePlace" class="panel-collapse collapse" >
 				<div class="panel-body" ng-repeat='place in dataSet.venues | limitTo:8 |orderBy: ranking' ><list-ranking my-place='place'></list-ranking></div>
 			</div>
 		</div>
 		<div class="panel-success">
 			<div class="panel-heading">
-				<h4><a data-toggle="collapse" href="#collapseEvent" aria-expanded="true">Events</a></h4>
+				<h4><a data-toggle="collapse" data-target="#collapseEvent" aria-expanded="true">Events</a></h4>
 			</div>
-			<div id="collapseEvent" class="panel-collapse collapse in" >
+			<div id="collapseEvent" class="panel-collapse collapse" >
 				<div class="panel-body" ng-repeat='event in dataSet.events | limitTo: 8 | orderBy: ranking' ><list-ranking my-place='event'></list-ranking></div>
 			</div>
 		</div>
 		<div class="panel-success">
 			<div class="panel-heading">
-				<h4><a data-toggle="collapse" href="#collapseDrink" aria-expanded="true">Drinks</h4>
+				<h4><a data-toggle="collapse" data-target="#collapseDrink" aria-expanded="true">Drinks</h4>
 			</div>
-			<div id="collapseDrink" class="panel-collapse collapse in">
+			<div id="collapseDrink" class="panel-collapse collapse">
 				<div class="panel-body">Location Data</div>
 			</div>
 		</div>
-	<button class="btn btn-success" ui-sref="plan-itinerary">Back to Plan</button>
-	<button class="btn btn-success" ng-click="finalizeItinerary()">Finalize Information</button>
 	</aside>
 </main>
 <chat-bar></chat-bar>

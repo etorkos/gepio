@@ -16,6 +16,13 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				return hasPreferences;
 			}
 		},
+		getItineraries: function (userId){
+			var path = '/api/user/' + userId + '/itineraries';
+			console.log(path);
+			return $http.get(path).then(function(response){
+				return response.data;
+			});
+		},
 		generateInitialGenericPOIs: function(){
 			return MoviesFactory.getMovies().then(function (movies){
 				var data = { movies: null, events: [], venues: [], totals: 0 };

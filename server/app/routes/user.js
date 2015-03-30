@@ -5,6 +5,7 @@ var https = require('https');
 var querystring = require("querystring");
 var mongoose = require('mongoose');
 var User = mongoose.model("User");
+var Itinerary = mongoose.model('Itinerary');
 
 // api/user/
 router.get('/:id/preferences',function (req, res, next){
@@ -13,6 +14,27 @@ router.get('/:id/preferences',function (req, res, next){
 		if(err) next(err);
 		else res.json(user.preferences);
 	});
+});
+
+router.get('/:id/itineraries', function (req, res, next){
+	var userId = req.user._id;
+	console.log('user ', userId, ' is requesting itinerary information');
+	User.findById(userId).populate('itineraries').exec(function (err, user){
+		if(err) next(err);
+		else {
+			console.log('user information', user);
+			var obj = { itineraries: user.itineraries, invites: user.invites};
+			res.send(obj);
+		}
+	});
+	// User.findById(userId).exec(function (err, user){
+	// 	if (err) return next(err);
+	// 	else{
+	// 		console.log('user information', user);
+	// 		var obj = { itineraries: user.itineraries, invites: user.invites};
+	// 		res.send(obj);
+	// 	}
+	// });
 });
 
 router.post('/:id/preferences',function (req, res, next){

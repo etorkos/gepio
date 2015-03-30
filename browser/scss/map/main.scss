@@ -1,19 +1,19 @@
-.chatBarActive {
-	bottom: -470px;
-};
-.chatBarInactive {
-	bottom: -535px;
-};
+// .chatBarActive {
+// 	bottom: -470px;
+// };
+// .chatBarInactive {
+// 	bottom: -535px;
+// };
 
-.chatActive {
-	height: 375px;
-	.angular-google-map-container { height: 405px };
-};
+// .chatActive {
+// 	height: 375px;
+// 	.angular-google-map-container { height: 405px };
+// };
 
-.chatInactive {
-	height: 450px;
-	.angular-google-map-container { height: 470px };
-};
+// .chatInactive {
+// 	height: 450px;
+// 	.angular-google-map-container { height: 470px };
+// };
 
 #map {
 	padding: 0%;
@@ -34,6 +34,7 @@
 	left: 0%;
 	background-color: rgba(156,156,156,0.6);
 	height: 100%;
+	width: 100%;
 	form text-area {
 		height: 100%;
 	}

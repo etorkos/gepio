@@ -1,5 +1,5 @@
 'use strict';
-app.factory('VotingFactory', function (){
+app.factory('VotingFactory', function ($http){
 	var removeItem = function (scopeDataset, item){
 		var loc = -1;
 		for(var a = 0, len = scopeDataset.length; a < len; a++){
@@ -22,6 +22,8 @@ app.factory('VotingFactory', function (){
 		},
 		downVote: function(item){
 			item.votes--;
+			console.log(item);
+			// $http.put('/api/itinerary/update', )
 			// if(item.ranking < roomMembers.length)
 			// 	removeItem(item);
 		},

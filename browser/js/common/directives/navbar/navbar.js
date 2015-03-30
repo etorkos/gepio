@@ -14,6 +14,7 @@ app.controller('NavbarCtrl', function($scope, $state, AuthService, $window){
 
 	$scope.loggedIn = false; //will need to make a function dependent on session
     $scope.loginClicked = false;
+    $scope.itinerariesClicked = false;
 
     AuthService.getLoggedInUser().then(function(user){
         if(user){
@@ -31,6 +32,13 @@ app.controller('NavbarCtrl', function($scope, $state, AuthService, $window){
     $scope.toggleVisible = function(){
         $scope.loginClicked = !$scope.loginClicked;
     };
+
+    $scope.toggleVisibleItineraries = function(){
+        console.log('clicked');
+        $scope.itinerariesClicked = !$scope.itinerariesClicked;
+    };
+
+    $scope.isCollapsed = true;
 
     $scope.redirect = function(location){
         console.log(location, typeof location);

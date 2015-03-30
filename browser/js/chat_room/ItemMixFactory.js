@@ -50,6 +50,22 @@ app.factory('ItemMixFactory', function (ItineraryFactory){
 				console.log("Updated", res);
 				return list;
 			});
+		},
+		removeDuplicates: function (listOfObjects, type){ //type = event or venue
+			var arrResult = {},
+			nonDuplicatedArray = [];
+			for ( var i = 0, n = listOfObjects.length; i < n ; i++) {
+			    var item = listOfObjects[i];
+			    console.log(item);
+			    arrResult[item.name + " - " + item.description] = arrResult[item.name + " - " + item.description] || item; //sets name and object as the key and selects the first on the array or assigns
+			};
+			console.log('arrResult', arrResult);
+			i = 0;
+			for (var item in arrResult) {
+				console.log(arrResult[item]);
+			    nonDuplicatedArray[i++] = arrResult[item];
+			}
+			return nonDuplicatedArray;
 		}
 	}
 })

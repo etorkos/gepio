@@ -6,6 +6,8 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
         ChatroomFactory.open_invitation(itinerary_id);
     };
 
+    
+
     $scope.toMaps = function(){
         $state.go('map');//verify route destination
     };

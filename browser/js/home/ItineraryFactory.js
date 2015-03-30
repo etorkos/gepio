@@ -13,10 +13,11 @@ app.factory('ItineraryFactory', function($http){
 			});
 		},
 		getItinerary: function(itineraryId){
-			console.log('to the factory');
-			return $http.get('/api/itinerary/' + itineraryId).then(function(response){
-				console.log(response.data);
-				return response.data.users;
+			console.log('in itinerary factory');
+			return $http.get('/api/itinerary/' + itineraryId)
+			.then(function(response){
+				console.log('response from getItinerary server ', response.data);
+				return response.data;
 			});
 		},
 		createDataSet: function (type, data){

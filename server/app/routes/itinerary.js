@@ -9,9 +9,10 @@ router.post('/', function(req, res, next){
 	console.log('Got to itinerary post with', req.body.user);
 	var user = req.body.user._id || 'tempUser' ; //want name as a string
 	var title = req.body.title;
+	var type = req.body.type;
 	var embedVenues = [];
 	var embedEvents = [];
-	Itinerary.create({users: [user], title: title}, function(err, itinerary){
+	Itinerary.create({users: [user], title: title, type: type}, function(err, itinerary){
 		if (err) res.status(500).send(err);
 		else {
 			for (var key in req.body.events){
@@ -27,7 +28,8 @@ router.post('/', function(req, res, next){
 					}
 					else {
 						req.body.events[key].forEach(function (event){
-							if (event.title !== 'test'){
+							if( event.name !== 'test'){ 
+								console.log(event);
 								var embed = new Event();
 								embed.title = event.name;
 								embed.description = event.description.text;
@@ -60,7 +62,7 @@ router.post('/', function(req, res, next){
 	});	
 });
 
-router.get('/:id', function(req, res, next ){
+router.get('/:id', function (req, res, next ){
 	var itineraryId = req.params.id;
 	console.log('arrived here ok', itineraryId);
 	Itinerary.findById(itineraryId, function(err, item){
@@ -130,13 +132,5 @@ router.put('/update', function (req, res){
 		}
 	})
 });
-
-
-
-
-
-
-
-
 
 module.exports = router;

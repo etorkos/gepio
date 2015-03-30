@@ -11,8 +11,10 @@ app.config(function ($stateProvider) {
     $stateProvider.state('room.sub', {
         url: '/:type/:id',
         resolve: {
-            roomType : function ($stateParams){
+            roomType : function ($stateParams, POIFactory){
                 console.log('part 3');
+                if ($stateParams.type === 'config1') POIFactory.hasEvents = false;
+                else POIFactory.hasEvents = true;
                 return $stateParams.type;
             },
             userValidation: function(AuthService, ResolveUserFactory, $stateParams){

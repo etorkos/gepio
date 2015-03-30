@@ -26,12 +26,20 @@ app.factory('ItineraryFactory', function($http){
 			for (var i = 0; i < 8; i++){
 				venues.push(data.venues[i]);
 			}
-			if (type == 'Whats for lunch?' || type == 'Lets go out tonight'){
+			if (type == 'config1'){
 				return { venues: venues };
 			}
 			else {
-				for (var i = 0; i < 8; i++){
-					events.push(data.events[i]);
+				var today = new Date();
+				var tm = (Number(today.getMonth()) + 1);
+				var td = today.getDate();
+				var ty = today.getFullYear();
+				for (var i = 0; i < data.events.length; i++){
+					var eventDate = new Date(data.events[i].startTime);
+					if (eventDate.getFullYear() === ty && (Number(eventDate.getMonth()) + 1) === tm && eventDate.getDate() === td){
+						events.push(data.events[i]);
+					}
+					if (events.length >= 8) break;
 				}
 				return { venues: venues, events: events };
 			}
@@ -42,6 +50,7 @@ app.factory('ItineraryFactory', function($http){
 				console.log(res)
 				return res.data;
 			});
-		}
+		},
+		setActiveParams: undefined
 	};
 });

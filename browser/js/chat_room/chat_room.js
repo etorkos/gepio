@@ -1,10 +1,10 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory, ItineraryFactory){
 
     
 
     $scope.toMaps = function(){
-        $state.go('map');//verify route destination
+        $state.go('map', { id: ItineraryFactory.setActiveParams.id, type: ItineraryFactory.setActiveParams.type });//verify route destination
     };
 
     $scope.today = function() {

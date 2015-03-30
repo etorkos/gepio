@@ -16,15 +16,15 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, ItineraryFactory, AuthService) {
 
-	$scope.myInterval = 5000;
-	var slides = $scope.slides = [{
-		image: 'http://blog.goodmeasuremeals.com/wp-content/uploads/NYC-food-market.jpg',
-		text: 'Engage local culture with NYC community markets'
-	},
-	{
-		image:'http://www.musicalamerica.com/mablogs/wp-content/uploads/2011/06/MG_4338smaller1.jpg',
-   text: 'Explore family friendly culture'
-	}];
+	// $scope.myInterval = 5000;
+	// var slides = $scope.slides = [{
+	// 	image: 'http://blog.goodmeasuremeals.com/wp-content/uploads/NYC-food-market.jpg',
+	// 	text: 'Engage local culture with NYC community markets'
+	// },
+	// {
+	// 	image:'http://www.musicalamerica.com/mablogs/wp-content/uploads/2011/06/MG_4338smaller1.jpg',
+ //   text: 'Explore family friendly culture'
+	// }];
 
 
 	$scope.city = "New York";
@@ -48,6 +48,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 				var dataForItinerary = ItineraryFactory.createDataSet($scope.selectedOption.name, $scope.dataSet);
 				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary , type: $scope.selectedOption }).then(function(itinerary){
 					console.log('going to ', $scope.selectedOption.state, 'with', itinerary._id)
+					ItineraryFactory.setActiveParams = { id: itinerary._id, type: $scope.selectedOption.type };
 					$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
 				});	
 			}

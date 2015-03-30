@@ -14,7 +14,6 @@ function removeFromList (scopeDset, item){
 
 app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType){
 
-POIFactory.hasEvents = true;
 	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);

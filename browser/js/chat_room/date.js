@@ -12,12 +12,25 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents){
 
-POIFactory.hasEvents = true;
+	POIFactory.hasEvents = true;
 	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);
+
+	if(!$scope.dataSet){
+		$scope.dataSet.events = savedEvents.otherEvents;
+		$scope.dataSet.venues = savedEvents.otherVenues;
+	}
+	else{
+		// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
+	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
+   		angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
+	    angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
+   
+
+    }               
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

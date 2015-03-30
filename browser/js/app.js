@@ -34,11 +34,13 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
 
+    $scope.dataSet = { events: [], venues: [] };
+
     GeolocationFactory.getGeo().then(function(){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
             if(!UserFactory.checkUser($scope.user)){
                 console.log("No user/preferences");
-                $scope.dataSet = { movies: null, events: [], venues: [] };
+                $scope.dataSet.movies =  null;
                 $scope.totals = 0;
                 UserFactory.generateInitialGenericPOIs().then(function (data){
                     $scope.dataSet.movies = data.movies;
@@ -60,7 +62,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
             }
             else {
                 console.log('User has preferences');
-                $scope.dataSet = { movies: null, events: [], venues: [] };
+                $scope.dataSet.movies = null;
                 $scope.totals = 0;
                 var preferences = UserFactory.parseUserPreferences($scope.user);
                 UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){

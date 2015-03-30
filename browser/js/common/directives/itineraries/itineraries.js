@@ -19,7 +19,7 @@ app.directive('navbarItineraries', function($window){
 				UserFactory.getItineraries(user._id).then(function(data){
 					$scope.invites = data.invites;
 					$scope.itineraries = data.itineraries;
-					console.log($scope.itineraries);
+					console.log('data', data);
 				})
 			})
 		}

@@ -20,9 +20,11 @@ app.config(function ($stateProvider) {
             },
             savedEvents: function($stateParams, ResolveUserFactory){
                 return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
-                    //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
-                    angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherEvents.concat($state.dataSet.events)), $state.dataSet.events);
-                    angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherVenues.concat($state.dataSet.venues)), $state.dataSet.venues);
+            //         //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
+            //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherEvents.concat($state.dataSet.events)), $state.dataSet.events);
+            //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherVenues.concat($state.dataSet.venues)), $state.dataSet.venues);
+                    console.log('finishing the resolve');
+                    return pastItinerary;
                 })
             }
         },

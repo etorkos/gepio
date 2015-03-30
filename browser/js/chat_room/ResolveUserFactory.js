@@ -15,8 +15,12 @@ app.factory('ResolveUserFactory', function(ItineraryFactory, $state, $http){
             })
 		},
         getPastActions: function(itineraryId){
-            return ItineraryFactory.getItinerary(id).then(function(itinerary){
+            console.log('called getPastActions');
+            return ItineraryFactory.getItinerary(itineraryId).then(function(itinerary){
+                console.log('back into getPastActions with', itinerary);
                 return itinerary;
+            }, function(reject) {
+                console.log("im rejected ", reject);
             })
         }
 	}

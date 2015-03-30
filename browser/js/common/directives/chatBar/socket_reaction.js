@@ -16,10 +16,13 @@ app.service('SocketReaction',function(){
 				scope.invitations.splice(scope.invitations.indexOf(data.room_name),1)
 				scope.$digest();
 			});
-			socket.on('upvote',function(data){
+		},
+		socket_on_vote : function(socket,scope){
+			socket.on('up_vote',function(data){
+				console.log(scope.dataSet);
 				console.log(data);
 			});
-			socket.on('downvote',function(data){
+			socket.on('down_vote',function(data){
 				console.log(data);
 			});
 		}

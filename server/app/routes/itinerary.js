@@ -28,6 +28,7 @@ router.post('/', function(req, res, next){
 					}
 					else {
 						req.body.events[key].forEach(function (event){
+							console.log(event)
 							if( event.name !== 'test'){ 
 								console.log(event);
 								var embed = new Event();

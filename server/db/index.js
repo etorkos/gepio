@@ -15,6 +15,7 @@ require('./models/events');
 require('./models/itinerary');
 require('./models/user');
 require('./models/chatroom');
+require('./models/message');
 
 var startDbPromise = new Q(function (resolve, reject) {
     db.on('open', resolve);

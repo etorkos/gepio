@@ -29,6 +29,7 @@ app.factory('EventsFactory', function ($http, GeolocationFactory){
 				holder.startTime = event.start.local;
 				holder.endTime = event.end.local;
 				holder.votes = 0;
+				holder.type = 'event';
 				holder.venue = event.venue;
 				cleaned.push(holder);
 			});

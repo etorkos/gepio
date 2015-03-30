@@ -1,5 +1,7 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory, POIFactory){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory, POIFactory, $stateParams){
+    //save the id to chatroom factory
+    ChatroomFactory.set_itinerary_id($stateParams.id);
 
     $scope.invite_friends = function(){
         var itinerary_id = ChatroomFactory.get_itinerary_id();

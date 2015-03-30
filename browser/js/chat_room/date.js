@@ -1,7 +1,11 @@
 'use strict';
 
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction){
+	
+	//socket reaction 
+
+	SocketReaction.socket_on_vote(socket,$scope);
 
 	POIFactory.hasEvents = true;
 	console.log(roomType);
@@ -20,6 +24,8 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
    
 
     }               
+
+
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

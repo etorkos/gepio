@@ -53,12 +53,15 @@ app.factory('ChatroomFactory', function ($http){
 			socket.emit('leave_room');
 		},
 		up_vote: function(event){
+			console.log(event);
 			var obj = {
-				event : event,//name of event
+				type : event.type,
+				name : event.name,
+				lat : event.location.lat,
+				lng : event.location.lng,
 				vote : 1
 			};
 			socket.emit('up_vote', obj);
-			$http.post('/api/chatroom/' + current_itinerary_id + '/vote', obj);
 		},
 		down_vote : function(event){
 			var obj = {

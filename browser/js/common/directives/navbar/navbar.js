@@ -38,6 +38,8 @@ app.controller('NavbarCtrl', function($scope, $state, AuthService, $window){
         $scope.itinerariesClicked = !$scope.itinerariesClicked;
     };
 
+    $scope.isCollapsed = true;
+
     $scope.redirect = function(location){
         console.log(location, typeof location);
         if(location === 'home') $state.go('home');

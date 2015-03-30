@@ -1,24 +1,33 @@
 <nav class="navbar navbar-static-top navbar-default">
     <div class="container">
         <div class="navbar-header">
+            <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a href="/" class="navbar-brand"><img src="/img/gepio2.png" class="img-responsive"></a> -->
         </div>
-        <ul class="nav navbar-nav right">
-            <li>
-                <a ui-sref-active="active" ng-click="redirect('home')">Main</a>
-            </li>
-            <li>
-                <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Login / Register</a>
-            </li>
-            <li>
-                <a ui-sref-active="active" ng-show='loggedIn' ng-click="toggleVisibleItineraries()">My Itineraries</a>
-            </li>
-            <li>
-                <a ui-sref-active="active" ng-show='loggedIn' ng-click='redirect("user")'>Edit Profile</a>
-            </li>
-            <li>
-                <a ui-sref-active="active" ng-show='loggedIn' ng-click='logOut()'>Log out</a>
-            </li>
-        </ul>
+        <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav right">
+                <li>
+                    <a ui-sref-active="active" ng-click="redirect('home')">Main</a>
+                </li>
+                <li>
+                    <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Login / Register</a>
+                </li>
+                <li>
+                    <a ui-sref-active="active" ng-show='loggedIn' ng-click="toggleVisibleItineraries()">My Itineraries</a>
+                </li>
+                <li>
+                    <a ui-sref-active="active" ng-show='loggedIn' ng-click='redirect("user")'>Edit Profile</a>
+                </li>
+                <li>
+                    <a ui-sref-active="active" ng-show='loggedIn' ng-click='logOut()'>Log out</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div>

@@ -27,11 +27,13 @@ router.post('/', function(req, res, next){
 					}
 					else {
 						req.body.events[key].forEach(function (event){
-							var embed = new Event();
-							embed.title = event.name;
-							embed.description = event.description.text;
-							embed.location = { lat: event.venue.latitude, lon: event.venue.longitude };
-							embedEvents.push({ event: embed, votes: 0});
+							if (event.title !== 'test'){
+								var embed = new Event();
+								embed.title = event.name;
+								embed.description = event.description.text;
+								embed.location = { lat: event.venue.latitude, lon: event.venue.longitude };
+								embedEvents.push({ event: embed, votes: 0});
+							}
 						});
 					}
 				}

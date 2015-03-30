@@ -31,14 +31,14 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 
 	$scope.options = [
 		//should make it so that we pass a kind of parameter that will do search instead
-		{name: 'Whats for lunch?', state: 'room.lunch'},
-		{name: 'Reunion with Friends', state: 'room.explore'},
-		{name: 'Romantic Night Out', state: 'room.date'},
+		{name: 'Whats for lunch?', state: 'room.one'},
+		{name: 'Reunion with Friends', state: 'room.two'},
+		{name: 'Romantic Night Out', state: 'room.two'},
 		
-		{name: 'Lets go out tonight', state: 'room.nightlife'}];
+		{name: 'Lets go out tonight', state: 'room.two'}];
 
 	$scope.redirect = function(){
-		console.log('destination', $state.to);
+		console.log('destination', $scope.to);
 		AuthService.getLoggedInUser().then(function(user){
 			//if you are a user and do not have any preferences, go to preference create
 			if(user && ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0))
@@ -58,6 +58,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
 	$scope.showOptions = false;
 	$scope.showOptionsClick = function(obj){
+		console.log(obj)
 		$scope.showOptions = !$scope.showOptions;
 		$scope.selectedOption = obj;
 		$scope.to = obj;

@@ -50,6 +50,19 @@ app.factory('ItemMixFactory', function (ItineraryFactory){
 				console.log("Updated", res);
 				return list;
 			});
+		},
+		removeDuplicates: function (listOfObjects){
+			var arrResult = {},
+			nonDuplicatedArray = [];
+			for (i = 0, n = listOfObjects.length; i < n; i++) {
+			    var item = listOfObjects[i];
+			    arrResult[item.name + " - " + item.description] = arrResult[item.name + " - " + item.description] || item; //sets name and object as the key and selects the first on the array or assigns
+			}
+			i = 0;
+			for (var item in arrResult) {
+			    nonDuplicatedArray[i++] = arrResult[item];
+			}
+			return nonDuplicatedArray;
 		}
 	}
 })

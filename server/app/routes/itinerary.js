@@ -58,7 +58,7 @@ router.post('/', function(req, res, next){
 	});	
 });
 
-router.get('/:id', function(req, res, next ){
+router.get('/:id', function (req, res, next ){
 	var itineraryId = req.params.id;
 	console.log('arrived here ok', itineraryId);
 	Itinerary.findById(itineraryId, function(err, item){
@@ -128,8 +128,6 @@ router.put('/update', function (req, res){
 		}
 	})
 });
-
-
 
 
 

@@ -16,7 +16,7 @@ app.factory('ItineraryFactory', function($http){
 			console.log('to the factory');
 			return $http.get('/api/itinerary/' + itineraryId).then(function(response){
 				console.log(response.data);
-				return response.data.users;
+				return response.data;
 			});
 		},
 		createDataSet: function (type, data){

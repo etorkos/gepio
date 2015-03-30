@@ -34,7 +34,6 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 		{name: 'Whats for lunch?', state: 'room.lunch'},
 		{name: 'Reunion with Friends', state: 'room.explore'},
 		{name: 'Romantic Night Out', state: 'room.date'},
-		
 		{name: 'Lets go out tonight', state: 'room.nightlife'}];
 
 	$scope.redirect = function(){
@@ -49,6 +48,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 				console.log('redirecting');
 				var dataForItinerary = ItineraryFactory.createDataSet($scope.to.name, $scope.dataSet);
 				ItineraryFactory.createItinerary({ user: user, title: $scope.to.name, events: dataForItinerary }).then(function(itinerary){
+					console.log('going to ', $scope.to.state, 'with', itinerary._id)
 					$state.go($scope.to.state, {id: itinerary._id});
 				});	
 			}

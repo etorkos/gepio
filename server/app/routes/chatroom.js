@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model("User");
 var Chatroom = mongoose.model("Chatroom");
 var Message = mongoose.model("Message");
+var _ = require('lodash');
 
 // api/chatroom/
 router.get('/:id',function(req,res,next){
@@ -29,7 +30,7 @@ router.post('/create',function(req,res,next){
 router.post('/:id/message',function(req,res,next){
 	//update message
 	var id = req.params.id;
-	var message = req.body.message;
+	var message = req.body.message; // this should contain user and message
 	Chatroom.findById(id,function(err,chatroom){
 		if(err) next(err);
 		else if(chatroom == null) res.sendStatus(404);
@@ -41,9 +42,20 @@ router.post('/:id/message',function(req,res,next){
 	});
 });
 
-router.get('/',function(req,res,next){
-	res.json(req.user.preferences);
+//upvote and downvote
+router.post('/:id/vote',function(req,res,next){
+	//update message
+	var id = req.params.id;
+	var event = req.body.event; // this should contain event and vote
+	Chatroom.findById(id,function(err,chatroom){
+		if(err) next(err);
+		else if(chatroom == null) res.sendStatus(404);
+		else{
+			_.where(chatroom.events,{event : event.event})[0] + event.vote;
+			chatroom.save();
+		}
+	});
 });
-// router.post('')
+
 
 module.exports = router;

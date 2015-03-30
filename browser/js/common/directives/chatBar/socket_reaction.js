@@ -16,6 +16,12 @@ app.service('SocketReaction',function(){
 				scope.invitations.splice(scope.invitations.indexOf(data.room_name),1)
 				scope.$digest();
 			});
+			socket.on('upvote',function(data){
+				console.log(data);
+			});
+			socket.on('downvote',function(data){
+				console.log(data);
+			});
 		}
 	};
 });

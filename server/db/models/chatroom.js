@@ -5,10 +5,10 @@ var chatRoomSchema = new mongoose.Schema({
 	messages :[{
 		type : Schema.Types.ObjectId, ref: 'Message'
 	}],
-	events : {
+	events : [{
 		name : String,
-		vote_counts : { type:String, default:0 }
-	}
+		vote_counts : { type:Number, default:0 }
+	}]
 });
 
 mongoose.model('Chatroom',chatRoomSchema);

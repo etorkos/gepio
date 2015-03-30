@@ -62,5 +62,13 @@ module.exports = function (server) {
 		client.on('disconnect',function(){
 			console.log("client disconnected");
 		});
+
+		client.on('upvote', function(data){
+			client.broadcast.to(client.room).emit('upvote',data)
+		});
+
+		client.on('downvote', function(data){
+			client.broadcast.to(client.room).emit('downvote',data)
+		});
 	});
 };

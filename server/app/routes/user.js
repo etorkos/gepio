@@ -5,6 +5,7 @@ var https = require('https');
 var querystring = require("querystring");
 var mongoose = require('mongoose');
 var User = mongoose.model("User");
+var Itinerary = mongoose.model('Itinerary');
 
 // api/user/
 router.get('/:id/preferences',function (req, res, next){
@@ -16,9 +17,9 @@ router.get('/:id/preferences',function (req, res, next){
 });
 
 router.get('/:id/itineraries', function (req, res, next){
-	var id = req.params.id;
-	console.log('user ', id, ' is requesting itinerary information');
-	// User.findById(id).populate('itineraries').exec(function (err, user){
+	var userId = req.user._id;
+	console.log('user ', userId, ' is requesting itinerary information');
+	// User.findById(userId).populate( {path: 'itineraries' }).exec(function (err, user){
 	// 	if(err) next(err);
 	// 	else {
 	// 		console.log('user information', user);
@@ -26,7 +27,7 @@ router.get('/:id/itineraries', function (req, res, next){
 	// 		res.send(obj);
 	// 	}
 	// });
-	User.findById(id).exec(function (err, user){
+	User.findById(userId).exec(function (err, user){
 		if (err) return next(err);
 		else{
 			console.log('user information', user);

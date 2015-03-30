@@ -31,13 +31,13 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 
 	$scope.options = [
 		//should make it so that we pass a kind of parameter that will do search instead
-		{name: 'Whats for lunch?', state: 'room.lunch'},
-		{name: 'Reunion with Friends', state: 'room.explore'},
-		{name: 'Romantic Night Out', state: 'room.date'},
-		{name: 'Lets go out tonight', state: 'room.nightlife'}];
+		{name: 'Whats for lunch?', state: 'room.one'},
+		{name: 'Reunion with Friends', state: 'room.two'},
+		{name: 'Romantic Night Out', state: 'room.two'},
+		{name: 'Lets go out tonight', state: 'room.two'}];
 
 	$scope.redirect = function(){
-		console.log('destination', $state.to);
+		console.log('destination', $scope.selectedOption.state);
 		AuthService.getLoggedInUser().then(function(user){
 			//if you are a user and do not have any preferences, go to preference create
 			if(user && ($scope.user.preferences.nights.length === 0 && $scope.user.preferences.events.length === 0 && $scope.user.preferences.foods.length === 0))
@@ -46,22 +46,20 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					$state.go('preferences', {user: user._id}) }
 			else{
 				console.log('redirecting');
-				var dataForItinerary = ItineraryFactory.createDataSet($scope.to.name, $scope.dataSet);
-				ItineraryFactory.createItinerary({ user: user, title: $scope.to.name, events: dataForItinerary }).then(function(itinerary){
-					console.log('going to ', $scope.to.state, 'with', itinerary._id)
-					$state.go($scope.to.state, {id: itinerary._id});
+				var dataForItinerary = ItineraryFactory.createDataSet($scope.selectedOption.name, $scope.dataSet);
+				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary }).then(function(itinerary){
+					console.log('going to ', $scope.selectedOption.state, 'with', itinerary._id)
+					$state.go($scope.selectedOption.state, {id: itinerary._id});
 				});	
 			}
 		})
 		
 	}
-	$scope.to;
 	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
 	$scope.showOptions = false;
 	$scope.showOptionsClick = function(obj){
 		$scope.showOptions = !$scope.showOptions;
 		$scope.selectedOption = obj;
-		$scope.to = obj;
 	}
 
 });

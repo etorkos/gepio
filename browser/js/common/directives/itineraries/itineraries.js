@@ -5,9 +5,7 @@ app.directive('navbarItineraries', function($window){
 		templateUrl : "js/common/directives/itineraries/itineraries.html",
 		link : function(scope,element,attribute){
 			scope.toItinerary = function(dir){
-				console.log(dir);
-				console.log("/plan/"+dir.type+'/'+dir._id)
-				// $window.location.href="/plan/"+dir.type+'/'+dir._id;
+				$window.location.href="/plan/"+dir;
 			};
 		},
 		controller: function ($scope, AuthService, UserFactory){

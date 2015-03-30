@@ -5,14 +5,17 @@ app.factory('ResolveUserFactory', function(ItineraryFactory, $state, $http){
 			return ItineraryFactory.getItinerary(id).then(function(allAuthUserIds){
                 if(!user) user = 'tempUser';
                 var auth = false;
-                allAuthUserIds.users.forEach(function(userId){
-                    if(userId === user._id){
-                        auth = true;
-                        return user;
-                    }
-                });
+                if(allAuthUserIds.users){
+                    allAuthUserIds.users.forEach(function(userId){
+                        if(userId === user._id){
+                            console.log('user is in the room');
+                            auth = true;
+                            return user;
+                        }
+                    });
+                }
                 if(!auth) $state.go('home');
-            })
+            });
 		},
         getPastActions: function(itineraryId){
             console.log('called getPastActions');
@@ -23,5 +26,5 @@ app.factory('ResolveUserFactory', function(ItineraryFactory, $state, $http){
                 console.log("im rejected ", reject);
             })
         }
-	}
+    }
 })

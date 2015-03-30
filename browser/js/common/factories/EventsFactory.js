@@ -9,9 +9,10 @@ app.factory('EventsFactory', function ($http, GeolocationFactory){
 		}
 		data.categories = category;
 		data.q=search;
-		if (!start_date) data['start_date.range_start'] = '2015-03-21T17:16:55Z';
+		var formatted_date = new Date();
+		if (!start_date) data['start_date.range_start'] = '2015-03-28T17:16:55Z'
 		else data['start_date.range_start'] = start_date;
-		if (!end_date) data['start_date.range_end'] = '2015-04-16T17:16:55Z'
+		if (!end_date) data['start_date.range_end'] = '2015-04-30T17:16:55Z'
 		else data['start_date.range_start']  = end_date;
 		return $http.get('/api/events/search', { params: data }).then(function (res){
 			var cleaned = [];

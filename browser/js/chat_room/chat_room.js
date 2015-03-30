@@ -1,15 +1,19 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory){
 
     $scope.toMaps = function(){
         $state.go('map');//verify route destination
     };
 
-
     $scope.today = function() {
         $scope.dt = new Date(); //date object we are using
+        POIFactory.date = $scope.dt;
     };
     $scope.today();
+
+    $scope.exportDate = function(){
+        POIFactory.date = $scope.dt;
+    }
 
     $scope.clear = function () {
      $scope.dt = null;
@@ -26,11 +30,6 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory){
         MessageFactory.changeActive();
         $scope.active = !$scope.active;
     }
-
-
-});
-
-app.controller('DateCtrl', function($scope){
 
 
 });

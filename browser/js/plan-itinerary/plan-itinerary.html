@@ -1,0 +1,27 @@
+<section id="plan-itinerary">
+	<div class="top-info bump row" style="display: inline-block">
+		<div class="col-lg-12 align_right">
+            <p class="input-group">
+	              <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min-date="minDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+	              <span class="input-group-btn">
+	                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	              </span>
+            </p>
+            <span class="float_right">
+	            <button class="btn btn-success">Invite Friends</button>
+	            <button class="btn btn-warning" ui-sref="map">Map</button>
+            </span>
+		</div>
+	</div>
+	<div class="row zero-margin">
+		<div class="col-lg-12 info-block">
+			<!-- beginning -->
+			<div id="explore" class="std-gray-background col-lg-12">
+				<long-display event-type="venues"></long-display>
+				<long-display event-type="events"></long-display>
+			</div>
+			<!-- end -->
+		</div>
+	</div>
+	<chat-bar></chat-bar>
+</section>

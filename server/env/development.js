@@ -1,5 +1,5 @@
 module.exports = {
-  "DATABASE_URI": "mongodb://localhost:27017/my-app",
+  "DATABASE_URI": "mongodb://localhost:27017/gepio",
   "SESSION_SECRET": "Optimus Prime is my real dad",
   "TWITTER": {
     "consumerKey": "ZVQ2NZscYX1aa6nZI81Fg8HBg",

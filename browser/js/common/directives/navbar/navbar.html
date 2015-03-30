@@ -3,14 +3,14 @@
         <div class="navbar-header">
         </div>
         <ul class="nav navbar-nav right">
-            <!-- <li>
-                <img ng-src="{{user.pictureURL}}" />
-            </li> -->
             <li>
                 <a ui-sref-active="active" ng-click="redirect('home')">Main</a>
             </li>
             <li>
                 <a ui-sref-active="active" ng-show='!loggedIn' ng-click="toggleVisible()">Login / Register</a>
+            </li>
+            <li>
+                <a ui-sref-active="active" ng-show='loggedIn' ng-click="toggleVisibleItineraries()">My Itineraries</a>
             </li>
             <li>
                 <a ui-sref-active="active" ng-show='loggedIn' ng-click='redirect("user")'>Edit Profile</a>

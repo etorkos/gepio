@@ -12,7 +12,6 @@ app.directive('navbar', function () {
 
 app.controller('NavbarCtrl', function($scope, $state, AuthService, $window){
 
-
 	$scope.loggedIn = false; //will need to make a function dependent on session
     $scope.loginClicked = false;
 

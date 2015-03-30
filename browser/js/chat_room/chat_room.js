@@ -1,7 +1,7 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory, roomType){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory){
 
-    $scope.config1 = ( roomType === 'config1' );
+    
 
     $scope.toMaps = function(){
         $state.go('map');//verify route destination

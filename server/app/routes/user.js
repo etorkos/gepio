@@ -15,6 +15,19 @@ router.get('/:id/preferences',function (req, res, next){
 	});
 });
 
+router.get('/:id/itineraries', function (req, res, next){
+	var id = req.params.id;
+	console.log('user ', id, ' is requesting itinerary information');
+	User.findById(id).populate('itineraries').exec(function (err, user){
+		if(err) next(err);
+		else {
+			console.log('user information', user);
+			var obj = { itineraries: user.itineraries, invites: user.invites};
+			res.send(obj);
+		}
+	});
+})
+
 router.post('/:id/preferences',function (req, res, next){
 	var id = req.params.id;
 	User.findById(id, function (err, user){

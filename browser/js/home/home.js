@@ -46,6 +46,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					alert('Please set a few preferences first, so we can give you better reccommendations');
 					$state.go('preferences', {user: user._id}) }
 			else{
+				console.log('redirecting');
 				var dataForItinerary = ItineraryFactory.createDataSet($scope.to.name, $scope.dataSet);
 				ItineraryFactory.createItinerary({ user: user, title: $scope.to.name, events: dataForItinerary }).then(function(itinerary){
 					$state.go($scope.to.state, {id: itinerary._id});

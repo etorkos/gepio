@@ -11,9 +11,9 @@ var schema = new mongoose.Schema({
     password: {
         type: String
     },
-    itineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itineraries" },
-    invites: { type: [mongoose.Schema.Types.ObjectId], ref: "Itineraries" },
-    oldItineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itineraries" },
+    itineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itinerary" },
+    invites: { type: [mongoose.Schema.Types.ObjectId], ref: "Itinerary" },
+    oldItineraries: { type: [mongoose.Schema.Types.ObjectId], ref: "Itinerary" },
     preferences: {
         foods: {type: [String], default: []},
         events: {type: [String], default: []},

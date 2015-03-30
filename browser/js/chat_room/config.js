@@ -1,14 +1,8 @@
 'use strict';
 app.config(function ($stateProvider) {
-
-    // $stateProvider.state('room', {
-    //     url: '/plan',
-    //     controller: 'RoomCtrl',
-    //     templateUrl: 'js/chat_room/chat_room.html'
-    // });
     
     $stateProvider.state('room', {
-        url: '/plan/:id',
+        url: '/plan/:type/:id',
         resolve: {
             userValidation: function(AuthService, ResolveUserFactory, $stateParams){
                 console.log('resolve');
@@ -28,6 +22,9 @@ app.config(function ($stateProvider) {
                     console.log('finishing the resolve');
                     return pastItinerary;
                 });
+            },
+            roomType : function ($stateParams){
+                return $stateParams.type;
             }
         },
         controller: 'RoomCtrl',
@@ -35,58 +32,40 @@ app.config(function ($stateProvider) {
     });
 
 
-    $stateProvider.state('room.two', {
+    $stateProvider.state('room.sub', {
         url: '/',
-        // resolve: {
-        //     userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-        //         console.log('resolve');
-        //         return AuthService.getLoggedInUser().then(function(user){
-        //             return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-        //                 return user;
-        //             })
-        //         });
-        //     },
-        //     savedEvents: function($stateParams, ResolveUserFactory){
-        //         return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
-        //     //         //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
-        //     //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherEvents.concat($state.dataSet.events)), $state.dataSet.events);
-        //     //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherVenues.concat($state.dataSet.venues)), $state.dataSet.venues);
-        //             console.log('finishing the resolve');
-        //             return pastItinerary;
-        //         });
-        //     }
-        // },
         controller: 'DateCtrl',
         templateUrl: 'js/chat_room/date.html',
         });
 
-    $stateProvider.state('room.one', {
-            url: '/',
-            // resolve: {
-            //     userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-            //         console.log('resolve');
-            //         return AuthService.getLoggedInUser().then(function(user){
-            //             return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-            //                 return user;
-            //             })
-            //         });
-            //     },
-            //     savedEvents: function($stateParams, ResolveUserFactory){
-            //         return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
-            //     //         //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
-            //     //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherEvents.concat($state.dataSet.events)), $state.dataSet.events);
-            //     //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherVenues.concat($state.dataSet.venues)), $state.dataSet.venues);
-            //             console.log('finishing the resolve');
-            //             return pastItinerary;
-            //         });
-            //     }
+})
+//     $stateProvider.state('room.one', {
+//             url: '/',
+//             // resolve: {
+//             //     userValidation: function(AuthService, ResolveUserFactory, $stateParams){
+//             //         console.log('resolve');
+//             //         return AuthService.getLoggedInUser().then(function(user){
+//             //             return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
+//             //                 return user;
+//             //             })
+//             //         });
+//             //     },
+//             //     savedEvents: function($stateParams, ResolveUserFactory){
+//             //         return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
+//             //     //         //prepend the users past choices to the dataSet, also removing duplicates. could have issue with location, also if uppercase vs lowercase
+//             //     //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherEvents.concat($state.dataSet.events)), $state.dataSet.events);
+//             //     //         // angular.copy( ItemRemixFactory.removeDuplicates( pastItinerary.otherVenues.concat($state.dataSet.venues)), $state.dataSet.venues);
+//             //             console.log('finishing the resolve');
+//             //             return pastItinerary;
+//             //         });
+//             //     }
 
-            // },
-            controller: 'DateCtrl',
-            templateUrl: 'js/chat_room/lunch.html',
-            });
+//             // },
+//             controller: 'DateCtrl',
+//             templateUrl: 'js/chat_room/lunch.html',
+//             });
 
-});
+// });
     // $stateProvider.state('room.date', {
     //     url: '/date_night/:id',
     //     resolve: {

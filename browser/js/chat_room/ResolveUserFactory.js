@@ -2,11 +2,11 @@
 app.factory('ResolveUserFactory', function(ItineraryFactory, $state, $http){
 	return {
 		resolve: function(user, id){
-			return ItineraryFactory.getItinerary(id).then(function(allAuthUserIds){
+			return ItineraryFactory.getItinerary(id).then(function(itinerary){
                 if(!user) user = 'tempUser';
                 var auth = false;
-                if(allAuthUserIds.users){
-                    allAuthUserIds.users.forEach(function(userId){
+                if(itinerary.users){
+                    itinerary.users.forEach(function(userId){
                         if(userId === user._id){
                             console.log('user is in the room');
                             auth = true;

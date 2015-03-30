@@ -22,6 +22,10 @@ input{
 	text-align: right;
 }
 
+.align_center {
+	text-align: center;
+}
+
 .off_floor {
 	padding-bottom: 1.5%;
 }
@@ -105,7 +109,7 @@ preference-button div:hover {
 }
 
 .zero-margin {
-	margin: 0%;
+	margin: 0% 0% 30px 0%;
 	div {
 		padding: auto 0% auto 0%;
 	}
@@ -128,3 +132,4 @@ preference-button div:hover {
 	border: 0 none;
 	background: transparent;
 }
+

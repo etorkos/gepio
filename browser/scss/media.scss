@@ -1,0 +1,142 @@
+#activeChatButton {
+	width: 100px;
+	border-radius: 15px;
+}
+
+#activeChatButton:hover {
+	opacity: 0.5;
+}
+
+@for $i from 300px through 1500px {
+	@media (max-height: ($i + px)) and (min-height: (($i - 0.5) + px)) {
+		.chatBarActive {
+			bottom: (-($i / 2.5) + px);
+		};
+		.chatBarInactive {
+			bottom: (-($i - 30) + px);
+		};
+		.angular-google-map-container {
+			height: ($i - 95) + px;
+		}
+	}
+}
+
+@media (max-width: 325px) {
+	#go_btn {
+		padding: 42.5% 0%;
+	}
+}
+
+@media (max-width: 375px) and (min-width: 326px) {
+	#go_btn {
+		padding: 36.2% 0%;
+	}
+} 
+
+@media (max-width: 415px) and (min-width: 376px) {
+	#go_btn {
+		padding: 32.5% 0%;
+	}
+}
+
+@media (max-width: 500px) and (min-width: 416px) {
+	#go_btn {
+		padding: 26% 0%;
+	}
+}
+
+@media (max-width: 600px) and (min-width: 501px) {
+	#go_btn {
+		padding: 22% 0%;
+	}
+}
+
+@media (max-width: 700px) and (min-width: 601px) {
+	#go_btn {
+		padding: 18% 0%;
+	}
+} 
+
+@media (max-width: 775px) and (min-width: 701px) {
+	#go_btn {
+		padding: 17% 0%;
+	}
+}
+
+@media (max-width: 900px) and (min-width: 776px) {
+	#go_btn {
+		padding: 14.5% 0%;
+	}
+}
+
+@media (max-width: 991px) and (min-width: 901px) {
+	#go_btn {
+		padding: 13% 0%;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1099px) {
+	#go_btn {
+		padding: 26% 0%;
+	}
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+	#go_btn {
+		padding: 24% 0%;
+	}
+}
+
+@media (min-width: 1200px) and (max-width: 1299px) {
+	#go_btn {
+		padding: 22% 0%;
+	}
+}
+
+@media (min-width: 1300px) and (max-width: 1399px) {
+	#go_btn {
+		padding: 20% 0%;
+	}
+}
+
+@media (min-width: 1400px) and (max-width: 1499px) {
+	#go_btn {
+		padding: 18% 0%;
+	}
+}
+
+@media (min-width: 1500px) and (max-width: 1599px) {
+	#go_btn {
+		padding: 17% 0%;
+	}
+}
+
+@media (min-width: 1600px) and (max-width: 1699px) {
+	#go_btn {
+		padding: 16% 0%;
+	}
+}
+
+@media (min-width: 1700px) and (max-width: 1799px) {
+	#go_btn {
+		padding: 15% 0%;
+	}
+}
+
+@media (min-width: 1800px) and (max-width: 1899px) {
+	#go_btn {
+		padding: 14% 0%;
+	}
+}
+
+@media (min-width: 1900px) and (max-width: 1999px) {
+	#go_btn {
+		padding: 13.5% 0%;
+	}
+}
+
+@media (min-width: 2000px) {
+	#go_btn {
+		padding: 12.5% 0%;
+	}
+}     

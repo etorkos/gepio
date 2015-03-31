@@ -1,5 +1,5 @@
 'use strict';
-app.factory('VotingFactory', function ($http){
+app.factory('VotingFactory', function ($http, ItineraryFactory){
 	var removeItem = function (scopeDataset, item){
 		var loc = -1;
 		for(var a = 0, len = scopeDataset.length; a < len; a++){
@@ -22,13 +22,23 @@ app.factory('VotingFactory', function ($http){
 		},
 		downVote: function(item){
 			item.votes--;
-			console.log(item);
-			// $http.put('/api/itinerary/update', )
-			// if(item.ranking < roomMembers.length)
-			// 	removeItem(item);
+			var data = { name: item.name, votes: item.votes, itinerary: ItineraryFactory.setActiveParams.id };
+			if (item.location.lat) data.type = 'venue';
+			else data.type = 'event';
+			return $http.put('/api/itinerary/vote', data).then(function (res){
+				console.log(res.data);
+				return res.data;
+			});
 		},
 		upVote: function(item){
 			item.votes++;
+			var data = { name: item.name, votes: item.votes, itinerary: ItineraryFactory.setActiveParams.id };
+			if (item.location.lat) data.type = 'venue';
+			else data.type = 'event';
+			return $http.put('/api/itinerary/vote', data).then(function (res){
+				console.log(res.data);
+				return res.data;
+			});
 		}
 	};	
 });

@@ -13,8 +13,10 @@ app.config(function ($stateProvider) {
         controller : 'DateCtrl',
         templateUrl : 'js/chat_room/date.html',
         resolve: {
-            roomType : function ($stateParams){
+            roomType : function ($stateParams, POIFactory){
                 console.log('part 3');
+                if ($stateParams.type === 'config1') POIFactory.hasEvents = false;
+                else POIFactory.hasEvents = true;
                 return $stateParams.type;
             },
             userValidation: function(AuthService, ResolveUserFactory, $stateParams, ItineraryFactory){
@@ -31,9 +33,9 @@ app.config(function ($stateProvider) {
             },
             savedEvents: function( $stateParams, ResolveUserFactory, ItemMixFactory){   
                 console.log('into the second validation');
-                return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
-                    return pastItinerary;
-                });
+                // return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
+                //     return pastItinerary;
+                // });
             }
         }
     });

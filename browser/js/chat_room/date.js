@@ -7,7 +7,6 @@ app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory,
 
 	SocketReaction.socket_on_vote(socket,$scope);
 
-	POIFactory.hasEvents = true;
 	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);
@@ -19,8 +18,8 @@ app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory,
 	else{
 		// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
 	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
-   		angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
-	    angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
+   		// angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
+	    // angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
     }               
 
     $rootScope.ItineraryId = $stateParams.id;

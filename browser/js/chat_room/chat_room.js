@@ -23,7 +23,7 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     }
 
     $scope.toMaps = function(){
-        $state.go('map');//verify route destination
+        $state.go('map', { id: ItineraryFactory.setActiveParams.id, type: ItineraryFactory.setActiveParams.type });//verify route destination
     };
 
     $scope.today = function() {
@@ -33,6 +33,7 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     $scope.today();
 
     $scope.exportDate = function(){
+        ItineraryFactory.changeEventsDate($scope.dt, $scope.dataSet.events);
         POIFactory.date = $scope.dt;
     }
 

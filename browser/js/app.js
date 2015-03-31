@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory) {
+app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory, ItineraryFactory) {
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
@@ -75,6 +75,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     preferences.foods.unshift();
                 }).then(function (){
                     UserFactory.generateMorePOIs(preferences.events, preferences.foods).then(function (data){
+                        if (ItineraryFactory.setActiveParams) ItineraryFactory.updateEventsSet(data.events);
                         data.events.forEach(function (arr){
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);

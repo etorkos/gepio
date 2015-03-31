@@ -1,7 +1,7 @@
 'use strict';
 app.config(function ($stateProvider){
 	$stateProvider.state('map', {
-		url: '/map/:id',
+		url: '/map/:type/:id',
 		controller: 'MapCtrl',
 		templateUrl: 'js/map_page/map_page.html'
 	});
@@ -29,6 +29,10 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 
 	$scope.data = $scope.dataSet;
 	console.log($scope.data.venues);
+
+	$scope.goToPlan = function (){
+		$state.go('room.sub', { id: $stateParams.id, type: $stateParams.type });
+	}
 
 	$scope.finalizeItinerary = function(){
 

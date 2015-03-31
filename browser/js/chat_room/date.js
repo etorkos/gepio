@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction){
+app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction, ItineraryFactory){
 	
 	//socket reaction 
 
@@ -21,12 +21,12 @@ app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory,
 	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
    		angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
 	    angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
-   
-
     }               
 
     $rootScope.ItineraryId = $stateParams.id;
     
+
+
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item
 		//splice array

@@ -17,12 +17,12 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 			}
 		},
 		findUserByName: function (nameObject){
-			console.log(nameObject);
 			return $http.get('/api/user/find/'+nameObject.firstName+'/'+nameObject.lastName).then(function ( response ){
 				return response.data;
 			})
 		},
 		findUserByEmail: function (nameObject){
+			console.log('email search', nameObject.email);
 			return $http.get('/api/user/find/'+nameObject.email).then(function ( response ){
 				return response.data;
 			})

@@ -20,15 +20,17 @@ router.get('/find/:first/:last', function (req, res, next){
 	console.log('Conducting a user search');
 	User.findOne({ firstName: req.params.first, lastName: req.params.last }).exec(function (err, user){
 		console.log('user', user, 'err', err);
-		if (err) return next(err);
-		res.send(user);
+		if (err ) res.status(500).send(err);
+		else if (user === null ) res.send({ _id: null });
+		else res.send(user);
 	})
 })
 
 router.get('/find/:email' , function (req, res, next){
 	User.findOne({ email: req.params.email }).exec(function (err, user){
 		if (err) return next(err);
-		res.send(user);
+		else if( user ===  null ) res.send({_id: null});
+		else res.send(user);
 	})
 })
 

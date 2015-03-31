@@ -7,14 +7,22 @@ var Event = mongoose.model('Event');
 
 router.post('/', function(req, res, next){
 	console.log('Got to itinerary post with', req.body.user);
-	var user = req.body.user._id || 'tempUser' ; //want name as a string
+	var user = req.body.user ? req.body.user._id : null ; //want name as a string
 	var title = req.body.title;
 	var type = req.body.type;
-	Itinerary.create({users: [user], title: title, type: type}, function(err, itinerary){
+	var obj = {title: title, type: type};
+	if(user) {
+		obj.users = [user];
+	}
+	else{
+		obj.inviteStatus= 'open';
+	}
+	Itinerary.create( obj , function(err, itinerary){
+		console.log(err, itinerary);
 		if (err) res.status(500).send(err);
 		else {
 			itinerary.setOtherData(req.body.events).then(function (itin){
-				if (user === 'tempUser') res.status(200).send(itin);
+				if (user === null) res.status(200).send(itin);
 				else {
 					User.findByIdAndUpdate(user, { $push: { itineraries: itin._id } }, function (err, user){
 						if (err) res.status(500).send(err);

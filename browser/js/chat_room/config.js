@@ -19,18 +19,18 @@ app.config(function ($stateProvider) {
                 else POIFactory.hasEvents = true;
                 return $stateParams.type;
             },
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams, ItineraryFactory){
-                console.log('resolve');
-                return ItineraryFactory.getItinerary( $stateParams.id).then(function (itinerary){
-                    if (itinerary.inviteStatus == 'open') { return true };
-                    return AuthService.getLoggedInUser().then(function(user){
-                        return ResolveUserFactory.resolve(user, $stateParams.id).then(function ( thing){
-                            console.log('finished first resolution');
-                            return user;
-                        })
-                    });
-                });  
-            },
+            // userValidation: function(AuthService, ResolveUserFactory, $stateParams, ItineraryFactory){
+            //     console.log('resolve');
+            //     return ItineraryFactory.getItinerary( $stateParams.id).then(function (itinerary){
+            //         if (itinerary.inviteStatus == 'open') { return true };
+            //         return AuthService.getLoggedInUser().then(function(user){
+            //             return ResolveUserFactory.resolve(user, $stateParams.id).then(function ( thing){
+            //                 console.log('finished first resolution');
+            //                 return user;
+            //             })
+            //         });
+            //     });  
+            // },
             savedEvents: function( $stateParams, ResolveUserFactory, ItemMixFactory){   
                 console.log('into the second validation');
                 // return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){

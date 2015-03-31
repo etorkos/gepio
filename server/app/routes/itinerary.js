@@ -90,10 +90,16 @@ router.post('/invite', function (req, res, next){
 
 router.post('/toggleSetting', function (req, res, next){
 	var itineraryId = req.body.id;
+	var newStatus = 'open';
+	console.log(req.body);
 	Itinerary.findById(itineraryId).exec(function (err,itinerary){
-		Itinerary.findById(itineraryId).update({$set: {inviteStatus: !itinerary.inviteStatus}}, function (err,data){
-			res.send(data);
-		})
+		console.log('itinerary', itinerary, 'err', err);
+		if (itinerary.inviteStatus === 'open') { newStatus = 'closed'; }
+		console.log('newStatus', newStatus);
+		Itinerary.findById(itineraryId).update({$set: {inviteStatus: newStatus}}, function (err,data){
+			console.log('err', err, 'data', newStatus);
+			res.send(newStatus);
+		});
 	});
 	
 })

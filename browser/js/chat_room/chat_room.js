@@ -1,14 +1,24 @@
 'use strict';
-app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory, POIFactory, $stateParams){
+app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory, ItineraryFactory, POIFactory, $rootScope){
     //save the id to chatroom factory
-    ChatroomFactory.set_itinerary_id($stateParams.id);
+    if($rootScope.ItineraryId){
+        ChatroomFactory.set_itinerary_id($rootScope.ItineraryId);
+    }
 
     $scope.invite_friends = function(){
         var itinerary_id = ChatroomFactory.get_itinerary_id();
         ChatroomFactory.open_invitation(itinerary_id);
     };
 
-    
+    $scope.inviteStatus = 'closed';
+
+    $scope.inviteToggle = function (){
+        ItineraryFactory.toggleInviteStatus($rootScope.ItineraryId).then(function (response){
+            console.log('The new invite status is', response);
+            if(response == 'closed') $scope.inviteStatus = 'closed';
+            else $scope.inviteStatus = 'open';
+        })
+    }
 
     $scope.toMaps = function(){
         $state.go('map');//verify route destination

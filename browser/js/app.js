@@ -36,6 +36,8 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
 
     $scope.dataSet = { events: [], venues: [] };
 
+    $rootScope.ItineraryId = ''; //declaration to be instantiated when user immediately redirects to itinerary page
+
     GeolocationFactory.getGeo().then(function(){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
             if(!UserFactory.checkUser($scope.user)){

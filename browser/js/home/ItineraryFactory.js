@@ -47,13 +47,13 @@ app.factory('ItineraryFactory', function($http){
 			var body = { itineraryId: itineraryId, userId: userId };
 			return $http.post('/api/itinerary/invite').then(function (res){
 				return res.data;
-			}
+			});
 		},
 		toggleInviteStatus: function (itineraryId){
 			var body = { id: itineraryId};
-			return $http.post('/api/itinerary/togglesetting').then(function (res){
+			return $http.post('/api/itinerary/togglesetting', body).then(function (res){
 				return res.data;
-			}
+			});
 		}
 	};
 });

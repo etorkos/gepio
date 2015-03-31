@@ -9,6 +9,8 @@
             </p>
             <span class="float_right">
 	            <button class="btn btn-success" ng-click='invite()'>Invite Friends</button>
+	            <button class="btn btn-success" ng-if=' inviteStatus == "closed"' ng-click='inviteToggle()'>Make Event Open to Public</button>
+	            <button class="btn btn-success" ng-if=' inviteStatus == "open"' ng-click='inviteToggle()'>Make Event Open to Public</button>
 	            <button class="btn btn-warning" ng-click="toMaps()">Map</button>
             </span>
 		</div>

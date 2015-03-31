@@ -1,7 +1,7 @@
 'use strict';
 
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction){
+app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction){
 	
 	//socket reaction 
 
@@ -25,8 +25,8 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 
     }               
 
-
-
+    $rootScope.ItineraryId = $stateParams.id;
+    
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item
 		//splice array

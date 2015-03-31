@@ -17,7 +17,9 @@ router.get('/:id/preferences',function (req, res, next){
 });
 
 router.get('/find/:first/:last', function (req, res, next){
+	console.log('Conducting a user search');
 	User.findOne({ firstName: req.params.first, lastName: req.params.last }).exec(function (err, user){
+		console.log('user', user, 'err', err);
 		if (err) return next(err);
 		res.send(user);
 	})
@@ -32,11 +34,11 @@ router.get('/find/:email' , function (req, res, next){
 
 router.get('/:id/itineraries', function (req, res, next){
 	var userId = req.user._id;
-	console.log('user ', userId, ' is requesting itinerary information');
+	// console.log('user ', userId, ' is requesting itinerary information');
 	User.findById(userId).populate('itineraries').exec(function (err, user){
 		if(err) next(err);
 		else {
-			console.log('user information', user);
+			// console.log('user information', user);
 			var obj = { itineraries: user.itineraries, invites: user.invites};
 			res.send(obj);
 		}

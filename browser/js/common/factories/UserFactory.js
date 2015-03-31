@@ -17,7 +17,8 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 			}
 		},
 		findUserByName: function (nameObject){
-			return $http.get('/api/user/find/'+nameObject.first_name+'/'+nameObject.last_name).then(function ( response ){
+			console.log(nameObject);
+			return $http.get('/api/user/find/'+nameObject.firstName+'/'+nameObject.lastName).then(function ( response ){
 				return response.data;
 			})
 		},

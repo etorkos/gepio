@@ -16,8 +16,8 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
 
     $scope.inviteToggle = function (){
         ItineraryFactory.toggleInviteStatus($rootScope.ItineraryId).then(function (response){
-            console.log('The new invite status is', response);
-            if(response == 'closed') $scope.inviteStatus = 'closed';
+            console.log('The new invite status is', response.status);
+            if(response.status == 'closed') $scope.inviteStatus = 'closed';
             else $scope.inviteStatus = 'open';
         })
     }

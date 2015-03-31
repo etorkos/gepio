@@ -35,67 +35,11 @@ router.get('/:id', function (req, res, next ){
 	})
 });
 
-// router.put('/update', function (req, res){
-// 	var data = [];
-// 	console.log("Req", req.body);
-// 	Itinerary.findById(req.body.id, function (err, itinerary){
-// 		if (err) console.log(err);
-// 		else {
-// 			if (req.body.type == 'venues') {
-// 				for (var i = 0; i < 8; i++){
-// 					var alreadyExists = false;
-// 					var otherVenuesIndex;
-// 					itinerary.otherVenues.forEach(function (venue, index){
-// 						if (venue.name == req.body.data[i].name){
-// 							alreadyExists = true;	
-// 							otherVenuesIndex = index;
-// 						} 
-// 					});
-// 					var embed = new Event();
-// 					embed.title = req.body.data[i].name;
-// 					embed.description = req.body.data[i].category.name;
-// 					embed.location = { lat: req.body.data[i].location.lat, lon: req.body.data[i].location.lon };
-// 					if (!alreadyExists) data.push({ venue: embed, votes: 0 });
-// 					else data.push({ venue: embed, votes: itinerary.otherVenues[otherVenuesIndex].votes });
-// 				}
-// 				itinerary.otherVenues = data;
-// 				itinerary.save(function (err, returned){
-// 					if (err) console.log(err);
-// 					else {
-// 						console.log(returned);
-// 						return returned;
-// 					}
-// 				});
-// 			}
-// 			else {
-// 				for (var i = 0; i < 8; i++){
-// 					var alreadyExists = false;
-// 					var otherEventsIndex;
-// 					itinerary.otherEvents.forEach(function (event, index){
-// 						if (event.name == req.body.data[i].name){
-// 							alreadyExists = true;	
-// 							otherEventsIndex = index;
-// 						} 
-// 					});
-// 					var embed = new Event();
-// 					embed.title = req.body.data[i].name;
-// 					embed.description = req.body.data[i].description.text;
-// 					embed.location = { lat: req.body.data[i].venue.latitude, lon: req.body.data[i].venue.longitude };
-// 					if (!alreadyExists) data.push({ event: embed, votes: 0 });
-// 					else data.push({ venue: embed, votes: itinerary.otherEvents[otherEventsIndex].votes });
-// 				}
-// 				itinerary.otherEvents = data;
-// 				itinerary.save(function (err, returned){
-// 					if (err) console.log(err);
-// 					else {
-// 						console.log(returned);
-// 						return returned;
-// 					}
-// 				});
-// 			}
-// 		}
-// 	});
-// });
+router.put('/add', function (req, res){
+	Itinerary.addEvents(req.body).then(function (result){
+		res.json(result);
+	});
+});
 
 router.put('/vote', function (req, res){
 	Itinerary.findById(req.body.itinerary, function (err, itinerary){
@@ -106,6 +50,13 @@ router.put('/vote', function (req, res){
 				res.json(data);
 			});
 		}
+	});
+});
+
+router.put('/day', function (req, res){
+	Itinerary.changeDay(req.body).then(function (result){
+		console.log("DAY CHANGED", result);
+		res.json(result);
 	});
 });
 

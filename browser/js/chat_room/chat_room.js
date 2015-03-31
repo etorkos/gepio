@@ -14,6 +14,7 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, POIFactory, 
     $scope.today();
 
     $scope.exportDate = function(){
+        ItineraryFactory.changeEventsDate($scope.dt, $scope.dataSet.events);
         POIFactory.date = $scope.dt;
     }
 

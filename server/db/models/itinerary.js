@@ -57,7 +57,7 @@ schema.methods.setOtherData = function (data){
 				}
 				else {
 					data[key].forEach(function (event){
-						if( event.name !== 'test'){ 
+						if (event.name !== 'test'){ 
 							var embed = new Event();
 							embed.title = event.name;
 							embed.description = event.description.text;
@@ -73,6 +73,62 @@ schema.methods.setOtherData = function (data){
 		return self.save(function (err, itinerary){
 			if (err) reject(err);
 			else resolve(itinerary);
+		});
+	});
+}
+
+schema.statics.addEvents = function (data){
+	var self = this;
+	return new Promise(function (resolve, reject){
+		self.findById(data.id, function (err, itinerary){
+			if (err) reject(err);
+			else {
+				var events = [];
+				for (var i = 0; i < data.data.length; i++){
+					if (data.data[i].name !== 'test'){
+						var embed = new Event();
+						embed.title = data.data[i].name;
+						embed.description = data.data[i].description.text;
+						embed.location = { lat: data.data[i].venue.latitude, lon: data.data[i].venue.longitude };
+						events.push({ event: embed, votes: 0 });
+					}
+					if (itinerary.otherEvents.length + events.length >= 8) break;
+				}
+				var currentEvents = itinerary.otherEvents;
+				currentEvents = currentEvents.concat(events);
+				itinerary.otherEvents = currentEvents;
+				return itinerary.save(function (err, saved){
+					if (err) reject(err);
+					else resolve(saved);
+				});
+			}
+		});
+	});
+}
+
+schema.statics.changeDay = function (data){
+	var self = this;
+	return new Promise(function (resolve, reject){
+		self.findById(data.id, function (err, itinerary){
+			if (err) reject(err);
+			else {
+				var events = [];
+				for (var i = 0; i < data.data.length; i++){
+					if (data.data[i].name !== 'test'){
+						var embed = new Event();
+						embed.title = data.data[i].name;
+						embed.description = data.data[i].description.text;
+						embed.location = { lat: data.data[i].venue.latitude, lon: data.data[i].venue.longitude };
+						events.push({ event: embed, votes: 0 });
+					}
+					if (events.length >= 8) break;
+				}
+				itinerary.otherEvents = events;
+				return itinerary.save(function (err, saved){
+					if (err) reject(err);
+					else resolve(saved);
+				});
+			}
 		});
 	});
 }

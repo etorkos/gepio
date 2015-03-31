@@ -42,6 +42,12 @@ app.factory('ItineraryFactory', function($http){
 				console.log(res)
 				return res.data;
 			});
+		},
+		inviteUser: function (itineraryId, userId){
+			var body = { itineraryId: itineraryId, userId: userId };
+			return $http.post('/api/itinerary/invite').then(function (res){
+				return res.data;
+			}
 		}
 	};
 });

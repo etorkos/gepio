@@ -74,4 +74,5 @@ schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
+
 mongoose.model('User', schema);

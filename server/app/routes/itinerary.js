@@ -72,6 +72,16 @@ router.get('/:id', function (req, res, next ){
 	})
 });
 
+router.post('/invite', function (req, res, next){
+	var itineraryId = req.body.id;
+	var userInvitee = req.body.userId;
+	Itinerary.userExistsOrIsAdded(itineraryId, userInvitee, function(err, response){
+		if(err) return next(err);
+		res.send(response);
+	});
+})
+
+
 router.put('/update', function (req, res){
 	var data = [];
 	console.log("Req", req.body);

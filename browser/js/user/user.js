@@ -14,9 +14,14 @@ app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFac
 	};
 
 	$scope.updateUsr = function(){
-		UserFactory.updateUser($scope.user).then(function (user){
-			console.log(user);
-		});
+		AuthService.getLoggedInUser().then(function (user){
+			if(user){
+				UserFactory.updateUser(user).then(function (user){
+					console.log(user);
+				});
+			}
+		})
+		
 	};
 
 	if($scope.user){

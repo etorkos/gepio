@@ -16,6 +16,16 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				return hasPreferences;
 			}
 		},
+		findUserByName: function (nameObject){
+			return $http.get('/api/user/find/'+nameObject.first_name+'/'+nameObject.last_name).then(function ( response ){
+				return response.data;
+			})
+		},
+		findUserByEmail: function (nameObject){
+			return $http.get('/api/user/find/'+nameObject.email).then(function ( response ){
+				return response.data;
+			})
+		},
 		getItineraries: function (userId){
 			var path = '/api/user/' + userId + '/itineraries';
 			console.log(path);
@@ -92,6 +102,6 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
             return preferences;
 		}
 
-		
+
 	};
 });

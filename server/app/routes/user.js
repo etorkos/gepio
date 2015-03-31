@@ -16,6 +16,20 @@ router.get('/:id/preferences',function (req, res, next){
 	});
 });
 
+router.get('/find/:first/:last', function (req, res, next){
+	User.findOne({ firstName: req.params.first, lastName: req.params.last }).exec(function (err, user){
+		if (err) return next(err);
+		res.send(user);
+	})
+})
+
+router.get('/find/:email' , function (req, res, next){
+	User.findOne({ email: req.params.email }).exec(function (err, user){
+		if (err) return next(err);
+		res.send(user);
+	})
+})
+
 router.get('/:id/itineraries', function (req, res, next){
 	var userId = req.user._id;
 	console.log('user ', userId, ' is requesting itinerary information');

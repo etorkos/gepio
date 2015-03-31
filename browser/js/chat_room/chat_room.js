@@ -8,8 +8,8 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     $scope.invite_friends = function(){
         //$scope.invite = !$scope.invite;
         console.log($scope.invite);
-        // var itinerary_id = ChatroomFactory.get_itinerary_id();
-        // ChatroomFactory.open_invitation(itinerary_id);
+        var itinerary_id = ChatroomFactory.get_itinerary_id();
+        ChatroomFactory.open_invitation(itinerary_id);
     };
 
     $scope.inviteStatus = 'closed'; //needs to be dynamically set

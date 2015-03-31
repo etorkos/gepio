@@ -91,5 +91,7 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
             });
             return preferences;
 		}
+
+		
 	};
 });

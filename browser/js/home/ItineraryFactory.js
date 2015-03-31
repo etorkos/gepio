@@ -48,6 +48,12 @@ app.factory('ItineraryFactory', function($http){
 			return $http.post('/api/itinerary/invite').then(function (res){
 				return res.data;
 			}
+		},
+		toggleInviteStatus: function (itineraryId){
+			var body = { id: itineraryId};
+			return $http.post('/api/itinerary/togglesetting').then(function (res){
+				return res.data;
+			}
 		}
 	};
 });

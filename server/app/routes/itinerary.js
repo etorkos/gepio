@@ -76,11 +76,27 @@ router.post('/invite', function (req, res, next){
 	var itineraryId = req.body.id;
 	var userInvitee = req.body.userId;
 	Itinerary.userExistsOrIsAdded(itineraryId, userInvitee, function(err, response){
-		if(err) return next(err);
-		res.send(response);
+		if (err) return next(err);
+		if (response) {
+			User.findById(userInvitee, function (err, user){
+				user.update({$push: { invites: response._id }}, function (err, user){
+					res.send(response);
+				});
+			});
+		}
+		else res.send( null );
 	});
 })
 
+router.post('/toggleSetting', function (req, res, next){
+	var itineraryId = req.body.id;
+	Itinerary.findById(itineraryId).exec(function (err,itinerary){
+		Itinerary.findById(itineraryId).update({$set: {inviteStatus: !itinerary.inviteStatus}}, function (err,data){
+			res.send(data);
+		})
+	});
+	
+})
 
 router.put('/update', function (req, res){
 	var data = [];

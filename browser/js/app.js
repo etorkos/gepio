@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory) {
+app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory, ItineraryFactory) {
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
@@ -34,11 +34,15 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
 
+    $scope.dataSet = { events: [], venues: [] };
+
+    $rootScope.ItineraryId = ''; //declaration to be instantiated when user immediately redirects to itinerary page
+
     GeolocationFactory.getGeo().then(function(){
         if (GeolocationFactory.latitude && GeolocationFactory.longitude){
             if(!UserFactory.checkUser($scope.user)){
                 console.log("No user/preferences");
-                $scope.dataSet = { movies: null, events: [], venues: [] };
+                $scope.dataSet.movies =  null;
                 $scope.totals = 0;
                 UserFactory.generateInitialGenericPOIs().then(function (data){
                     $scope.dataSet.movies = data.movies;
@@ -60,7 +64,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
             }
             else {
                 console.log('User has preferences');
-                $scope.dataSet = { movies: null, events: [], venues: [] };
+                $scope.dataSet.movies = null;
                 $scope.totals = 0;
                 var preferences = UserFactory.parseUserPreferences($scope.user);
                 UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
@@ -71,6 +75,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     preferences.foods.unshift();
                 }).then(function (){
                     UserFactory.generateMorePOIs(preferences.events, preferences.foods).then(function (data){
+                        if (ItineraryFactory.setActiveParams) ItineraryFactory.updateEventsSet(data.events);
                         data.events.forEach(function (arr){
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);

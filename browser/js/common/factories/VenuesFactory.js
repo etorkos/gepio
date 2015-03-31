@@ -15,6 +15,8 @@ app.factory('VenuesFactory', function ($http, GeolocationFactory){
 					holder.name = venue.name;
 					holder.url = venue.url;
 					holder.location = venue.location;
+					holder.votes = 0;
+					holder.type = 'venue';
 					venues.push(holder);
 				});
 				return venues;

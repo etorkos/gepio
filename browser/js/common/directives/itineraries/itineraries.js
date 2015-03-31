@@ -1,5 +1,5 @@
 'use strict';
-app.directive('NavbarItineraries', function($window){
+app.directive('navbarItineraries', function($window){
 	return {
 		restrict : "E",
 		templateUrl : "js/common/directives/itineraries/itineraries.html",
@@ -7,6 +7,19 @@ app.directive('NavbarItineraries', function($window){
 			scope.toItinerary = function(dir){
 				$window.location.href="/plan/"+dir.type+'/'+dir._id;
 			};
+		},
+		controller: function ($scope, AuthService, UserFactory){
+			$scope.invites = [];
+			$scope.itineraries = [];
+
+			AuthService.getLoggedInUser().then(function(user){
+				console.log('sending the request');
+				UserFactory.getItineraries(user._id).then(function(data){
+					$scope.invites = data.invites;
+					$scope.itineraries = data.itineraries;
+					console.log('data', data);
+				})
+			})
 		}
 	};
 });

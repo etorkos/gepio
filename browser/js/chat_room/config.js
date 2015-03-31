@@ -1,86 +1,43 @@
 'use strict';
 app.config(function ($stateProvider) {
-
+    
     $stateProvider.state('room', {
         url: '/plan',
         controller: 'RoomCtrl',
         templateUrl: 'js/chat_room/chat_room.html'
     });
 
-    $stateProvider.state('room.date', {
-        url: '/date_night/:id',
-        resolve: {
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-                console.log('resolve');
-                return AuthService.getLoggedInUser().then(function(user){
-                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-                        return user;
-                    })
-                });
-            }
-        },
-        controller: 'DateCtrl',
-        templateUrl: 'js/chat_room/date.html',
-        });
 
-    $stateProvider.state('room.lunch', {
-        url: '/lunch/:id',
+    $stateProvider.state('room.sub', {
+        url: '/:type/:id',
+        controller : 'DateCtrl',
+        templateUrl : 'js/chat_room/date.html',
         resolve: {
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
+            roomType : function ($stateParams, POIFactory){
+                console.log('part 3');
+                if ($stateParams.type === 'config1') POIFactory.hasEvents = false;
+                else POIFactory.hasEvents = true;
+                return $stateParams.type;
+            },
+            userValidation: function(AuthService, ResolveUserFactory, $stateParams, ItineraryFactory){
                 console.log('resolve');
-                return AuthService.getLoggedInUser().then(function(user){
-                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-                        return user;
-                    })
-                });
+                return ItineraryFactory.getItinerary( $stateParams.id).then(function (itinerary){
+                    if (itinerary.inviteStatus == 'open') { return true };
+                    return AuthService.getLoggedInUser().then(function(user){
+                        return ResolveUserFactory.resolve(user, $stateParams.id).then(function ( thing){
+                            console.log('finished first resolution');
+                            return user;
+                        })
+                    });
+                });  
+            },
+            savedEvents: function( $stateParams, ResolveUserFactory, ItemMixFactory){   
+                console.log('into the second validation');
+                // return ResolveUserFactory.getPastActions($stateParams.id).then(function(pastItinerary){
+                //     return pastItinerary;
+                // });
             }
-        },
-        controller: 'LunchCtrl',
-        templateUrl: 'js/chat_room/lunch.html'});
-
-    $stateProvider.state('room.nightlife', {
-        url: '/nightlife/:id',
-        resolve: {
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-                console.log('resolve');
-                return AuthService.getLoggedInUser().then(function(user){
-                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-                        return user;
-                    })
-                });
-            }
-        },
-        controller: 'NightlifeCtrl',
-        templateUrl: 'js/chat_room/nightlife.html'});
-
-    $stateProvider.state('room.explore', {
-        url: '/explore/:id',
-        resolve: {
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-                console.log('resolve');
-                return AuthService.getLoggedInUser().then(function(user){
-                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-                        return user;
-                    })
-                });
-            }
-        },
-        controller: 'ExploreCtrl',
-        templateUrl: 'js/chat_room/explore.html'});
-
-    $stateProvider.state('room.weekend', {
-        url: '/weekend/:id',
-        resolve: {
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-                console.log('resolve');
-                return AuthService.getLoggedInUser().then(function(user){
-                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-                        return user;
-                    })
-                });
-            }
-        },
-        controller: 'WeekendCtrl',
-        templateUrl: 'js/chat_room/weekend.html'});
-
+        }
+    });
 });
+

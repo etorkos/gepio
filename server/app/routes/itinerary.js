@@ -6,6 +6,7 @@ var User = mongoose.model('User');
 var Event = mongoose.model('Event');
 
 router.post('/', function(req, res, next){
+
 	console.log('Got to itinerary post with', req.body.user);
 	var user = req.body.user ? req.body.user._id : undefined;
 	var obj = {};
@@ -32,7 +33,7 @@ router.post('/', function(req, res, next){
 
 router.get('/:id', function (req, res, next ){
 	var itineraryId = req.params.id;
-	console.log('arrived here ok', itineraryId);
+	// console.log('arrived here ok', itineraryId);
 	Itinerary.findById(itineraryId, function(err, item){
 		console.log('out of the search', 'item', item, 'err', err);
 		res.json(item);
@@ -40,33 +41,52 @@ router.get('/:id', function (req, res, next ){
 });
 
 router.post('/invite', function (req, res, next){
-	var itineraryId = req.body.id;
+	var itineraryId = req.body.itineraryId;
 	var userInvitee = req.body.userId;
-	Itinerary.userExistsOrIsAdded(itineraryId, userInvitee, function(err, response){
-		if (err) return next(err);
-		if (response) {
+	console.log('Info to Db');
+	console.log('arguments', req.body);
+	Itinerary.findById(itineraryId, function (err, itinerary){
+		console.log('itinerary', itinerary, 'err', err);
+		var resolved = false;
+		itinerary.users.forEach(function(user){
+			if (userInvitee === user) {
+	    		resolved = true;
+	    		res.send(false);
+	    	}
+		});
+		if(!resolved){
 			User.findById(userInvitee, function (err, user){
-				user.update({$push: { invites: response._id }}, function (err, user){
-					res.send(response);
-				});
-			});
+				if (err) return next(err);
+				user.update({ $push: {invites: itineraryId}}, function (err, modCount){
+					if (err) return next(err);
+					itinerary.update({ $push: {users: userInvitee}}, function (err, modCount2){
+						if (err) return next(err);
+						res.send(true);
+					})
+					
+				})
+			})
 		}
-		else res.send( null );
 	});
-})
+});
 
 router.post('/toggleSetting', function (req, res, next){
 	var itineraryId = req.body.id;
 	var newStatus = 'open';
-	console.log(req.body);
-	Itinerary.findById(itineraryId).exec(function (err,itinerary){
-		console.log('itinerary', itinerary, 'err', err);
-		if (itinerary.inviteStatus === 'open') { newStatus = 'closed'; }
-		console.log('newStatus', newStatus);
-		Itinerary.findById(itineraryId).update({$set: {inviteStatus: newStatus}}, function (err,data){
-			console.log('err', err, 'data', newStatus);
-			res.send(newStatus);
-		});
+	Itinerary.findById(itineraryId,function (err, itinerary){
+		// console.log('itinerary', typeof itinerary.users.length, itinerary.users.length);
+		if(itinerary.users.length === 0 ){ 
+			// console.log('falsy...');
+			res.status(200).send({status: newStatus});
+		}
+		else {
+			if (itinerary.inviteStatus === 'open') { newStatus = 'closed'; }
+			// console.log('newStatus', newStatus);
+			Itinerary.findById(itineraryId).update({$set: {inviteStatus: newStatus}}, function (err,data){
+				// console.log('err', err, 'data', newStatus);
+				res.status(200).send({status: newStatus});
+			});
+		}
 	});
 	
 })
@@ -83,7 +103,7 @@ router.put('/vote', function (req, res){
 		if (err) console.log(err);
 		else {
 			itinerary.updateVotes(req.body).then(function (data){
-				console.log(data);
+				// console.log(data);
 				res.json(data);
 			});
 		}
@@ -92,7 +112,7 @@ router.put('/vote', function (req, res){
 
 router.put('/day', function (req, res){
 	Itinerary.changeDay(req.body).then(function (result){
-		console.log("DAY CHANGED", result);
+		// console.log("DAY CHANGED", result);
 		res.json(result);
 	});
 });

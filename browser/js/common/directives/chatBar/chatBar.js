@@ -11,6 +11,7 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 			//button functions
 			scope.submit_message = function(){
 				ChatroomFactory.send_message_to_server(scope.current_message)
+				scope.current_message = "";
 				scope.message_to_display.push(scope.current_message);
 			};
 			scope.open_invitation = ChatroomFactory.open_invitation;

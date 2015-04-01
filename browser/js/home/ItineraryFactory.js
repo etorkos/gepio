@@ -67,8 +67,9 @@ app.factory('ItineraryFactory', function ($http){
 	};
 	factory.inviteUser = function (itineraryId, userId){
 		var body = { itineraryId: itineraryId, userId: userId };
-		return $http.post('/api/itinerary/invite').then(function (res){
-			return res.data;
+		console.log('inviteUser', body);
+		return $http.post('/api/itinerary/invite', body).then(function (res){
+			return res;
 		});
 	};
 	factory.toggleInviteStatus = function (itineraryId){

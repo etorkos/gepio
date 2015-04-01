@@ -5,7 +5,6 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 
 	DataSetFactory.isNew = false;
 	
-
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
 	$rootScope.$on('allDataReturned', function (event, args){

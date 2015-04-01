@@ -17,11 +17,12 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 			}
 		},
 		findUserByName: function (nameObject){
-			return $http.get('/api/user/find/'+nameObject.first_name+'/'+nameObject.last_name).then(function ( response ){
+			return $http.get('/api/user/find/'+nameObject.firstName+'/'+nameObject.lastName).then(function ( response ){
 				return response.data;
 			})
 		},
 		findUserByEmail: function (nameObject){
+			console.log('email search', nameObject.email);
 			return $http.get('/api/user/find/'+nameObject.email).then(function ( response ){
 				return response.data;
 			})
@@ -31,6 +32,16 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 			console.log(path);
 			return $http.get(path).then(function(response){
 				return response.data;
+			});
+		},
+		removeInvite: function (userId, inviteId){
+			return $http.post('/api/user/removeInvite', {userId: userId, inviteId: inviteId}).then(function ( response){
+				return response; //should be a boolean
+			});
+		},
+		acceptInvite: function (userId, inviteId){
+			return $http.post('/api/user/acceptInvite', {userId: userId, inviteId: inviteId}).then(function ( response){
+				return response; //should be a boolean
 			});
 		},
 		generateInitialGenericPOIs: function(){

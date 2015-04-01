@@ -1,9 +1,9 @@
 'use strict';
 
 
-<<<<<<< HEAD
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout, SocketReaction, ItineraryFactory, $rootScope){
 
+	$scope.DataSetFactory.isNew = false;
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
 	$scope.check = function (){
@@ -17,8 +17,6 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		}, 1000);
 	}
 	$scope.check();
-
-app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction, ItineraryFactory){
 	
 	//socket reaction 
 

@@ -125,6 +125,7 @@ schema.statics.changeDay = function (data){
 					if (events.length >= 8) break;
 				}
 				itinerary.otherEvents = events;
+				itinerary.date = data.date;
 				return itinerary.save(function (err, saved){
 					if (err) reject(err);
 					else resolve(saved);

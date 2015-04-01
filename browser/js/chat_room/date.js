@@ -3,20 +3,19 @@
 
 app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout, SocketReaction, ItineraryFactory, $rootScope){
 
-	$scope.DataSetFactory.isNew = false;
+	DataSetFactory.isNew = false;
+	
+
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
-	$scope.check = function (){
-		$timeout(function (){
-			$scope.hasReturned = POIFactory.allPOIsReturned;
-			if (POIFactory.allPOIsReturned) {
-				$scope.events = DataSetFactory.events;
-				$scope.venues = DataSetFactory.venues;
-			}
-			if (!$scope.hasReturned) $scope.check();
-		}, 1000);
-	}
-	$scope.check();
+	$rootScope.$on('allDataReturned', function (event, args){
+		$scope.events = DataSetFactory.events;
+		$scope.venues = DataSetFactory.venues;
+		if (POIFactory.date != $scope.dt){
+			console.log("Change date");
+			$rootScope.$emit('changeTheDate', { date: POIFactory.date });
+		}
+	});
 	
 	//socket reaction 
 

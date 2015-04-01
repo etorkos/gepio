@@ -27,10 +27,14 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     };
 
     $scope.today = function() {
-        $scope.dt = new Date(); //date object we are using
-        POIFactory.date = $scope.dt;
+        $scope.dt = POIFactory.date; //date object we are using
     };
     $scope.today();
+
+    $rootScope.$on('changeTheDate', function (event, args){
+        console.log("CHANGE THE DATE!", args.date);
+        $scope.dt = args.date;
+    });
 
     $scope.exportDate = function(){
         ItineraryFactory.changeEventsDate($scope.dt, $scope.dataSet.events);

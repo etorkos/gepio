@@ -29,18 +29,22 @@ app.config(function ($stateProvider) {
             //     });
             // },
             // savedEvents: function($stateParams, ResolveUserFactory, ItemMixFactory, $scope){
-            savedEvents: function ($stateParams, ResolveUserFactory, ItemMixFactory, ItineraryFactory, DataSetFactory){   
+            savedEvents: function ($stateParams, ResolveUserFactory, ItemMixFactory, ItineraryFactory, DataSetFactory, POIFactory){   
                 if (!DataSetFactory.isNew){
                     ItineraryFactory.setActiveParams = { id: $stateParams.id, type: $stateParams.type };
                     ItineraryFactory.getItinerary($stateParams.id).then(function (itinerary){
+                        POIFactory.setItineraryDate(itinerary.date);
                         DataSetFactory.insertAndUpdate(itinerary.otherVenues, itinerary.otherEvents);
                     });
+                }
+                else {
+                    DataSetFactory.setUnmodifiedItinerary();
                 }
             }
         },
     });
 
-    $stateProvider.state('room.loading', {
+    $stateProvider.state('loading', {
         url: '/:type/:id/redirect',
         controller: 'LoadingCtrl',
         templateUrl: 'js/chat_room/loading.html'

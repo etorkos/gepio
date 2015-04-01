@@ -8,7 +8,7 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 				if (dir.title === 'Whats for lunch?' || dir.title === 'Lets go out tonight') dir.type = 'config1';
 				else dir.type = 'config2';
 				if (POIFactory.allPOIsReturned) $state.go('room.sub', { type: dir.type, id: dir._id });
-				else $state.go('room.loading', { type: dir.type, id: dir._id });
+				else $state.go('loading', { type: dir.type, id: dir._id });
 				// $window.location.href = '/plan/' + dir.type + '/' + dir._id;
 			};
 		},

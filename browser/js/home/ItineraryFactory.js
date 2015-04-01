@@ -91,7 +91,7 @@ app.factory('ItineraryFactory', function ($http){
 				}
 				if (events.length >= 8) break;
 			}
-			var update = { id: factory.setActiveParams.id, data: events };
+			var update = { id: factory.setActiveParams.id, data: events, date: day };
 			$http.put('/api/itinerary/day', update).then(function (res){
 				console.log("Events Updated", res.data);
 			});

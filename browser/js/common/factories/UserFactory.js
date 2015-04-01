@@ -17,11 +17,12 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 			}
 		},
 		findUserByName: function (nameObject){
-			return $http.get('/api/user/find/'+nameObject.first_name+'/'+nameObject.last_name).then(function ( response ){
+			return $http.get('/api/user/find/'+nameObject.firstName+'/'+nameObject.lastName).then(function ( response ){
 				return response.data;
 			})
 		},
 		findUserByEmail: function (nameObject){
+			console.log('email search', nameObject.email);
 			return $http.get('/api/user/find/'+nameObject.email).then(function ( response ){
 				return response.data;
 			})
@@ -33,23 +34,27 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				return response.data;
 			});
 		},
+		removeInvite: function (userId, inviteId){
+			return $http.post('/api/user/removeInvite', {userId: userId, inviteId: inviteId}).then(function ( response){
+				return response; //should be a boolean
+			});
+		},
+		acceptInvite: function (userId, inviteId){
+			return $http.post('/api/user/acceptInvite', {userId: userId, inviteId: inviteId}).then(function ( response){
+				return response; //should be a boolean
+			});
+		},
 		generateInitialGenericPOIs: function(){
-			return MoviesFactory.getMovies().then(function (movies){
+			return EventsFactory.getEvents('103').then(function (events){
 				var data = { movies: null, events: [], venues: [], totals: 0 };
-				data.movies = movies;
-				data.totals += movies.length;
+				data.events = data.events.concat(events);
+				data.totals += events.length;
 				return data;
 			}).then(function (data){
-				return EventsFactory.getEvents('103').then(function (events){
-					data.events = data.events.concat(events);
-					data.totals += events.length;
+				return VenuesFactory.getVenues('4bf58dd8d48988d10c941735').then(function (venues){
+					data.venues = data.venues.concat(venues);
+					data.totals += venues.length;
 					return data;
-				}).then(function (data){
-					return VenuesFactory.getVenues('4bf58dd8d48988d10c941735').then(function (venues){
-						data.venues = data.venues.concat(venues);
-						data.totals += venues.length;
-						return data;
-					});
 				});
 			});
 		},

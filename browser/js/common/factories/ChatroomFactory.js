@@ -37,6 +37,9 @@ app.factory('ChatroomFactory', function ($http){
 			});
 		},
 		join_room : function(room_name){
+			if(typeof room_name == "undefined"){
+				socket.emit('join_room',current_itinerary_id)
+			}
 			socket.emit('join_room',room_name)
 		},
 		open_invitation : function(id,location,range){

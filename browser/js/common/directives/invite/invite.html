@@ -1,0 +1,15 @@
+<div class='col-lg-offset-4 bump' title='invite'>
+	<form name='inviteNameForm' ng-submit='inviteNameForm.$valid && searchByName()'>
+		<div>
+			First Name:<textarea name='invite.first_name' required ng-model='invite.firstName'></textarea>
+			Last Name:<textarea name='invite.last_name' required ng-model='invite.lastName'></textarea>
+			<button type='submit' class='btn btn-sm btn-submit' > Search by name </button>
+		</div>
+	</form>
+	<form name = 'inviteEmailForm' ng-submit='inviteEmailForm.$valid && emailValid(invite.email) && searchByEmail()'>
+		<div>
+			Email:<textarea name='invite.email' required ng-model = 'invite.email'></textarea>
+			<button type='submit' class='btn btn-sm btn-submit' > Search by email </button>
+		</div>
+	</form>
+</div>

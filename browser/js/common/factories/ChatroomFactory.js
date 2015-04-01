@@ -78,7 +78,7 @@ app.factory('ChatroomFactory', function ($http){
 			var obj = {};
 			obj.type = event.type;
 			obj.name = event.name;
-			obj.vote = 1;
+			obj.vote = -1;
 			if(event.type == "venues"){
 				obj.lat = event.location.lat,
 				obj.lng = event.location.lng
@@ -87,8 +87,10 @@ app.factory('ChatroomFactory', function ($http){
 				obj.lat = event.venue.latitude,
 				obj.lng = event.venue.longitude
 			}
-			socket.emit('up_vote', obj);
 			socket.emit('down_vote', obj);
+		},
+		top_eights : function(eights){
+			socket.emit('top_eights',eights);
 		}
 	}
 });

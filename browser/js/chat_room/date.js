@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout, SocketReaction, ItineraryFactory, $rootScope, ChatroomFactory, SocketReaction){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, 
+									DataSetFactory, $timeout, ItineraryFactory, $rootScope, ChatroomFactory, SocketReaction){
 
 	DataSetFactory.isNew = false;
 	

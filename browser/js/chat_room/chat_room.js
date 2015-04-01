@@ -4,6 +4,8 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     if($rootScope.ItineraryId){
         ChatroomFactory.set_itinerary_id($rootScope.ItineraryId);
     }
+    ChatroomFactory.join_room();
+    
     $scope.invite = false;
     $scope.invite_friends = function(){
         //$scope.invite = !$scope.invite;

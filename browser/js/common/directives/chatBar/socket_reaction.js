@@ -19,11 +19,10 @@ app.service('SocketReaction',function(){
 		},
 		socket_on_vote : function(socket,scope){
 			socket.on('up_vote',function(data){
-				console.log(scope.dataSet);
-				console.log(data);
+				alert(data.name + "   "+data.vote);
 			});
 			socket.on('down_vote',function(data){
-				console.log(data);
+				alert(data.name + "   "+data.vote);
 			});
 		}
 	};

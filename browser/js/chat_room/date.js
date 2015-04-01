@@ -1,10 +1,11 @@
 'use strict';
 
 
-app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction, ItineraryFactory){
+app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction, ItineraryFactory,ChatroomFactory){
 	
 	//socket reaction 
-
+	ChatroomFactory.set_itinerary_id($stateParams.id);
+	ChatroomFactory.join_room();
 	SocketReaction.socket_on_vote(socket,$scope);
 
 	console.log(roomType);

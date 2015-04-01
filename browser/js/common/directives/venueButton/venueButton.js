@@ -13,20 +13,21 @@ app.directive('venueButton', function (PrefBuilder) {
                 $scope.isClicked = !$scope.isClicked;
             };
             $scope.downvoteVenue = function(item){
-                console.log(item);
+                // console.log(item);
+                ChatroomFactory.down_vote(item);
                 // scope.votes--;
                 // $(elem.find('button')[1]).attr('disabled', true);
                 // $(elem.find('button')[0]).attr('disabled', false);
                 VotingFactory.downVote(item);
             };
             $scope.upvoteVenue = function(item){
+                //upvote by sockets
+                ChatroomFactory.up_vote(item);
+
                 // scope.votes++;
                 // $(elem.find('button')[1]).attr('disabled', false);
                 // $(elem.find('button')[0]).attr('disabled', true);
                 VotingFactory.upVote(item);
-
-                //upvote by sockets
-                ChatroomFactory.up_vote(item);
             };
         }
     };

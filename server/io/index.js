@@ -16,29 +16,17 @@ module.exports = function (server) {
 			client.geo_location = data;
 		});
 
-
-		// client.on('create_room',function(data){
-		// 	// console.log(data);
-		// 	var nsp = io.of('/'+data.room_name)
-		// 	namespaces.push(nsp);
-		// 	// console.log(namespaces);
-		// 	  nsp.on('message',function(thing){
-		// 	  	console.log(thing, "from nsp");
-		// 	  });
-		// 	nsp.on('connection', function(client_in_nsp){
-		// 	  console.log('someone connected to' + data.room_name);
-
-		// 	});
-		// 	nsp.emit('hi', 'everyone!');
-		// });
-
 		client.on('join_room',function(room_name){
-			client.room = room_name;
-			client.join(client.room);
+			if(room_name !== null){
+				client.room = room_name;
+				client.join(client.room);
+				console.log(client.room);
+			}
 		});
 
 		client.on('message',function(data){
 			if(client.room){
+				console.log(data);
 				client.broadcast.to(client.room).emit('new_message',data);
 			}
 		});
@@ -64,12 +52,12 @@ module.exports = function (server) {
 		});
 
 		client.on('up_vote', function(data){
-			console.log(data);
+			console.log(data)
 			client.broadcast.to(client.room).emit('up_vote',data)
 		});
 
-		client.on('downvote', function(data){
-			client.broadcast.to(client.room).emit('downvote',data)
+		client.on('down_vote', function(data){
+			client.broadcast.to(client.room).emit('down_vote',data)
 		});
 	});
 };

@@ -1,12 +1,13 @@
 'use strict';
 app.factory('ChatroomFactory', function ($http){
-	var current_itinerary_id;
 	return {
+		current_itinerary_id : null,
 		set_itinerary_id : function(id){
-			current_itinerary_id = id;
+			console.log(id, "set id")
+			this.current_itinerary_id = id;
 		},
 		get_itinerary_id : function(){
-			return current_itinerary_id;
+			return this.current_itinerary_id;
 		},
 		set_chatroom_name : function(chatroom_name){
 			//a method to change name of chatroom
@@ -16,9 +17,9 @@ app.factory('ChatroomFactory', function ($http){
 			this.send_message_to_server(message_text);
 			this.save_message_to_database(message_text);
 		},
-		send_message_to_server : function(message_text){
+		send_message_to_server : function(name,message_text){
 			socket.emit('message',{
-				// name : user.firstName,
+				name : name,
 				message : message_text
 			});
 		},
@@ -38,14 +39,16 @@ app.factory('ChatroomFactory', function ($http){
 		},
 		join_room : function(room_name){
 			if(typeof room_name == "undefined"){
-				socket.emit('join_room',current_itinerary_id)
+				console.log(this.current_itinerary_id, "join room from this")
+				socket.emit('join_room',this.current_itinerary_id);
 			}
 			socket.emit('join_room',room_name)
 		},
-		open_invitation : function(id,location,range){
+		open_invitation : function(lat,lng,range){
 			socket.emit('open_invitation',{
-				room_id : id,
-				location: location,
+				room_name : this.current_itinerary_id,
+				lat : lat,
+				lng : lng,
 				range: range
 			})
 		},
@@ -56,23 +59,26 @@ app.factory('ChatroomFactory', function ($http){
 			socket.emit('leave_room');
 		},
 		up_vote: function(event){
-			console.log(event);
-			var obj = {
-				type : event.type,
-				name : event.name,
-				lat : event.location.lat,
-				lng : event.location.lng,
-				vote : 1
-			};
+			if(event.venue){
+				var obj = {
+					type : event.type,
+					name : event.name,
+					lat : event.location.lat,
+					lng : event.location.lng,
+					vote : 1
+				};
+			}
 			socket.emit('up_vote', obj);
 		},
 		down_vote : function(event){
 			var obj = {
-				event : event,
+				type : event.type ? event.type : null,
+				name : event.name,
+				lat : event.location.lat,
+				lng : event.location.lng,
 				vote : -1
 			};
 			socket.emit('down_vote', obj);
-			$http.post('/api/chatroom/' + current_itinerary_id + '/vote', obj);
 		}
 	}
 });

@@ -12,11 +12,28 @@ function removeFromList (scopeDset, item){
 	return scopeDset.splice(loc, 1);
 }
 
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout){
+
+	$scope.hasReturned = POIFactory.allPOIsReturned;
+
+	$scope.check = function (){
+		$timeout(function (){
+			$scope.hasReturned = POIFactory.allPOIsReturned;
+			if (POIFactory.allPOIsReturned) {
+				$scope.events = DataSetFactory.events;
+				$scope.venues = DataSetFactory.venues;
+			}
+			if (!$scope.hasReturned) $scope.check();
+		}, 1000);
+	}
+	$scope.check();
 
 	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);
+
+	$scope.events = DataSetFactory.events;
+	$scope.venues = DataSetFactory.venues;
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

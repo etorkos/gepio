@@ -1,7 +1,7 @@
 'use strict';
 var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory, ItineraryFactory) {
+app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory, ItineraryFactory, POIFactory, DataSetFactory) {
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
@@ -44,17 +44,23 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     $scope.dataSet.movies = data.movies;
                     $scope.dataSet.events = data.events;
                     $scope.dataSet.venues = data.venues;
+                    DataSetFactory.movies = data.movies;
+                    DataSetFactory.events = data.events;
+                    DataSetFactory.venues = data.venues;
                     $scope.totals = data.totals;
                 }).then(function (){
                     UserFactory.generateMorePOIs(['109', '119'], ['52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735']).then(function (data){
                         data.events.forEach(function (arr, index){
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);
+                            DataSetFactory.events = DataSetFactory.events.concat(arr);
                         });
                         data.venues.forEach(function (arr, index){
                             $scope.totals += arr.length;
                             $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
+                            DataSetFactory.venues = DataSetFactory.venues.concat(arr);
                         });
+                        POIFactory.allPOIsReturned = true;
                     });
                 });
             }
@@ -66,6 +72,8 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                 UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
                     $scope.dataSet.events = data.events;
                     $scope.dataSet.venues = data.venues;
+                    DataSetFactory.events = data.events;
+                    DataSetFactory.venues = data.venues;
                     $scope.totals += data.totals;
                     preferences.events.unshift();
                     preferences.foods.unshift();
@@ -75,18 +83,24 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                         data.events.forEach(function (arr){
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);
+                            DataSetFactory.events = DataSetFactory.events.concat(arr);
                         });
                         data.venues.forEach(function (arr){
                             $scope.totals += arr.length;
                             $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
+                            DataSetFactory.venues = DataSetFactory.venues.concat(arr);
                         });
                     }).then(function (){
                         if (preferences.hasMovies){
                             MoviesFactory.getMovies().then(function (movies){
                                 $scope.dataSet.movies = movies;
                                 $scope.totals += movies.length;
-                                console.log($scope.dataSet);
+                                POIFactory.allPOIsReturned = true;
+                                DataSetFactory.movies = movies;
                             });
+                        }
+                        else {
+                            POIFactory.allPOIsReturned = true;
                         }
                     });
                 });

@@ -14,12 +14,31 @@ app.directive('navbarItineraries', function($window){
 
 			AuthService.getLoggedInUser().then(function(user){
 				console.log('sending the request');
+				$scope.user = user;
+				$scope.getUserItineraries(user);
+			})
+
+			$scope.getUserItineraries = function (user){
 				UserFactory.getItineraries(user._id).then(function(data){
 					$scope.invites = data.invites;
 					$scope.itineraries = data.itineraries;
 					console.log('data', data);
 				})
-			})
+			}
+
+			$scope.acceptInvite = function (invite){
+				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
+						console.log(response);
+						$scope.getUserItineraries(user);
+				})
+			}
+
+			$scope.rejectInvite = function (){
+				UserFactory.rejectInvite($scope.user, invite._id ).then(function (response){
+						console.log(response);
+						$scope.getUserItineraries(user);
+				})
+			}
 		}
 	};
 });

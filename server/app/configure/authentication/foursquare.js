@@ -49,7 +49,7 @@ module.exports = function (app) {
     app.get('/auth/foursquare/callback',
         passport.authenticate('foursquare', { failureRedirect: '/' }),
         function (req, res) {
-            res.redirect('/user');
+            res.redirect('/');
     });
 
 };

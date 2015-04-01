@@ -34,6 +34,16 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				return response.data;
 			});
 		},
+		removeInvite: function (userId, inviteId){
+			return $http.post('/api/user/removeInvite', {userId: userId, inviteId: inviteId}).then(function ( response){
+				return response; //should be a boolean
+			});
+		},
+		acceptInvite: function (userId, inviteId){
+			return $http.post('/api/user/acceptInvite', {userId: userId, inviteId: inviteId}).then(function ( response){
+				return response; //should be a boolean
+			});
+		},
 		generateInitialGenericPOIs: function(){
 			return MoviesFactory.getMovies().then(function (movies){
 				var data = { movies: null, events: [], venues: [], totals: 0 };

@@ -38,20 +38,34 @@ router.get('/:id', function (req, res, next ){
 });
 
 router.post('/invite', function (req, res, next){
-	var itineraryId = req.body.id;
+	var itineraryId = req.body.itineraryId;
 	var userInvitee = req.body.userId;
-	Itinerary.userExistsOrIsAdded(itineraryId, userInvitee, function(err, response){
-		if (err) return next(err);
-		if (response) {
+	console.log('Info to Db');
+	console.log('arguments', req.body);
+	Itinerary.findById(itineraryId, function (err, itinerary){
+		console.log('itinerary', itinerary, 'err', err);
+		var resolved = false;
+		itinerary.users.forEach(function(user){
+			if (userInvitee === user) {
+	    		resolved = true;
+	    		res.send(false);
+	    	}
+		});
+		if(!resolved){
 			User.findById(userInvitee, function (err, user){
-				user.update({$push: { invites: response._id }}, function (err, user){
-					res.send(response);
-				});
-			});
+				if (err) return next(err);
+				user.update({ $push: {invites: itineraryId}}, function (err, modCount){
+					if (err) return next(err);
+					itinerary.update({ $push: {users: userInvitee}}, function (err, modCount2){
+						if (err) return next(err);
+						res.send(true);
+					})
+					
+				})
+			})
 		}
-		else res.send( null );
 	});
-})
+});
 
 router.post('/toggleSetting', function (req, res, next){
 	var itineraryId = req.body.id;

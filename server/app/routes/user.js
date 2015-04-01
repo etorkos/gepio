@@ -37,7 +37,7 @@ router.get('/find/:email' , function (req, res, next){
 router.get('/:id/itineraries', function (req, res, next){
 	var userId = req.user._id;
 	// console.log('user ', userId, ' is requesting itinerary information');
-	User.findById(userId).populate('itineraries').exec(function (err, user){
+	User.findById(userId).populate('itineraries invitations').exec(function (err, user){
 		if(err) next(err);
 		else {
 			// console.log('user information', user);
@@ -65,6 +65,27 @@ router.post('/:id/preferences',function (req, res, next){
 				res.send("saved");
 			});
 		}
+	});
+});
+
+router.post('/removeInvite', function (req, res, next){
+	//have userId, inviteId
+	//remove id from user invites, remove auth from itinery
+	User.findById(req.body.userId).update({$pull: {invites: req.body.inviteId}}, function (err, numUpdated){
+		if(err) return next(err);
+		Itinerary.findById(req.body.inviteId).update({$pull: { users: req.body.userId}}, function (err, numUpdated2){
+			if(err) return next(err);
+			res.send(true);
+		});
+	});
+});
+
+router.post('/acceptInvite', function (req, res, next){
+	//have userId, inviteId
+	//remove id from user invites, remove auth from itinery
+	User.findById(req.body.userId).update({$pull: {invites: req.body.inviteId}}, {$push: {itineraries: req.body.userId }},function (err, numUpdated){
+		if(err) return next(err);
+		res.send(true);
 	});
 });
 

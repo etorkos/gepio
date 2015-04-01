@@ -14,6 +14,8 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 			zoom: 13
 		};
 	});
+
+	console.log($stateParams.type);
 	$scope.user_location = { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude };
 	$scope.active = MessageFactory.active;
 	$scope.messages = MessageFactory.messages;
@@ -36,29 +38,32 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 
 	$scope.finalizeItinerary = function(){
 
-		var mData = $scope.dataSet;
+		// var mData = $scope.dataSet;
 
-		$scope.finalData = {
-			venues: [],
-			events: []
-		};
-		for(var v = 0; v < mData.venues.length; v++){
-			if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
-				$scope.finalData.venues.push(mData.venues[v]);
-		}
-		for(var e = 0; e < mData.events.length; e++){
-			if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
-				$scope.finalData.events.push(mData.events[e]);	
-		};
-		// console.log($scope.finalData);
-		passService.addFinal($scope.finalData);
+		// $scope.finalData = {
+		// 	venues: [],
+		// 	events: []
+		// };
+		// for(var v = 0; v < mData.venues.length; v++){
+		// 	if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
+		// 		$scope.finalData.venues.push(mData.venues[v]);
+		// }
+		// for(var e = 0; e < mData.events.length; e++){
+		// 	if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
+		// 		$scope.finalData.events.push(mData.events[e]);	
+		// };
+		// // console.log($scope.finalData);
+		// passService.addFinal($scope.finalData);
 		$state.go('final-itinerary');
 	}
 
-	// setTimeout(function(){
-		// VotingFactory.setUpVotes($scope.dataSet.venues);
-		// VotingFactory.setUpVotes($scope.dataSet.events);
-	// },5000);
+	if($stateParams.type == 'config1')
+		$scope.showEvents = false;
+	else
+		$scope.showEvents = true;
+		
+
+
 });
 
 app.service('passService', function(){

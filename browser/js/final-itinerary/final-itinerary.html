@@ -3,30 +3,22 @@
 		<div class="panel-heading"><h4>Attendees</h4></div>
 		<div class="panel-body">
 			<!-- <div ng-repeat="attendee in attendees">Final Data</div> -->
-			Final Data -xLonely1x
 			<p>Data Thing</p>
 		</div>
 	</div>
 	<div class="panel-success">
-		<div class="panel-heading"><h4>Venues</h4></div>
-		<div class="panel-body" ng-repeat="venue in finalData.venues">
-			<list-ranking my-place="venue"></list-ranking>
-		</div>
-	</div>
-	<div class="panel-success">
-		<div class="panel-heading"><h4>Events</h4></div>
-		<div class="panel-body" ng-repeat="event in finalData.events">
-			<list-ranking my-place="event"></list-ranking>
-		</div>
-	</div>
-	<div class="panel-success">
-		<div class="panel-heading"><h4>Drinks</h4></div>
+		<div class="panel-heading"><h4>Restaurant</h4></div>
 		<div class="panel-body">
-			<!-- <div ng-repeat="drink in drinks">Final Data</div> -->
-			Final Drink Data
+			<div>Venue</div>
+		</div>
+	</div>
+	<div class="panel-success" ng-show="showEvents">
+		<div class="panel-heading"><h4>Events</h4></div>
+		<div class="panel-body">
+			<div>Event</div>
 		</div>
 	</div>
 	<button class="btn btn-success" ui-sref="map">Edit Itinerary</button>
-	<button class="btn btn-success" ng-click="">Save Itinerary</button>
+	<button class="btn btn-success" ng-click="saveIt(itinerary)">Save Itinerary</button>
 	<button class="btn btn-success" ui-sref="home">Back Home</button>
 </main>

@@ -10,7 +10,23 @@ app.config(function ($stateProvider){
 app.controller('IntineraryCtrl', function ($scope, $state, passService){
 	// console.log($scope.finalData)
 	//
+
 	$scope.finalData = passService.getFinal();
 	console.log($scope.finalData);
+
+	var interpretIntinerary = function(){
+
+	}
+
+	if($stateParams.type == 'config1')
+		$scope.showEvents = false;
+	else
+		$scope.showEvents = true;
+
+	$scope.saveIt = function(finalItinerary){
+
+	}
+
+	interpretIntinerary();
 });
 

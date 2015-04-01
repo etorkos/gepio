@@ -3,7 +3,7 @@
 
 app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout, SocketReaction, ItineraryFactory, $rootScope){
 
-	$scope.DataSetFactory.isNew = false;
+	// $scope.DataSetFactory.isNew = false;
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
 	$scope.check = function (){

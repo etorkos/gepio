@@ -44,8 +44,9 @@ app.factory('ChatroomFactory', function ($http){
 			}
 			socket.emit('join_room',room_name)
 		},
-		open_invitation : function(lat,lng,range){
+		open_invitation : function(username,lat,lng,range){
 			socket.emit('open_invitation',{
+				username : username,
 				room_name : this.current_itinerary_id,
 				lat : lat,
 				lng : lng,
@@ -59,25 +60,34 @@ app.factory('ChatroomFactory', function ($http){
 			socket.emit('leave_room');
 		},
 		up_vote: function(event){
-			if(event.venue){
-				var obj = {
-					type : event.type,
-					name : event.name,
-					lat : event.location.lat,
-					lng : event.location.lng,
-					vote : 1
-				};
+			var obj = {};
+			obj.type = event.type;
+			obj.name = event.name;
+			obj.vote = 1;
+			if(event.type == "venues"){
+				obj.lat = event.location.lat,
+				obj.lng = event.location.lng
+			}
+			else if (event.type == "event"){
+				obj.lat = event.venue.latitude,
+				obj.lng = event.venue.longitude
 			}
 			socket.emit('up_vote', obj);
 		},
 		down_vote : function(event){
-			var obj = {
-				type : event.type ? event.type : null,
-				name : event.name,
-				lat : event.location.lat,
-				lng : event.location.lng,
-				vote : -1
-			};
+			var obj = {};
+			obj.type = event.type;
+			obj.name = event.name;
+			obj.vote = 1;
+			if(event.type == "venues"){
+				obj.lat = event.location.lat,
+				obj.lng = event.location.lng
+			}
+			else if (event.type == "event"){
+				obj.lat = event.venue.latitude,
+				obj.lng = event.venue.longitude
+			}
+			socket.emit('up_vote', obj);
 			socket.emit('down_vote', obj);
 		}
 	}

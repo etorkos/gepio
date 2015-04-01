@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, ItineraryFactory, AuthService) {
+app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, ItineraryFactory, AuthService, DataSetFactory) {
 
 	// $scope.myInterval = 5000;
 	// var slides = $scope.slides = [{
@@ -44,11 +44,10 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					alert('Please set a few preferences first, so we can give you better reccommendations');
 					$state.go('preferences', {user: user._id}) }
 			else{
-				console.log('redirecting');
 				var dataForItinerary = ItineraryFactory.createDataSet($scope.selectedOption.name, $scope.dataSet);
 				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary , type: $scope.selectedOption }).then(function(itinerary){
-					console.log('going to ', $scope.selectedOption.state, 'with', itinerary._id)
 					ItineraryFactory.setActiveParams = { id: itinerary._id, type: $scope.selectedOption.type };
+					DataSetFactory.isNew = true;
 					$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
 				});	
 			}

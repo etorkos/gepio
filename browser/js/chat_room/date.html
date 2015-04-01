@@ -8,7 +8,7 @@
 				<button ng-click='shuffle("venues")' class='clear-background'><img  src='http://www.villacountry.fm/content/modern_skin_dark/shuffle-button-over.png'/></button>
 			</div>
 			<div class="panel-content">
-				<venue-button data="place" ng-repeat="place in dataSet.venues | limitTo:8">
+				<venue-button data="place" ng-repeat="place in venues | limitTo:8">
 				</venue-button>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 				<button ng-click='shuffle("events")' class='clear-background' ><img src='http://www.villacountry.fm/content/modern_skin_dark/shuffle-button-over.png'/></button>
 			</div>
 			<div class="panel-content">
-				<venue-button data="event" ng-repeat="event in dataSet.events | checkDate:dt | limitTo:8 | orderBy:votes ">
+				<venue-button data="event" ng-repeat="event in events | checkDate:dt | limitTo:8 | orderBy:votes ">
 				</venue-button>
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 		<div class="panel-success">
 			<div class="panel-heading"><h4>Restaurants</h4></div>
 			<div class="panel-content">
-				<venue-button data="place" ng-repeat="place in dataSet.venues | limitTo:8"></venue-button>
+				<venue-button data="place" ng-repeat="place in venues | limitTo:8"></venue-button>
 			</div>
 		</div>
 	</div>

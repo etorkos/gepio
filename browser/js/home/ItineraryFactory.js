@@ -14,8 +14,7 @@ app.factory('ItineraryFactory', function ($http){
 	};
 	factory.getItinerary = function (itineraryId){
 		console.log('in itinerary factory');
-		return $http.get('/api/itinerary/' + itineraryId)
-		.then(function(response){
+		return $http.get('/api/itinerary/' + itineraryId).then(function (response){
 			console.log('response from getItinerary server ', response.data);
 			return response.data;
 		});
@@ -97,7 +96,7 @@ app.factory('ItineraryFactory', function ($http){
 				console.log("Events Updated", res.data);
 			});
 		}
-	}
+	};
 	factory.setActiveParams = undefined;
 	// updateDataSet: function (type, id, set){
 	// 	var data = { type: type, id: id, data: set };

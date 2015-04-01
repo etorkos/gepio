@@ -52,7 +52,7 @@ schema.methods.setOtherData = function (data){
 						var embed = new Event();
 						embed.title = venue.name;
 						embed.description = venue.category.name;
-						embed.location = { lat: venue.location.lat, lon: venue.location.lon };
+						embed.location = { lat: venue.location.lat, lon: venue.location.lng };
 						embedVenues.push({ venue: embed, votes: 0});
 					});
 				}

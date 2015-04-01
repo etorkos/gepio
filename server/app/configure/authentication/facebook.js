@@ -26,8 +26,8 @@ module.exports = function (app) {
                     facebook: {
                         id: profile.id
                     },
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName
+                    firstName: profile.name.givenName.toLowerCase(),
+                    lastName: profile.name.familyName.toLowerCase()
                 }).then(function (user) {
                     done(null, user);
                 });

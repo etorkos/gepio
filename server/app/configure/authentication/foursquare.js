@@ -28,8 +28,8 @@ module.exports = function (app) {
             		foursquare: {
             			id: profile.id
             		},
-            		firstName: profile.name.givenName,
-            		lastName: profile.name.familyName,
+            		firstName: profile.name.givenName.toLowerCase(),
+            		lastName: profile.name.familyName.toLowerCase(),
             		email: profile.emails[0].value,
             		foursquareraw : profile._raw
             	};

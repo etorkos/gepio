@@ -8,6 +8,8 @@ app.directive('invite', function (UserFactory, ItineraryFactory, $stateParams){
 			$scope.invite = { };
 
 			$scope.searchByName = function (){
+				$scope.invite.firstName = $scope.invite.firstName.toLowerCase();
+				$scope.invite.lastName = $scope.invite.lastName.toLowerCase();
 				UserFactory.findUserByName($scope.invite).then(function (response){
 					 console.log('response', response);
 					if( response._id === null){
@@ -22,6 +24,12 @@ app.directive('invite', function (UserFactory, ItineraryFactory, $stateParams){
 					}
 				});
 			};
+
+			$scope.emailValid = function (string){
+
+				var regex = /[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'/g;
+				return regex.test(string);
+			}
 
 			$scope.searchByEmail = function (){
 				UserFactory.findUserByEmail($scope.invite).then(function (response){

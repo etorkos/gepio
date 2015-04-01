@@ -27,8 +27,8 @@ module.exports = function (app) {
                     google: {
                         id: profile.id
                     },
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
+                    firstName: profile.name.givenName.toLowerCase(),
+                    lastName: profile.name.familyName.toLowerCase(),
                     email: profile.emails[0].value
                 }).then(function (user) {
                     done(null, user);

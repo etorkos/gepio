@@ -13,7 +13,7 @@ router.get('/search', function (req, res){
 	var query = new Eventbrite(req.query);
 	var url = query.buildUrl(evbriteClient.anonymous_oauth);
 	https.get(url, function (response){
-		console.log("Status: ", response.statusCode);
+		 // console.log("Status: ", response.statusCode);
 		var body = "";
 		response.on('data', function (chunk){
 			body += chunk;

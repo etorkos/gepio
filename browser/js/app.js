@@ -51,6 +51,8 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     DataSetFactory.movies = data.movies;
                     DataSetFactory.events = data.events;
                     DataSetFactory.venues = data.venues;
+                    DataSetFactory.genericEvents = data.events;
+                    DataSetFactory.genericVenues = data.venues;
                     $scope.totals = data.totals;
                 }).then(function (){
                     UserFactory.generateMorePOIs(['109', '119'], ['52e81612bcbc57f1066b79f1','4bf58dd8d48988d110941735','4bf58dd8d48988d1c2941735']).then(function (data){
@@ -58,13 +60,16 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);
                             DataSetFactory.events = DataSetFactory.events.concat(arr);
+                            DataSetFactory.genericEvents = DataSetFactory.genericEvents.concat(arr);
                         });
                         data.venues.forEach(function (arr, index){
                             $scope.totals += arr.length;
                             $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
                             DataSetFactory.venues = DataSetFactory.venues.concat(arr);
+                            DataSetFactory.genericVenues = DataSetFactory.genericVenues.concat(arr);
                         });
                         POIFactory.allPOIsReturned = true;
+                        $rootScope.$broadcast('allDataReturned');
                     });
                 });
             }
@@ -78,6 +83,8 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     $scope.dataSet.venues = data.venues;
                     DataSetFactory.events = data.events;
                     DataSetFactory.venues = data.venues;
+                    DataSetFactory.genericEvents = data.events;
+                    DataSetFactory.genericVenues = data.venues;
                     $scope.totals += data.totals;
                     preferences.events.unshift();
                     preferences.foods.unshift();
@@ -88,24 +95,27 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                             $scope.totals += arr.length;
                             $scope.dataSet.events = $scope.dataSet.events.concat(arr);
                             DataSetFactory.events = DataSetFactory.events.concat(arr);
+                            DataSetFactory.genericEvents = DataSetFactory.genericEvents.concat(arr);
                         });
                         data.venues.forEach(function (arr){
                             $scope.totals += arr.length;
                             $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
                             DataSetFactory.venues = DataSetFactory.venues.concat(arr);
+                            DataSetFactory.genericVenues = DataSetFactory.genericVenues.concat(arr);
                         });
                     }).then(function (){
-                        if (preferences.hasMovies){
-                            MoviesFactory.getMovies().then(function (movies){
-                                $scope.dataSet.movies = movies;
-                                $scope.totals += movies.length;
-                                POIFactory.allPOIsReturned = true;
-                                DataSetFactory.movies = movies;
-                            });
-                        }
-                        else {
+                        // if (preferences.hasMovies){
+                        //     MoviesFactory.getMovies().then(function (movies){
+                        //         $scope.dataSet.movies = movies;
+                        //         $scope.totals += movies.length;
+                        //         POIFactory.allPOIsReturned = true;
+                        //         DataSetFactory.movies = movies;
+                        //     });
+                        // }
+                        // else {
                             POIFactory.allPOIsReturned = true;
-                        }
+                            $rootScope.$broadcast('allDataReturned');
+                        //}
                     });
                 });
             }

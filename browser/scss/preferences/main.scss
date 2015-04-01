@@ -11,6 +11,10 @@
 input{
 	color: black;
 }
+
+textarea {
+	color: black;
+}
 .pref_category {
 	text-align: left;
 	label {
@@ -133,3 +137,7 @@ preference-button div:hover {
 	background: transparent;
 }
 
+.background{
+	background-color: rgba(156,156,156, 0.6);
+	border: 10px black solid;
+}

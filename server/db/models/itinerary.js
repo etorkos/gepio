@@ -125,6 +125,7 @@ schema.statics.changeDay = function (data){
 					if (events.length >= 8) break;
 				}
 				itinerary.otherEvents = events;
+				itinerary.date = data.date;
 				return itinerary.save(function (err, saved){
 					if (err) reject(err);
 					else resolve(saved);
@@ -135,17 +136,6 @@ schema.statics.changeDay = function (data){
 }
 
 mongoose.model("Itinerary", schema);
-
-schema.method.userExistsOrIsAdded = function(itineraryId, userId, cb) {
-    this.users.forEach(function(userIdInDb){
-    	if (userId === userIdInDb) {
-    		return cb(null, null);
-    	}
-    });
-	this.update({$push: {users: userId}}, function( err, newThis){
-		return cb(err, newThis);
-	});
-}
 
 // type string is used for routing on the front end (date_night, explore)
 // likely will be removed with Eric's refactoring

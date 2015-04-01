@@ -1,10 +1,19 @@
 'use strict';
-app.factory('DataSetFactory', function (){
+app.factory('DataSetFactory', function (POIFactory){
 	var factory = {};
 	factory.events = undefined;
 	factory.venues = undefined;
 	factory.movies = undefined;
+	factory.genericVenues = undefined;
+	factory.genericEvents = undefined;
+	factory.setUnmodifiedItinerary = function(){
+		factory.events = factory.genericEvents;
+		factory.venues = factory.genericVenues;
+		console.log("SET GENERIC", { events: factory.events, venues: factory.venues });
+	}
 	factory.insertAndUpdate = function (venues, events){
+		factory.venues = factory.genericVenues;
+		factory.events = factory.genericEvents;
 		var venueData = [];
 		venues.forEach(function (venue){
 			var data = {};
@@ -45,6 +54,7 @@ app.factory('DataSetFactory', function (){
 		for (var i = eventData.length; i > 0; i--){
 			factory.events.unshift(eventData[i-1]);
 		}
+		console.log("SET MODIFIED", { events: factory.events, venues: factory.venues });
 	};
 	factory.isNew = false;
 	return factory;

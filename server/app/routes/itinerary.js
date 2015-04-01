@@ -6,17 +6,19 @@ var User = mongoose.model('User');
 var Event = mongoose.model('Event');
 
 router.post('/', function(req, res, next){
-	// console.log('Got to itinerary post with', req.body.user);
-	var user = req.body.user ? req.body.user._id : null ; //want name as a string
-	var obj = {title: req.body.title, type: req.body.type};
-	if(user) obj.users = [user];
-	else obj.inviteStatus= 'open';
-	Itinerary.create( obj , function(err, itinerary){
-		// console.log(err, itinerary);
+
+	console.log('Got to itinerary post with', req.body.user);
+	var user = req.body.user ? req.body.user._id : undefined;
+	var obj = {};
+	obj.title = req.body.title;
+	obj.type = req.body.type;
+	if (user) obj.user = user;
+	Itinerary.create(obj, function(err, itinerary){
 		if (err) res.status(500).send(err);
 		else {
 			itinerary.setOtherData(req.body.events).then(function (itin){
-				if (user === null) res.status(200).send(itin);
+				console.log("USER", user);
+				if (!user) res.status(200).send(itin);
 				else {
 					User.findByIdAndUpdate(user, { $push: { itineraries: itin._id } }, function (err, user){
 						if (err) res.status(500).send(err);
@@ -32,8 +34,8 @@ router.get('/:id', function (req, res, next ){
 	var itineraryId = req.params.id;
 	// console.log('arrived here ok', itineraryId);
 	Itinerary.findById(itineraryId, function(err, item){
-		// console.log('out of the search', 'item', item, 'err', err);
-		res.send(item);
+		console.log('out of the search', 'item', item, 'err', err);
+		res.json(item);
 	})
 });
 

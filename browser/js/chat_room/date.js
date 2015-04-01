@@ -1,7 +1,22 @@
 'use strict';
 
 
-app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction, ItineraryFactory){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout, SocketReaction, ItineraryFactory, $rootScope){
+
+	DataSetFactory.isNew = false;
+	$scope.hasReturned = POIFactory.allPOIsReturned;
+
+	$scope.check = function (){
+		$timeout(function (){
+			$scope.hasReturned = POIFactory.allPOIsReturned;
+			if (POIFactory.allPOIsReturned) {
+				$scope.events = DataSetFactory.events;
+				$scope.venues = DataSetFactory.venues;
+			}
+			if (!$scope.hasReturned) $scope.check();
+		}, 1000);
+	}
+	$scope.check();
 	
 	//socket reaction 
 
@@ -11,6 +26,8 @@ app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory,
 	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);
 
+	$scope.events = DataSetFactory.events;
+	$scope.venues = DataSetFactory.venues;
 	if(!$scope.dataSet){
 		$scope.dataSet.events = savedEvents.otherEvents;
 		$scope.dataSet.venues = savedEvents.otherVenues;
@@ -23,8 +40,6 @@ app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory,
     }               
 
     $rootScope.ItineraryId = $stateParams.id;
-    
-
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item

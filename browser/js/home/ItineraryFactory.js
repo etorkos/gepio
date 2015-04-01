@@ -63,7 +63,19 @@ app.factory('ItineraryFactory', function ($http){
 			$http.put('/api/itinerary/add', update).then(function (res){
 				console.log("Events Updated", res.data);
 			});
-		}
+		};
+	};
+	factory.inviteUser = function (itineraryId, userId){
+		var body = { itineraryId: itineraryId, userId: userId };
+		return $http.post('/api/itinerary/invite').then(function (res){
+			return res.data;
+		});
+	};
+	factory.toggleInviteStatus = function (itineraryId){
+		var body = { id: itineraryId};
+		return $http.post('/api/itinerary/togglesetting', body).then(function (res){
+			return res.data;
+		});
 	};
 	factory.changeEventsDate = function (date, data){
 		if (factory.setActiveParams.type === 'config2'){

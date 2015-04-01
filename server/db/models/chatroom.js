@@ -4,17 +4,12 @@ var chatRoomSchema = new mongoose.Schema({
 	name : String,
 	messages :[{
 		type : Schema.Types.ObjectId, ref: 'Message'
+	}],
+	events : [{
+		name : String,
+		vote_counts : { type:Number, default:0 }
 	}]
 });
 
-var messageSchema = new mongoose.Schema({
-	user: String,
-	message : String,
-	date: {
-		type: Date,
-		default: Date.now
-	}
-});
-
 mongoose.model('Chatroom',chatRoomSchema);
-mongoose.model('Message',messageSchema);
+

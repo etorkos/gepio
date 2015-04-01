@@ -1,17 +1,7 @@
 'use strict';
 
-function removeFromList (scopeDset, item){
-	var loc = -1;
-	for(var a = 0, len = scopeDset.length; a< len; a++){
-			if(scopeDset[a].name === item.name){
-				console.log('match at location',a)
-				loc = a;
-				break;
-			}
-		}
-	return scopeDset.splice(loc, 1);
-}
 
+<<<<<<< HEAD
 app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout){
 
 	$scope.hasReturned = POIFactory.allPOIsReturned;
@@ -28,12 +18,30 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	}
 	$scope.check();
 
+app.controller('DateCtrl', function($scope, $rootScope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, savedEvents, SocketReaction, ItineraryFactory){
+	
+	//socket reaction 
+
+	SocketReaction.socket_on_vote(socket,$scope);
+
 	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
 	console.log("Data Set", $scope.dataSet);
 
 	$scope.events = DataSetFactory.events;
 	$scope.venues = DataSetFactory.venues;
+	if(!$scope.dataSet){
+		$scope.dataSet.events = savedEvents.otherEvents;
+		$scope.dataSet.venues = savedEvents.otherVenues;
+	}
+	else{
+		// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
+	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
+   		// angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
+	    // angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
+    }               
+
+    $rootScope.ItineraryId = $stateParams.id;
 
 	$scope.removeVenue = function(place){
 		//cycle through all items in the dataset for the specific item
@@ -43,18 +51,18 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		console.log(removed[0].name, ' was removed from the array' );
 	}
 
-	$scope.removeEvent = function(item){
-		//cycle through all items in the dataset for the specific item
-		//splice array
-		//if we have less than 5 items, request a new call
-		var removed = removeFromList($scope.dataSet.events, item);
-		console.log(removed[0].name, ' was removed from the array' );
-	}
+	// $scope.removeEvent = function(item){
+	// 	//cycle through all items in the dataset for the specific item
+	// 	//splice array
+	// 	//if we have less than 5 items, request a new call
+	// 	var removed = removeFromList($scope.dataSet.events, item);
+	// 	console.log(removed[0].name, ' was removed from the array' );
+	// }
 
-	$scope.upvoteEvent = function (event){
-		//for testing atm only
-		console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
-	}
+	// $scope.upvoteEvent = function (event){
+	// 	//for testing atm only
+	// 	console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
+	// }
 
 	$scope.shuffle = function(type){
 		if (type == 'venues'){

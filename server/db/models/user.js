@@ -38,10 +38,10 @@ var schema = new mongoose.Schema({
     },
     foursquare: {
         id: String
-    },
-    foursquareraw: {
-        type: String
     }
+    // foursquareraw: {
+    //     type: String
+    // }
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
@@ -73,5 +73,6 @@ schema.pre('save', function (next) {
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
+
 
 mongoose.model('User', schema);

@@ -56,8 +56,8 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	}
 
 	// setTimeout(function(){
-		VotingFactory.setUpVotes($scope.dataSet.venues);
-		VotingFactory.setUpVotes($scope.dataSet.events);
+		// VotingFactory.setUpVotes($scope.dataSet.venues);
+		// VotingFactory.setUpVotes($scope.dataSet.events);
 	// },5000);
 });
 

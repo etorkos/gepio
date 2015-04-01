@@ -45,8 +45,6 @@ app.factory('DataSetFactory', function (){
 		for (var i = eventData.length; i > 0; i--){
 			factory.events.unshift(eventData[i-1]);
 		}
-		console.log("INSERTED", eventData, venueData);
-		console.log("POPULATED DATASET", factory.events, factory.venues);
 	};
 	factory.isNew = false;
 	return factory;

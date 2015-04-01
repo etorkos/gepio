@@ -59,6 +59,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 	$scope.selectedOption = {name: "Start an itinerary", state:'home'};
 	$scope.showOptions = false;
 	$scope.showOptionsClick = function(obj){
+		console.log(obj)
 		$scope.showOptions = !$scope.showOptions;
 		$scope.selectedOption = obj;
 	}

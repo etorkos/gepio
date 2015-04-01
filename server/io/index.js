@@ -44,13 +44,32 @@ module.exports = function (server) {
 		});
 
 		client.on('open_invitation',function(data){
-			client.emit('open_invitation',{
+			console.log(data);
+			client.room = data.room_id;
+			client.join(client.room);
+			client.broadcast.emit('open_invitation',{
+				room_name : client.room
+			})
+		});
+
+		client.on('close_invitation',function(){
+			client.broadcast.emit('close_invitation',{
+				room_name : client.room
 			})
 		});
 		
 
 		client.on('disconnect',function(){
 			console.log("client disconnected");
+		});
+
+		client.on('up_vote', function(data){
+			console.log(data);
+			client.broadcast.to(client.room).emit('up_vote',data)
+		});
+
+		client.on('downvote', function(data){
+			client.broadcast.to(client.room).emit('downvote',data)
 		});
 	});
 };

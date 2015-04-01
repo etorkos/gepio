@@ -8,10 +8,15 @@
 	              </span>
             </p>
             <span class="float_right">
-	            <button class="btn btn-success" ng-click='invite()'>Invite Friends</button>
+	            <button class="btn btn-success" ng-click='invite_friends()'>Invite Friends</button>
+	            <button class="btn btn-success" ng-if=' inviteStatus == "closed"' ng-click='inviteToggle()'>Open Event to Public</button>
+	            <button class="btn btn-success" ng-if=' inviteStatus == "open"' ng-click='inviteToggle()'>Close Event to Public</button>
 	            <button class="btn btn-warning" ng-click="toMaps()">Map</button>
             </span>
 		</div>
+	</div>
+	<div>
+		<invite ng-if='invite' ></invite>
 	</div>
 	<div id="itinerary_builder" class="row zero-margin" ng-class="{ extended: active, notExtended: !active }">
 		<div class="col-lg-12 info-block">

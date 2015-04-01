@@ -33,8 +33,8 @@ app.directive('navbarItineraries', function($window){
 				})
 			}
 
-			$scope.rejectInvite = function (){
-				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
+			$scope.rejectInvite = function (invite){
+				UserFactory.removeInvite($scope.user, invite._id ).then(function (response){
 						console.log(response);
 						$scope.getUserItineraries($scope.user);
 				})

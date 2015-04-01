@@ -29,14 +29,14 @@ app.directive('navbarItineraries', function($window){
 			$scope.acceptInvite = function (invite){
 				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
 						console.log(response);
-						$scope.getUserItineraries(user);
+						$scope.getUserItineraries($scope.user);
 				})
 			}
 
 			$scope.rejectInvite = function (){
-				UserFactory.rejectInvite($scope.user, invite._id ).then(function (response){
+				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
 						console.log(response);
-						$scope.getUserItineraries(user);
+						$scope.getUserItineraries($scope.user);
 				})
 			}
 		}

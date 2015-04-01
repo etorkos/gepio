@@ -37,7 +37,7 @@ router.get('/find/:email' , function (req, res, next){
 router.get('/:id/itineraries', function (req, res, next){
 	var userId = req.user._id;
 	// console.log('user ', userId, ' is requesting itinerary information');
-	User.findById(userId).populate('itineraries invitations').exec(function (err, user){
+	User.findById(userId).populate('itineraries invites').exec(function (err, user){
 		if(err) next(err);
 		else {
 			// console.log('user information', user);
@@ -71,10 +71,13 @@ router.post('/:id/preferences',function (req, res, next){
 router.post('/removeInvite', function (req, res, next){
 	//have userId, inviteId
 	//remove id from user invites, remove auth from itinery
-	User.findById(req.body.userId).update({$pull: {invites: req.body.inviteId}}, function (err, numUpdated){
+	console.log('remove', req.body);
+	User.findByIdAndUpdate(req.body.userId._id, {$pull: {invites: req.body.inviteId}}, function (err, numUpdated){
 		if(err) return next(err);
-		Itinerary.findById(req.body.inviteId).update({$pull: { users: req.body.userId}}, function (err, numUpdated2){
+		console.log('updated user');
+		Itinerary.findByIdAndUpdate(req.body.inviteId, {$pull: { users: req.body.userId._id}}, function (err, numUpdated2){
 			if(err) return next(err);
+			console.log('finished rejecting the invite');
 			res.send(true);
 		});
 	});
@@ -83,9 +86,14 @@ router.post('/removeInvite', function (req, res, next){
 router.post('/acceptInvite', function (req, res, next){
 	//have userId, inviteId
 	//remove id from user invites, remove auth from itinery
-	User.findById(req.body.userId).update({$pull: {invites: req.body.inviteId}}, {$push: {itineraries: req.body.userId }},function (err, numUpdated){
-		if(err) return next(err);
-		res.send(true);
+	console.log('accept', 'userId', req.body.userId._id, 'itineraryId', req.body.inviteId);
+	User.findByIdAndUpdate(req.body.userId._id, { $pull: {invites: req.body.inviteId}}, function (err, numUpdated){
+		if (err) return next(err);
+		User.findByIdAndUpdate(req.body.userId._id, {$push: {itineraries: req.body.inviteId }}, function (err, numUpdated2){
+			if(err) return next(err);
+			console.log('finished accepting the invite');
+			res.send(true);
+		});
 	});
 });
 

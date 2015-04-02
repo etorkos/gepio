@@ -14,22 +14,31 @@ app.factory('DataSetFactory', function (POIFactory){
 	factory.insertAndUpdate = function (venues, events){
 		factory.venues = factory.genericVenues;
 		factory.events = factory.genericEvents;
+		console.log('called insertAndUpdate');
 		var venueData = [];
 		venues.forEach(function (venue){
 			var data = {};
-			for (var i = 0; i < factory.venues.length; i++){
-				if (factory.venues[i].name === venue.venue[0].title){
-					for (var key in factory.venues[i]){
-						if (factory.venues[i].hasOwnProperty(key)){
-							data[key] = factory.venues[i][key];
+			 console.log('factory.venues', factory, 'venue', venue);
+			if(factory.venues){ 
+				//if we have generated new events before pulling from the server
+				for (var i = 0; i < factory.venues.length; i++){
+					if (factory.venues[i].name === venue.venue[0].title){
+						for (var key in factory.venues[i]){
+							if (factory.venues[i].hasOwnProperty(key)){
+								data[key] = factory.venues[i][key];
+							}
 						}
+						factory.venues.splice(i, 1);
+						break;
 					}
-					factory.venues.splice(i, 1);
-					break;
 				}
+				data.votes = venue.votes;
+				venueData.push(data);
 			}
-			data.votes = venue.votes;
-			venueData.push(data);
+			else {
+				//if the server data loads first AKA load directly to itinerary page
+				venueData.concat(venue)
+			}
 		});
 		var eventData = [];
 		events.forEach(function (event){

@@ -37,7 +37,9 @@ app.directive('venueButton', function (PrefBuilder) {
             $scope.upvoteVenue = function(item){
                 // scope.votes++;
                 VotingFactory.upVote(item).then(function (item){
+                    console.log('item in upvote after upvote action', item);
                     DataSetFactory.reorderData(item).then(function (sorted){
+                        console.log('items in upvote after reorder action', sorted);
                         $rootScope.$broadcast('SetVotes');
                         VotingFactory.sortDatabase(sorted).then(function (response){
                             console.log(response.data);

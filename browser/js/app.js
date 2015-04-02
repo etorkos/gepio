@@ -45,12 +45,12 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                 $scope.dataSet.movies =  null;
                 $scope.totals = 0;
                 UserFactory.generateInitialGenericPOIs().then(function (data){
-                    $scope.dataSet.movies = data.movies;
-                    $scope.dataSet.events = data.events;
-                    $scope.dataSet.venues = data.venues;
-                    DataSetFactory.movies = data.movies;
-                    DataSetFactory.events = data.events;
-                    DataSetFactory.venues = data.venues;
+                    $scope.dataSet.movies.push(data.movies);
+                    $scope.dataSet.events.push(data.events);
+                    $scope.dataSet.venues.push(data.venues);
+                    DataSetFactory.movies.push(data.movies); //might need terniary
+                    DataSetFactory.events.push(data.events);
+                    DataSetFactory.venues.push(data.venues);
                     DataSetFactory.genericEvents = data.events;
                     DataSetFactory.genericVenues = data.venues;
                     $scope.totals = data.totals;

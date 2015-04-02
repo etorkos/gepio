@@ -47,7 +47,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 				var dataForItinerary = ItineraryFactory.createDataSet( user, $scope.selectedOption.type, $scope.selectedOption.search ,$scope.dataSet);
 				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary , type: $scope.selectedOption }).then(function(itinerary){
 					ItineraryFactory.setActiveParams = { id: itinerary._id, type: $scope.selectedOption.type };
-					DataSetFactory.isNew = true;
+					// DataSetFactory.isNew = true;
 					POIFactory.date = new Date();
 					$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
 				});	

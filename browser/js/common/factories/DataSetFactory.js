@@ -45,7 +45,7 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		factory.events = factory.genericEvents;
 		console.log('called insertAndUpdate');
 		var venueData = [];
-
+		var eventData = [];
 		venues.forEach(function(venue){ //we are no longer filtering after, we need to filter before
 			var thing = venue.venue[0];
 			thing.name = thing.title;
@@ -86,7 +86,6 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		// 		})
 		// 	}
 		// });
-		var eventData = [];
 		// events.forEach(function (event){
 		// 	var data = {};
 		// 	for (var i = 0; i < factory.events.length; i++){

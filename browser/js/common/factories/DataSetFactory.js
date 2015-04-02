@@ -9,6 +9,12 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 	factory.setUnmodifiedItinerary = function(){
 		factory.events = factory.genericEvents;
 		factory.venues = factory.genericVenues;
+		factory.events.forEach(function (event){
+			event.votes = 0;
+		});
+		factory.venues.forEach(function (venue){
+			venue.votes = 0;
+		});
 		console.log("SET GENERIC", { events: factory.events, venues: factory.venues });
 	};
 	factory.reorderData = function (item){

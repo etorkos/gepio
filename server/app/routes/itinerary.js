@@ -40,6 +40,14 @@ router.get('/:id', function (req, res, next ){
 	})
 });
 
+router.delete('/:id', function (req, res, next){
+	var itineraryId = req.params.id;
+	Itinerary.findOneAndRemove(itineraryId, function(err, item){
+		console.log('out of the search', 'item', item, 'err', err);
+		res.send(200);
+	});
+})
+
 router.post('/invite', function (req, res, next){
 	var itineraryId = req.body.itineraryId;
 	var userInvitee = req.body.userId;

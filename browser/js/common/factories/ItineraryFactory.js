@@ -98,6 +98,13 @@ app.factory('ItineraryFactory', function ($http){
 			});
 		}
 	};
+	factory.deleteItinerary = function(itineraryId){
+		// var body = {id: itineraryId};
+		return $http.delete('/api/itinerary/'+itineraryId).then(function (res){
+			// return res.data;
+			console.log("Itinerary successfully deleted.");
+		});
+	};
 	factory.setActiveParams = undefined;
 	// updateDataSet: function (type, id, set){
 	// 	var data = { type: type, id: id, data: set };

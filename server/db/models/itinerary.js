@@ -7,6 +7,7 @@ var schema = new mongoose.Schema({
 	users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	title: {type: String, required: true},
 	type: String,
+	finishStatus: {type: String, default: 'open'},
 	date: {type: Date, dafault: Date.now},
 	inviteStatus: { type: String, default: 'closed' },
 	chosenEvents: [Event.schema],

@@ -30,7 +30,6 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	$scope.date = POIFactory.date;
 
 	$scope.data = $scope.dataSet;
-	console.log($scope.data.venues);
 
 	$scope.goToPlan = function (){
 		$state.go('room.sub', { id: $stateParams.id, type: $stateParams.type });

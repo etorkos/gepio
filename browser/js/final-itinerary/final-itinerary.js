@@ -11,9 +11,23 @@ app.controller('IntineraryCtrl', function ($scope, $state, $stateParams, passSer
 
 	// $scope.finalData = passService.getFinal();
 
+	var filterFinal = function(placeArr){
+		//Takes highest voted place/venue and then returns it
+		highestVoted = placeArr[0];
+		placeArr.forEach(function(el){
+			if(highestVoted.votes < el.votes)
+				highestVoted = el;
+		});
+		return highestVoted;
+	}
+
 	var interpretIntinerary = function(){
 		ItineraryFactory.getItinerary($stateParams.id).then(function(returnedData){
 			$scope.itinTitle = returnedData.title;
+			$scope.itinDate = returnedData.date;
+			$scope.id = returnedData._id;
+			$scope.finalVenue = filterFinal(returnedData.otherVenues);
+			$scope.finalEvent = filterFinal(returnedData.otherEvents);
 		});
 		if($stateParams.type == 'config1')
 			$scope.showEvents = false;
@@ -22,14 +36,23 @@ app.controller('IntineraryCtrl', function ($scope, $state, $stateParams, passSer
 		//sets the values for final itinerary
 	};
 
-
-	$scope.saveIt = function(){
-
-	}
-
 	$scope.goBack = function(){
 		$state.go('map', { id: $stateParams.id, type: $stateParams.type });
 	}
+
+	$scope.saveIt = function(){
+		returnedData.otherVenues = $scope.finalVenue;
+		returnedData.otherEvents = $scope.finalEvent;
+		returnedData.finishStatus = 'closed';
+	};
+
+	$scope.deleteIt = function(){
+		var confirmation = confirm("Are you sure you want to delete this itinerary?");
+		if (confirmation === true){
+			ItineraryFactory.deleteItinerary($scope.id);
+			$state.go('home')
+		};
+	};
 
 	interpretIntinerary();
 });

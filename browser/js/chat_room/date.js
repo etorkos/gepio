@@ -19,11 +19,11 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	//socket reaction 
 	ChatroomFactory.set_itinerary_id($stateParams.id);
 	ChatroomFactory.join_room();
+	ChatroomFactory.bind_user_id($scope.user._id);
 	SocketReaction.socket_on_vote(socket,$scope);
 
-	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
-	console.log("Data Set", $scope.dataSet);
+	// console.log("Data Set", $scope.dataSet);
 
 	$scope.events = DataSetFactory.events;
 	$scope.venues = DataSetFactory.venues;

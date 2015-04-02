@@ -7,13 +7,11 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 			scope.current_message = "";
 			scope.message_to_display = [];
 			scope.invitations = [];
-			console.log(scope.dataSet,"here you go")
 			//button functions
 			scope.submit_message = function(message){
 				//change to scope.user.firstName later
-				ChatroomFactory.send_message_to_server(scope.user._id, message);
+				ChatroomFactory.send_message_to_server(scope.user.firstName, message);
 				scope.current_message = "";
-				console.log(scope.current_message)
 				scope.message_to_display.push({name:"me",message:message});
 			};
 			scope.open_invitation = ChatroomFactory.open_invitation;

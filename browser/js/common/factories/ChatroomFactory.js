@@ -1,9 +1,9 @@
 'use strict';
-app.factory('ChatroomFactory', function ($http){
+app.factory('ChatroomFactory', function ($http, DataSetFactory){
 	return {
 		current_itinerary_id : null,
 		set_itinerary_id : function(id){
-			console.log(id, "set id")
+			// console.log(id, "set id")
 			this.current_itinerary_id = id;
 		},
 		get_itinerary_id : function(){
@@ -39,7 +39,7 @@ app.factory('ChatroomFactory', function ($http){
 		},
 		join_room : function(room_name){
 			if(typeof room_name == "undefined"){
-				console.log(this.current_itinerary_id, "join room from this")
+				// console.log(this.current_itinerary_id, "join room from this")
 				socket.emit('join_room',this.current_itinerary_id);
 			}
 			socket.emit('join_room',room_name)
@@ -91,6 +91,30 @@ app.factory('ChatroomFactory', function ($http){
 		},
 		top_eights : function(eights){
 			socket.emit('top_eights',eights);
+		},
+		invite_friend : function(friend_id){
+			socket.emit('invite_friend',friend_id);
+		},
+		bind_user_id : function(user_id){
+			socket.emit('bind_user_id',user_id);
+		},
+		update_vote : function(data){
+			var type = data.type;
+			var vote = data.vote;
+			if(type == 'event'){
+				DataSetFactory.events.forEach(function(a){
+					if(a.name == data.name){
+						a.vote += vote
+					}
+				})
+			}
+			else if(type == 'venue'){
+				DataSetFactory.venues.forEach(function(a){
+					if(a.name == data.name){
+						a.vote += vote
+					}
+				})
+			}
 		}
 	}
 });

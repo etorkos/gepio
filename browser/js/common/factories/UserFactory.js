@@ -22,14 +22,14 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 			})
 		},
 		findUserByEmail: function (nameObject){
-			console.log('email search', nameObject.email);
+			// console.log('email search', nameObject.email);
 			return $http.get('/api/user/find/'+nameObject.email).then(function ( response ){
 				return response.data;
 			})
 		},
 		getItineraries: function (userId){
 			var path = '/api/user/' + userId + '/itineraries';
-			console.log(path);
+			// console.log(path);
 			return $http.get(path).then(function(response){
 				return response.data;
 			});

@@ -1,16 +1,25 @@
 'use strict';
 var app = angular.module('FourSquarePlusApp', ['ui.router', 'fsaPreBuilt', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 
-app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory, ItineraryFactory, POIFactory, DataSetFactory) {
+app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH_EVENTS, GeolocationFactory, MoviesFactory, VenuesFactory, EventsFactory, $q, UserFactory, ItineraryFactory, POIFactory, DataSetFactory,ChatroomFactory) {
     //save login user info, don't delete, important
     function saveUserToScope(){
         AuthService.getLoggedInUser().then(function(user){
+            // console.log(user)
             $scope.user = user;
             $scope.isAuthenticated = AuthService.isAuthenticated();
             if($scope.user && $scope.user.foursquareraw) $scope.raw = JSON.parse($scope.user.foursquareraw);
+            ChatroomFactory.bind_user_id($scope.user._id);
         });
     }
     saveUserToScope();
+
+
+    //check invitation
+    socket.on('invitation',function(data){
+        alert('invitation received');
+        saveUserToScope();
+    })
 
     $rootScope.$on(AUTH_EVENTS.loginSuccess,function(){
         saveUserToScope();

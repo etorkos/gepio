@@ -58,34 +58,30 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 			thing.name = thing.title;
 			thing.votes = venue.votes;
 			venueData.push(thing);
-		});
+			
+		// console.log("FROM DATABASE", venues, events);
+		// var venueData = [];
 		// venues.forEach(function (venue){
 		// 	var data = {};
-		// 	if ( factory.venues ) {       //we have generated stuff from api calls
-		// 		for (var i = 0; i < factory.venues.length; i++){
-		// 			if (factory.venues[i].name === venue.venue[0].title){
-		// 				for (var key in factory.venues[i]){
-		// 					if (factory.venues[i].hasOwnProperty(key)){
-		// 						data[key] = factory.venues[i][key];
-		// 					}
+		// 	for (var i = 0; i < factory.venues.length; i++){	
+		// 		if (factory.venues[i].name === venue.venue[0].title){
+		// 			for (var key in factory.venues[i]){
+		// 				if (factory.venues[i].hasOwnProperty(key)){
+		// 					data[key] = factory.venues[i][key];
 		// 				}
-		// 				factory.venues.splice(i, 1);
-		// 				break;
 		// 			}
+		// 			factory.venues.splice(i, 1);
+		// 			break;
 		// 		}
-		// 		data.votes = venue.votes;
-		// 		venueData.push(data);
 		// 	}
-		// 	else {
-		// 		//if the server data loads first AKA load directly to itinerary page
-		// 		venues.forEach(function(venue){
-		// 			var thing = venue.venue[0];
-		// 			thing.name = thing.title;
-		// 			thing.votes = venue.votes;
-		// 			venueData.push(thing);
-		// 		})
+		// 	if (!data.name){
+		// 		data.name = venue.venue[0].title;
+		// 		data.location = { lat: venue.venue[0].location.lat, lng: venue.venue[0].location.lon };
 		// 	}
+		// 	data.votes = venue.votes;
+		// 	venueData.push(data);
 		// });
+		// var eventData = [];
 		// events.forEach(function (event){
 		// 	var data = {};
 		// 	for (var i = 0; i < factory.events.length; i++){
@@ -98,6 +94,10 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		// 			factory.events.splice(i, 1);
 		// 			break;
 		// 		}
+		// 	}
+		// 	if (!data.name){
+		// 		data.name = event.event[0].title;
+		// 		data.venue = { latitude: event.event[0].location.lat, longitude: event.event[0].location.lon };
 		// 	}
 		// 	data.votes = event.votes;
 		// 	eventData.push(data);

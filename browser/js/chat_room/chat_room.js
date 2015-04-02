@@ -34,8 +34,8 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
 
     $scope.exportDate = function(){
         ItineraryFactory.changeEventsDate($scope.dt, $scope.dataSet.events);
-        POIFactory.date = $scope.dt;
     }
+        POIFactory.date = $scope.dt;
 
     $scope.clear = function () {
      $scope.dt = null;

@@ -14,6 +14,7 @@ app.directive('preferencesEdit', function (PrefBuilder, PreferenceFactory, AuthS
         			scope.updated = true;
         			$timeout(function (){ scope.updated = false }, 3000);
         		});
+                alert("Preferences updated!");
         	}
         }
     };

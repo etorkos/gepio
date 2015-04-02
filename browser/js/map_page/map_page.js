@@ -54,32 +54,12 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		// };
 		// // console.log($scope.finalData);
 		// passService.addFinal($scope.finalData);
-		$state.go('final-itinerary');
+		$state.go('final-itinerary', { id: $stateParams.id, type: $stateParams.type });
 	}
 
 	if($stateParams.type == 'config1')
 		$scope.showEvents = false;
 	else
 		$scope.showEvents = true;
-		
-
-
-});
-
-app.service('passService', function(){
-	//can remove once database persistence is working with each room
-	var finalData;
-
-	var addFinal = function(fData){
-		finalData = fData;
-	};
-	var getFinal = function(){
-		return finalData;
-	};
-
-	return{
-		addFinal: addFinal,
-		getFinal: getFinal
-	};
 });
 

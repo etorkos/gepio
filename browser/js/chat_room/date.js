@@ -1,10 +1,13 @@
 'use strict';
 
 app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, 
-									DataSetFactory, $timeout, ItineraryFactory, $rootScope, ChatroomFactory, SocketReaction){
+									DataSetFactory, $timeout, ItineraryFactory, $rootScope, ChatroomFactory, SocketReaction, $state){
 
 	DataSetFactory.isNew = false;
 	$scope.hasReturned = POIFactory.allPOIsReturned;
+	if (!$scope.hasReturned) {
+		$state.go('loading', { id: $stateParams.id, type: $stateParams.type });
+	}
 
 	$rootScope.$on('allDataReturned', function (event, args){
 		$scope.events = DataSetFactory.events; 

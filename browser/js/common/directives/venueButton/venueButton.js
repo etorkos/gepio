@@ -6,7 +6,17 @@ app.directive('venueButton', function (PrefBuilder) {
         	data: '='
         },
         templateUrl: 'js/common/directives/venueButton/venueButton.html',
-        controller: function ($scope, VotingFactory, ChatroomFactory){
+        link: function ($scope, elem, attr){
+            $scope.downvoteLock = function(){
+                $(elem.find('button')[1]).attr('disabled', true);
+                $(elem.find('button')[0]).attr('disabled', false);
+            };
+            $scope.upvoteLock = function(){
+                $(elem.find('button')[1]).attr('disabled', false);
+                $(elem.find('button')[0]).attr('disabled', true);
+            };
+        },
+        controller: function ($scope, VotingFactory, ChatroomFactory, $rootScope, DataSetFactory){
             $scope.votes = 0;
             $scope.isClicked = false;
             $scope.setClicked = function (){
@@ -15,15 +25,25 @@ app.directive('venueButton', function (PrefBuilder) {
             $scope.downvoteVenue = function(item){
                 console.log(item);
                 // scope.votes--;
-                // $(elem.find('button')[1]).attr('disabled', true);
-                // $(elem.find('button')[0]).attr('disabled', false);
-                VotingFactory.downVote(item);
+                VotingFactory.downVote(item).then(function (item){
+                    DataSetFactory.reorderData(item).then(function (sorted){       
+                        $rootScope.$broadcast('SetVotes');
+                        VotingFactory.sortDatabase(sorted).then(function (response){
+                            console.log(response.data);
+                        });
+                    });
+                });
             };
             $scope.upvoteVenue = function(item){
                 // scope.votes++;
-                // $(elem.find('button')[1]).attr('disabled', false);
-                // $(elem.find('button')[0]).attr('disabled', true);
-                VotingFactory.upVote(item);
+                VotingFactory.upVote(item).then(function (item){
+                    DataSetFactory.reorderData(item).then(function (sorted){
+                        $rootScope.$broadcast('SetVotes');
+                        VotingFactory.sortDatabase(sorted).then(function (response){
+                            console.log(response.data);
+                        });
+                    });
+                });
 
                 //upvote by sockets
                 ChatroomFactory.up_vote(item);

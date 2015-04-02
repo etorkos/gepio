@@ -8,12 +8,15 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
 	$rootScope.$on('allDataReturned', function (event, args){
-		$scope.events = DataSetFactory.events;
-		$scope.venues = DataSetFactory.venues;
 		if (POIFactory.date != $scope.dt){
 			console.log("Change date");
 			$rootScope.$emit('changeTheDate', { date: POIFactory.date });
 		}
+	});
+
+	$rootScope.$on('SetVotes', function (event, args){
+		$scope.events = DataSetFactory.events; 
+		$scope.venues = DataSetFactory.venues;
 	});
 	
 	//socket reaction 
@@ -26,6 +29,7 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 
 	$scope.events = DataSetFactory.events;
 	$scope.venues = DataSetFactory.venues;
+
 	if(!$scope.dataSet){
 		$scope.dataSet.events = savedEvents.otherEvents;
 		$scope.dataSet.venues = savedEvents.otherVenues;
@@ -88,5 +92,6 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		})
 		
 	}
+
 });
 

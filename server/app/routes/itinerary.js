@@ -99,13 +99,25 @@ router.put('/add', function (req, res){
 
 router.put('/vote', function (req, res){
 	Itinerary.findById(req.body.itinerary, function (err, itinerary){
-
 		if (err) console.log(err);
 		else {
-			itinerary.updateVotes(req.body).then(function (data){
-				// console.log(data);
-				res.json(data);
+			itinerary.updateVotes(req.body).then(function (data, error){
+				if (error) console.log("ERROR", error);
+				else {
+					console.log(data);
+					res.json(data);
+				}
 			});
+		}
+	});
+});
+
+router.put('/sort', function (req, res){
+	Itinerary.replaceItinerary(req.body).then(function (data, error){
+		if (error) console.log("ERROR", error)
+		else {
+			console.log(data);
+			res.json(data);
 		}
 	});
 });

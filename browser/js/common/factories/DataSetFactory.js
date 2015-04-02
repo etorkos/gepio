@@ -1,5 +1,5 @@
 'use strict';
-app.factory('DataSetFactory', function (POIFactory){
+app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 	var factory = {};
 	factory.events = undefined;
 	factory.venues = undefined;
@@ -10,7 +10,35 @@ app.factory('DataSetFactory', function (POIFactory){
 		factory.events = factory.genericEvents;
 		factory.venues = factory.genericVenues;
 		console.log("SET GENERIC", { events: factory.events, venues: factory.venues });
-	}
+	};
+	factory.reorderData = function (item){
+		var item = item;
+		return $q(function (resolve, reject){
+			var type = item.type + 's';
+			var max = 0;
+			var min = 0;
+			for (var i = 0; i < factory[type].length; i++){
+				if (factory[type][i].name == item.name){
+					factory[type][i].votes = item.votes;
+				}
+				if (factory[type][i].votes > max) max = factory[type][i].votes;
+				if (factory[type][i].votes < min) min = factory[type][i].votes;
+			}
+			var sorted = [];
+			while (max >= min){
+				for (var i = 0; i < factory[type].length; i++){
+					if (factory[type][i].votes == max) {
+						sorted.push(factory[type][i]);
+					}
+				}
+				max--;
+			}
+			for (var i = 0; i < factory[type].length; i++){
+				factory[type][i] = sorted[i];
+			}
+			resolve({ type: item.type, data: factory[type] });
+		});
+	};
 	factory.insertAndUpdate = function (venues, events){
 		factory.venues = factory.genericVenues;
 		factory.events = factory.genericEvents;
@@ -63,6 +91,7 @@ app.factory('DataSetFactory', function (POIFactory){
 		for (var i = eventData.length; i > 0; i--){
 			factory.events.unshift(eventData[i-1]);
 		}
+		$rootScope.$broadcast('SetVotes');
 		console.log("SET MODIFIED", { events: factory.events, venues: factory.venues });
 	};
 	factory.isNew = false;

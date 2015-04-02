@@ -10,7 +10,7 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 			return this.current_itinerary_id;
 		},
 		sync_messages_from_db : function(message_array){
-			
+			$http.get('api/')
 		},
 		set_chatroom_name : function(chatroom_name){
 			//a method to change name of chatroom

@@ -7,15 +7,15 @@ app.factory('ItineraryFactory', function ($http){
 				console.log('Database error', response.data);
 			}
 			else{
-				console.log('got back to ItineraryFactory');
+				// console.log('got back to ItineraryFactory');
 				return response.data;
 			}
 		});
 	};
 	factory.getItinerary = function (itineraryId){
-		console.log('in itinerary factory');
+		// console.log('in itinerary factory');
 		return $http.get('/api/itinerary/' + itineraryId).then(function (response){
-			console.log('response from getItinerary server ', response.data);
+			// console.log('response from getItinerary server ', response.data);
 			return response.data;
 		});
 	};
@@ -61,7 +61,7 @@ app.factory('ItineraryFactory', function ($http){
 			}
 			var update = { id: factory.setActiveParams.id, data: events };
 			$http.put('/api/itinerary/add', update).then(function (res){
-				console.log("Events Updated", res.data);
+				// console.log("Events Updated", res.data);
 			});
 		};
 	};

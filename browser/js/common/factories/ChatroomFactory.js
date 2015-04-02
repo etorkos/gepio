@@ -1,12 +1,13 @@
 'use strict';
-app.factory('ChatroomFactory', function ($http){
-	var current_itinerary_id;
+app.factory('ChatroomFactory', function ($http, DataSetFactory){
 	return {
+		current_itinerary_id : null,
 		set_itinerary_id : function(id){
-			current_itinerary_id = id;
+			// console.log(id, "set id")
+			this.current_itinerary_id = id;
 		},
 		get_itinerary_id : function(){
-			return current_itinerary_id;
+			return this.current_itinerary_id;
 		},
 		set_chatroom_name : function(chatroom_name){
 			//a method to change name of chatroom
@@ -16,9 +17,9 @@ app.factory('ChatroomFactory', function ($http){
 			this.send_message_to_server(message_text);
 			this.save_message_to_database(message_text);
 		},
-		send_message_to_server : function(message_text){
+		send_message_to_server : function(name,message_text){
 			socket.emit('message',{
-				// name : user.firstName,
+				name : name,
 				message : message_text
 			});
 		},
@@ -38,14 +39,17 @@ app.factory('ChatroomFactory', function ($http){
 		},
 		join_room : function(room_name){
 			if(typeof room_name == "undefined"){
-				socket.emit('join_room',current_itinerary_id)
+				// console.log(this.current_itinerary_id, "join room from this")
+				socket.emit('join_room',this.current_itinerary_id);
 			}
 			socket.emit('join_room',room_name)
 		},
-		open_invitation : function(id,location,range){
+		open_invitation : function(username,lat,lng,range){
 			socket.emit('open_invitation',{
-				room_id : id,
-				location: location,
+				username : username,
+				room_name : this.current_itinerary_id,
+				lat : lat,
+				lng : lng,
 				range: range
 			})
 		},
@@ -56,34 +60,61 @@ app.factory('ChatroomFactory', function ($http){
 			socket.emit('leave_room');
 		},
 		up_vote: function(event){
-			console.log(event);
-			if (event.type == 'venue'){
-				var obj = {
-					type : event.type,
-					name : event.name,
-					lat : event.location.lat,
-					lng : event.location.lng,
-					vote : 1
-				};
+			var obj = {};
+			obj.type = event.type;
+			obj.name = event.name;
+			obj.vote = 1;
+			if(event.type == "venues"){
+				obj.lat = event.location.lat,
+				obj.lng = event.location.lng
 			}
-			else {
-				var obj = {
-					type : event.type,
-					name : event.name,
-					lat : event.venue.latitude,
-					lng : event.venue.longitude,
-					vote : 1
-				};
+			else if (event.type == "event"){
+				obj.lat = event.venue.latitude,
+				obj.lng = event.venue.longitude
 			}
 			socket.emit('up_vote', obj);
 		},
 		down_vote : function(event){
-			var obj = {
-				event : event,
-				vote : -1
-			};
+			var obj = {};
+			obj.type = event.type;
+			obj.name = event.name;
+			obj.vote = -1;
+			if(event.type == "venues"){
+				obj.lat = event.location.lat,
+				obj.lng = event.location.lng
+			}
+			else if (event.type == "event"){
+				obj.lat = event.venue.latitude,
+				obj.lng = event.venue.longitude
+			}
 			socket.emit('down_vote', obj);
-			$http.post('/api/chatroom/' + current_itinerary_id + '/vote', obj);
+		},
+		top_eights : function(eights){
+			socket.emit('top_eights',eights);
+		},
+		invite_friend : function(friend_id){
+			socket.emit('invite_friend',friend_id);
+		},
+		bind_user_id : function(user_id){
+			socket.emit('bind_user_id',user_id);
+		},
+		update_vote : function(data){
+			var type = data.type;
+			var vote = data.vote;
+			if(type == 'event'){
+				DataSetFactory.events.forEach(function(a){
+					if(a.name == data.name){
+						a.vote += vote
+					}
+				})
+			}
+			else if(type == 'venue'){
+				DataSetFactory.venues.forEach(function(a){
+					if(a.name == data.name){
+						a.vote += vote
+					}
+				})
+			}
 		}
 	}
 });

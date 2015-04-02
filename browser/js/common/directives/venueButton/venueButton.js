@@ -23,7 +23,8 @@ app.directive('venueButton', function (PrefBuilder) {
                 $scope.isClicked = !$scope.isClicked;
             };
             $scope.downvoteVenue = function(item){
-                console.log(item);
+                // console.log(item);
+                ChatroomFactory.down_vote(item);
                 // scope.votes--;
                 VotingFactory.downVote(item).then(function (item){
                     DataSetFactory.reorderData(item).then(function (sorted){       
@@ -35,7 +36,8 @@ app.directive('venueButton', function (PrefBuilder) {
                 });
             };
             $scope.upvoteVenue = function(item){
-                // scope.votes++;
+                //upvote by sockets
+                ChatroomFactory.up_vote(item);
                 VotingFactory.upVote(item).then(function (item){
                     DataSetFactory.reorderData(item).then(function (sorted){
                         $rootScope.$broadcast('SetVotes');
@@ -44,8 +46,6 @@ app.directive('venueButton', function (PrefBuilder) {
                         });
                     });
                 });
-
-                //upvote by sockets
                 ChatroomFactory.up_vote(item);
             };
         }

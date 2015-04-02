@@ -58,13 +58,19 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 					break;
 				}
 			}
+			if (!wasFound){
+				data.name = venue.venue[0].title;
+				data.location = { lat: venue.venue[0].location.lat, lng: venue.venue[0].location.lon };
+			}
 			data.votes = venue.votes;
 			venueData.push(data);
 		});
 		var eventData = [];
 		events.forEach(function (event){
 			var data = {};
+			var wasFound = false;
 			for (var i = 0; i < factory.events.length; i++){
+				var wasFound = true;
 				if (factory.events[i].name === event.event[0].title){
 					for (var key in factory.events[i]){
 						if (factory.events[i].hasOwnProperty(key)){
@@ -74,6 +80,10 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 					factory.events.splice(i, 1);
 					break;
 				}
+			}
+			if (!wasFound){
+				data.name = event.event[0].title;
+				data.venue = { latitude: event.event[0].location.lat, longitude: event.event[0].location.lon };
 			}
 			data.votes = event.votes;
 			eventData.push(data);

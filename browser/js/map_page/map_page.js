@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService, GeolocationFactory, POIFactory, $filter){
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },

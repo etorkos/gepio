@@ -26,7 +26,7 @@ app.factory('VotingFactory', function ($http, ItineraryFactory){
 			if (item.location) data.type = 'venue';
 			else data.type = 'event';
 			return $http.put('/api/itinerary/vote', data).then(function (res){
-				console.log(res.data);
+				// console.log(res.data);
 				return res.data;
 			});
 		},
@@ -36,7 +36,7 @@ app.factory('VotingFactory', function ($http, ItineraryFactory){
 			if (item.location) data.type = 'venue';
 			else data.type = 'event';
 			return $http.put('/api/itinerary/vote', data).then(function (res){
-				console.log(res.data);
+				// console.log(res.data);
 				return res.data;
 			});
 		}

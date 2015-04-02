@@ -99,10 +99,13 @@ app.factory('ItineraryFactory', function ($http){
 		}
 	};
 	factory.deleteItinerary = function(itineraryId){
-		// var body = {id: itineraryId};
 		return $http.delete('/api/itinerary/'+itineraryId).then(function (res){
-			// return res.data;
 			console.log("Itinerary successfully deleted.");
+		});
+	};
+	factory.finishItinerary = function(itineraryId){
+		return $http.put('/api/itinerary/'+itineraryId).then(function (res){
+			console.log("Itinerary successfully completed");
 		});
 	};
 	factory.setActiveParams = undefined;

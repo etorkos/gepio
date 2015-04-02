@@ -37,7 +37,15 @@ router.get('/:id', function (req, res, next ){
 	Itinerary.findById(itineraryId, function(err, item){
 		console.log('out of the search', 'item', item, 'err', err);
 		res.json(item);
-	})
+	});
+});
+
+router.put('/:id', function (req, res, next){
+	var itineraryId = req.params.id;
+	Itinerary.findOneAndUpdate(itineraryId, function(err, item){
+		console.log('out of the search', 'item', item, 'err', err);
+		res.json(item);
+	});
 });
 
 router.delete('/:id', function (req, res, next){
@@ -46,7 +54,7 @@ router.delete('/:id', function (req, res, next){
 		console.log('out of the search', 'item', item, 'err', err);
 		res.send(200);
 	});
-})
+});
 
 router.post('/invite', function (req, res, next){
 	var itineraryId = req.body.itineraryId;

@@ -45,8 +45,10 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		var venueData = [];
 		venues.forEach(function (venue){
 			var data = {};
-			for (var i = 0; i < factory.venues.length; i++){
+			var wasFound = false;
+			for (var i = 0; i < factory.venues.length; i++){	
 				if (factory.venues[i].name === venue.venue[0].title){
+					wasFound = true;
 					for (var key in factory.venues[i]){
 						if (factory.venues[i].hasOwnProperty(key)){
 							data[key] = factory.venues[i][key];

@@ -57,13 +57,24 @@ app.factory('ChatroomFactory', function ($http){
 		},
 		up_vote: function(event){
 			console.log(event);
-			var obj = {
-				type : event.type,
-				name : event.name,
-				lat : event.location.lat,
-				lng : event.location.lng,
-				vote : 1
-			};
+			if (event.type == 'venue'){
+				var obj = {
+					type : event.type,
+					name : event.name,
+					lat : event.location.lat,
+					lng : event.location.lng,
+					vote : 1
+				};
+			}
+			else {
+				var obj = {
+					type : event.type,
+					name : event.name,
+					lat : event.venue.latitude,
+					lng : event.venue.longitude,
+					vote : 1
+				};
+			}
 			socket.emit('up_vote', obj);
 		},
 		down_vote : function(event){

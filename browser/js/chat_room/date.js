@@ -8,6 +8,8 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
 	$rootScope.$on('allDataReturned', function (event, args){
+		$scope.events = DataSetFactory.events; 
+		$scope.venues = DataSetFactory.venues;
 		if (POIFactory.date != $scope.dt){
 			console.log("Change date");
 			$rootScope.$emit('changeTheDate', { date: POIFactory.date });

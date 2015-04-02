@@ -24,6 +24,7 @@ schema.methods.updateVotes = function (params){
 		else search = { set: self.otherEvents, property: 'event' };
 		var property = search.property;
 		var changed;
+		console.log(search.set[property]);
 		for (var i = 0; i < search.set.length; i++){
 			if (search.set[i][property][0].title == params.name){
 				search.set[i].votes = params.votes;
@@ -57,7 +58,16 @@ schema.statics.replaceItinerary = function (params){
 					itinerary.otherVenues = embedVenues;
 				}
 				else {
-
+					var embedEvents = [];
+					for (var i = 0; i < 8; i++){
+						var embed = new Event();
+						embed.title = params.data[i].name;
+						embed.description = params.data[i].description.text;
+						embed.location = { lat: params.data[i].venue.latitude, lon: params.data[i].venue.longitude };
+						embedEvents.push({ event: embed, votes: params.data[i].votes });
+					}
+					console.log("EVENTEMBED", embedEvents);
+					itinerary.otherEvents = embedEvents;
 				}
 				return itinerary.save(function (err, itin){
 					if (err) reject(err);

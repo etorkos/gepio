@@ -18,6 +18,7 @@ app.service('SocketReaction',function(ChatroomFactory){
 		socket_on_vote : function(socket){
 			socket.on('up_vote',function(data){
 				alert(data.name + "   "+data.vote);
+				console.log('upvote')
 				ChatroomFactory.update_vote(data);
 			});
 			socket.on('down_vote',function(data){

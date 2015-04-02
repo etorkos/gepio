@@ -9,6 +9,9 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 		get_itinerary_id : function(){
 			return this.current_itinerary_id;
 		},
+		sync_messages_from_db : function(message_array){
+			
+		},
 		set_chatroom_name : function(chatroom_name){
 			//a method to change name of chatroom
 		},
@@ -25,7 +28,10 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 		},
 		save_message_to_database : function(message){
 			//will get itinerary id from req.user at server
-			$http.post('/api/chatroom/',message);
+			$http.post('/api/chatroom/message',{
+				room_id : this.current_itinerary_id,   
+				message : message
+			});
 		},
 		create_room : function(room_name){
 			socket.emit('join_room',room_name);

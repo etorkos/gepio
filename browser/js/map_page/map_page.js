@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService, GeolocationFactory, POIFactory, $filter, ChatroomFactory){
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },
@@ -55,7 +55,8 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$state.go('final-itinerary');
 	}
 
-	ChatroomFactory.socket_on_vote(socket);
+	//wait to response for upvote and downvote
+	SocketReaction.socket_on_vote(socket);
 
 	// setTimeout(function(){
 		// VotingFactory.setUpVotes($scope.dataSet.venues);

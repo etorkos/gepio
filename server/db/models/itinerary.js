@@ -26,9 +26,8 @@ schema.methods.updateVotes = function (params){
 		var changed;
 		for (var i = 0; i < search.set.length; i++){
 			if (search.set[i][property][0].title == params.name){
-				changed = search.set[i];
 				search.set[i].votes = params.votes;
-				break;
+				changed = search.set[i];
 			} 
 		}
 		if (params.type === 'venue') self.otherVenues = search.set;

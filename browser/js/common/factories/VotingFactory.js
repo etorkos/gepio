@@ -1,5 +1,5 @@
 'use strict';
-app.factory('VotingFactory', function ($http, ItineraryFactory){
+app.factory('VotingFactory', function ($http, ItineraryFactory, DataSetFactory){
 	var removeItem = function (scopeDataset, item){
 		var loc = -1;
 		for(var a = 0, len = scopeDataset.length; a < len; a++){

@@ -45,6 +45,7 @@ app.factory('VotingFactory', function ($http, ItineraryFactory, DataSetFactory){
 			for (var i = 0; i < 8; i++){
 				data.data.push(sorted.data[i]);
 			};
+			console.log('sorted data in voting factory', data);
 			return $http.put('/api/itinerary/sort', data).then(function (res){
 				return res.data;
 			});

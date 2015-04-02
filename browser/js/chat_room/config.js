@@ -19,28 +19,36 @@ app.config(function ($stateProvider) {
                 else POIFactory.hasEvents = true;
                 return $stateParams.type;
             },
-            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-                console.log('resolve');
-                return AuthService.getLoggedInUser().then(function(user){
-                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-                        console.log('finished first resolution');
-                        return user;
-                    })
-                });
-            },
+            // userValidation: function(AuthService, ResolveUserFactory, $stateParams){
+            //     console.log('resolve');
+            //     return AuthService.getLoggedInUser().then(function(user){
+            //         return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
+            //             console.log('finished first resolution');
+            //             return user;
+            //         })
+            //     });
+            // },
             // savedEvents: function($stateParams, ResolveUserFactory, ItemMixFactory, $scope){
-            savedEvents: function ($stateParams, ResolveUserFactory, ItemMixFactory, ItineraryFactory, DataSetFactory, POIFactory){   
-                if (!DataSetFactory.isNew){
-                    console.log('Dataset is not new');
-                    ItineraryFactory.setActiveParams = { id: $stateParams.id, type: $stateParams.type };
-                    ItineraryFactory.getItinerary($stateParams.id).then(function (itinerary){
-                        POIFactory.setItineraryDate(itinerary.date);
-                        DataSetFactory.insertAndUpdate(itinerary.otherVenues, itinerary.otherEvents);
-                    });
-                }
-                else {
-                    DataSetFactory.setUnmodifiedItinerary();
-                }
+            savedEvents: function ($stateParams, ResolveUserFactory, ItemMixFactory, $q, ItineraryFactory, DataSetFactory, POIFactory){   
+                return $q( function (resolve, reject){
+
+                    if (!DataSetFactory.isNew){
+                        console.log('Dataset is not new');
+                        ItineraryFactory.setActiveParams = { id: $stateParams.id, type: $stateParams.type };
+                        ItineraryFactory.getItinerary($stateParams.id).then(function (itinerary){
+                            console.log('resolved first promise');
+                            POIFactory.setItineraryDate(itinerary.date);
+                            var factory = DataSetFactory.insertAndUpdate(itinerary.otherVenues, itinerary.otherEvents)
+                                console.log('finished the resove');
+                                resolve(factory);
+                            }); 
+                    }
+                    else {
+                        console.log('Dataset is new');
+                        resolve(DataSetFactory.setUnmodifiedItinerary());
+                    }
+
+                })
             }
         },
     });

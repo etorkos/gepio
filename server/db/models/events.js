@@ -8,6 +8,6 @@ var schema = new mongoose.Schema({
 		lat: Number,
 		lon: Number
 	}
-});
+}, { strict: false });
 
 mongoose.model("Event", schema);

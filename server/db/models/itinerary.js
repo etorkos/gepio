@@ -13,7 +13,7 @@ var schema = new mongoose.Schema({
 	otherEvents: [{ event: [Event.schema], votes: Number }],
 	otherVenues: [{ venue: [Event.schema], votes: Number }],
 	chatRoom: {type: mongoose.Schema.Types.ObjectId, ref: 'Chatroom'}
-});
+}, {strict: false });
 
 
 schema.methods.updateVotes = function (params){
@@ -50,7 +50,9 @@ schema.statics.replaceItinerary = function (params){
 					for (var i = 0; i < 8; i++){
 						var embed = new Event();
 						embed.title = params.data[i].name;
+						embed.name = embed.title;
 						embed.description = params.data[i].category.name;
+						embed.category = { name: embed.description }; 
 						embed.location = { lat: params.data[i].location.lat, lon: params.data[i].location.lng };
 						embedVenues.push({ venue: embed, votes: params.data[i].votes });
 					}

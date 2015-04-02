@@ -36,7 +36,8 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 			for (var i = 0; i < factory[type].length; i++){
 				factory[type][i] = sorted[i];
 			}
-			resolve({ type: item.type, data: factory[type] });
+			console.log('reorderData ', factory[type]);
+			resolve({ type: item.type, data: factory[type] }); //passing entire dataSet back
 		});
 	};
 	factory.insertAndUpdate = function (venues, events){
@@ -44,48 +45,67 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		factory.events = factory.genericEvents;
 		console.log('called insertAndUpdate');
 		var venueData = [];
-		venues.forEach(function (venue){
-			var data = {};
-			 console.log('factory.venues', factory, 'venue', venue);
-			if(factory.venues){ 
-				//if we have generated new events before pulling from the server
-				for (var i = 0; i < factory.venues.length; i++){
-					if (factory.venues[i].name === venue.venue[0].title){
-						for (var key in factory.venues[i]){
-							if (factory.venues[i].hasOwnProperty(key)){
-								data[key] = factory.venues[i][key];
-							}
-						}
-						factory.venues.splice(i, 1);
-						break;
-					}
-				}
-				data.votes = venue.votes;
-				venueData.push(data);
-			}
-			else {
-				//if the server data loads first AKA load directly to itinerary page
-				venueData.concat(venue)
-			}
+
+		venues.forEach(function(venue){ //we are no longer filtering after, we need to filter before
+			var thing = venue.venue[0];
+			thing.name = thing.title;
+			thing.votes = venue.votes;
+			venueData.push(thing);
 		});
+		events.forEach(function(event){
+			console.log(event);
+			var thing = event.event[0];
+			thing.name = thing.title;
+			thing.votes = venue.votes;
+			venueData.push(thing);
+		});
+		// venues.forEach(function (venue){
+		// 	var data = {};
+		// 	if ( factory.venues ) {       //we have generated stuff from api calls
+		// 		for (var i = 0; i < factory.venues.length; i++){
+		// 			if (factory.venues[i].name === venue.venue[0].title){
+		// 				for (var key in factory.venues[i]){
+		// 					if (factory.venues[i].hasOwnProperty(key)){
+		// 						data[key] = factory.venues[i][key];
+		// 					}
+		// 				}
+		// 				factory.venues.splice(i, 1);
+		// 				break;
+		// 			}
+		// 		}
+		// 		data.votes = venue.votes;
+		// 		venueData.push(data);
+		// 	}
+		// 	else {
+		// 		//if the server data loads first AKA load directly to itinerary page
+		// 		venues.forEach(function(venue){
+		// 			var thing = venue.venue[0];
+		// 			thing.name = thing.title;
+		// 			thing.votes = venue.votes;
+		// 			venueData.push(thing);
+		// 		})
+		// 	}
+		// });
 		var eventData = [];
-		events.forEach(function (event){
-			var data = {};
-			for (var i = 0; i < factory.events.length; i++){
-				if (factory.events[i].name === event.event[0].title){
-					for (var key in factory.events[i]){
-						if (factory.events[i].hasOwnProperty(key)){
-							data[key] = factory.events[i][key];
-						}
-					}
-					factory.events.splice(i, 1);
-					break;
-				}
-			}
-			data.votes = event.votes;
-			eventData.push(data);
-		});
+		// events.forEach(function (event){
+		// 	var data = {};
+		// 	for (var i = 0; i < factory.events.length; i++){
+		// 		if (factory.events[i].name === event.event[0].title){
+		// 			for (var key in factory.events[i]){
+		// 				if (factory.events[i].hasOwnProperty(key)){
+		// 					data[key] = factory.events[i][key];
+		// 				}
+		// 			}
+		// 			factory.events.splice(i, 1);
+		// 			break;
+		// 		}
+		// 	}
+		// 	data.votes = event.votes;
+		// 	eventData.push(data);
+		// });
 		for (var i = venueData.length; i > 0; i--){
+			if(!factory.venues) factory.venues = [];
+			console.log('venueData[]', venueData[i-1]);
 			factory.venues.unshift(venueData[i-1]);
 		}
 		for (var i = eventData.length; i > 0; i--){

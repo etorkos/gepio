@@ -30,16 +30,17 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	$scope.events = DataSetFactory.events;
 	$scope.venues = DataSetFactory.venues;
 
-	if(!$scope.dataSet){
-		$scope.dataSet.events = savedEvents.otherEvents;
-		$scope.dataSet.venues = savedEvents.otherVenues;
-	}
-	else{
-		// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
-	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
-   		// angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
-	    // angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
-    }               
+	console.log('venues on the scope', $scope.venues);
+	// if(!$scope.dataSet){
+	// 	$scope.dataSet.events = savedEvents.otherEvents;
+	// 	$scope.dataSet.venues = savedEvents.otherVenues;
+	// }
+	// else{
+	// 	// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
+	//  //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
+ //   		// angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
+	//     // angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
+ //    }               
 
     $rootScope.ItineraryId = $stateParams.id;
 

@@ -25,13 +25,23 @@ app.directive('venueButton', function (PrefBuilder) {
             $scope.downvoteVenue = function(item){
                 console.log(item);
                 // scope.votes--;
-                VotingFactory.downVote(item);
+                VotingFactory.downVote(item).then(function (item){
+                    DataSetFactory.reorderData(item).then(function (sorted){       
+                        $rootScope.$broadcast('SetVotes');
+                        VotingFactory.sortDatabase(sorted).then(function (response){
+                            console.log(response.data);
+                        });
+                    });
+                });
             };
             $scope.upvoteVenue = function(item){
                 // scope.votes++;
                 VotingFactory.upVote(item).then(function (item){
-                    DataSetFactory.reorderData(item).then(function (){
+                    DataSetFactory.reorderData(item).then(function (sorted){
                         $rootScope.$broadcast('SetVotes');
+                        VotingFactory.sortDatabase(sorted).then(function (response){
+                            console.log(response.data);
+                        });
                     });
                 });
 

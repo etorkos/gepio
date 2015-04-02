@@ -112,6 +112,16 @@ router.put('/vote', function (req, res){
 	});
 });
 
+router.put('/sort', function (req, res){
+	Itinerary.replaceItinerary(req.body).then(function (data, error){
+		if (error) console.log("ERROR", error)
+		else {
+			console.log(data);
+			res.json(data);
+		}
+	});
+});
+
 router.put('/day', function (req, res){
 	Itinerary.changeDay(req.body).then(function (result){
 		// console.log("DAY CHANGED", result);

@@ -39,6 +39,35 @@ schema.methods.updateVotes = function (params){
 	});
 }
 
+schema.statics.replaceItinerary = function (params){
+	var self = this;
+	return new Promise(function (resolve, reject){
+		self.findById(params.id, function (err, itinerary){
+			if (err) reject(err);
+			else {
+				if (params.type == 'venue') {
+					var embedVenues = [];
+					for (var i = 0; i < 8; i++){
+						var embed = new Event();
+						embed.title = params.data[i].name;
+						embed.description = params.data[i].category.name;
+						embed.location = { lat: params.data[i].location.lat, lon: params.data[i].location.lng };
+						embedVenues.push({ venue: embed, votes: params.data[i].votes });
+					}
+					itinerary.otherVenues = embedVenues;
+				}
+				else {
+
+				}
+				return itinerary.save(function (err, itin){
+					if (err) reject(err);
+					else resolve(itin);
+				});
+			}
+		});
+	});
+}
+
 schema.methods.setOtherData = function (data){
 	var self = this;
 	return new Promise(function (resolve, reject){

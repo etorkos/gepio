@@ -39,6 +39,15 @@ app.factory('VotingFactory', function ($http, ItineraryFactory, DataSetFactory){
 				console.log(res.data);
 				return res.data;
 			});
+		},
+		sortDatabase: function (sorted){
+			var data = { data: [], id: ItineraryFactory.setActiveParams.id, type: sorted.type };
+			for (var i = 0; i < 8; i++){
+				data.data.push(sorted.data[i]);
+			};
+			return $http.put('/api/itinerary/sort', data).then(function (res){
+				return res.data;
+			});
 		}
 	};	
 });

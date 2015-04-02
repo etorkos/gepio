@@ -17,7 +17,7 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 			$scope.itineraries = [];
 
 			AuthService.getLoggedInUser().then(function(user){
-				console.log('sending the request');
+				// console.log('sending the request');
 				$scope.user = user;
 				$scope.getUserItineraries(user);
 			})
@@ -26,20 +26,25 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 				UserFactory.getItineraries(user._id).then(function(data){
 					$scope.invites = data.invites;
 					$scope.itineraries = data.itineraries;
-					console.log('data', data);
+					// console.log('data', data);
 				})
 			}
 
+			socket.on('invitation',function(){
+				//there is another receiver at maincontroller
+				$scope.getUserItineraries($scope.user);
+			});
+
 			$scope.acceptInvite = function (invite){
 				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
-						console.log(response);
+						// console.log(response);
 						$scope.getUserItineraries($scope.user);
 				})
 			}
 
 			$scope.rejectInvite = function (invite){
 				UserFactory.removeInvite($scope.user, invite._id ).then(function (response){
-						console.log(response);
+						// console.log(response);
 						$scope.getUserItineraries($scope.user);
 				})
 			}

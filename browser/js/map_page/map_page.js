@@ -7,7 +7,8 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter){
+
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },
@@ -30,6 +31,8 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	$scope.date = POIFactory.date;
 
 	$scope.data = $scope.dataSet;
+
+	// console.log($scope.data.venues);
 
 	$scope.goToPlan = function (){
 		$state.go('room.sub', { id: $stateParams.id, type: $stateParams.type });
@@ -60,5 +63,28 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$scope.showEvents = false;
 	else
 		$scope.showEvents = true;
+	SocketReaction.socket_on_vote(socket);
+
+	// setTimeout(function(){
+		// VotingFactory.setUpVotes($scope.dataSet.venues);
+		// VotingFactory.setUpVotes($scope.dataSet.events);
+	// },5000);
+});
+
+app.service('passService', function(){
+	//can remove once database persistence is working with each room
+	var finalData;
+
+	var addFinal = function(fData){
+		finalData = fData;
+	};
+	var getFinal = function(){
+		return finalData;
+	};
+
+	return{
+		addFinal: addFinal,
+		getFinal: getFinal
+	};
 });
 

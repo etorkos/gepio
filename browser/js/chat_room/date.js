@@ -1,30 +1,37 @@
 'use strict';
 
-
-app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, DataSetFactory, $timeout, SocketReaction, ItineraryFactory, $rootScope){
+app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, 
+									DataSetFactory, $timeout, ItineraryFactory, $rootScope, ChatroomFactory, SocketReaction){
 
 	DataSetFactory.isNew = false;
 	$scope.hasReturned = POIFactory.allPOIsReturned;
 
 	$rootScope.$on('allDataReturned', function (event, args){
-		$scope.events = DataSetFactory.events;
+		$scope.events = DataSetFactory.events; 
 		$scope.venues = DataSetFactory.venues;
 		if (POIFactory.date != $scope.dt){
 			console.log("Change date");
 			$rootScope.$emit('changeTheDate', { date: POIFactory.date });
 		}
 	});
+
+	$rootScope.$on('SetVotes', function (event, args){
+		$scope.events = DataSetFactory.events; 
+		$scope.venues = DataSetFactory.venues;
+	});
 	
 	//socket reaction 
-
+	ChatroomFactory.set_itinerary_id($stateParams.id);
+	ChatroomFactory.join_room();
+	ChatroomFactory.bind_user_id($scope.user._id);
 	SocketReaction.socket_on_vote(socket,$scope);
 
-	console.log(roomType);
 	$scope.config1 = ( roomType === 'config1' );
-	console.log("Data Set", $scope.dataSet);
+	// console.log("Data Set", $scope.dataSet);
 
 	$scope.events = DataSetFactory.events;
 	$scope.venues = DataSetFactory.venues;
+
 	if(!$scope.dataSet){
 		$scope.dataSet.events = savedEvents.otherEvents;
 		$scope.dataSet.venues = savedEvents.otherVenues;
@@ -87,5 +94,6 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		})
 		
 	}
+
 });
 

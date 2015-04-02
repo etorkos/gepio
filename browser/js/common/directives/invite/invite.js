@@ -4,7 +4,7 @@ app.directive('invite', function (UserFactory, ItineraryFactory, $stateParams){
 	return {
 		restrict: "E",
 		templateUrl: "js/common/directives/invite/invite.html",
-		controller: function ($scope, UserFactory, ItineraryFactory, $rootScope){
+		controller: function ($scope, UserFactory, ItineraryFactory, $rootScope, ChatroomFactory){
 			$scope.invite = { };
 
 			$scope.searchByName = function (){
@@ -18,7 +18,10 @@ app.directive('invite', function (UserFactory, ItineraryFactory, $stateParams){
 					else {
 						console.log('user info found');
 						ItineraryFactory.inviteUser( $rootScope.ItineraryId, response._id ).then(function (postResponse){
-							if(postResponse) console.log('invite sent');
+							if(postResponse) {
+								console.log('invite sent');
+								ChatroomFactory.invite_friend(response._id);
+							}
 							else console.log('invite not sent');
 						}); 
 					}
@@ -39,7 +42,10 @@ app.directive('invite', function (UserFactory, ItineraryFactory, $stateParams){
 					}
 					else {
 						ItineraryFactory.inviteUser( $rootScope.ItineraryId, response._id ).then(function (postResponse){
-							if(postResponse) console.log('invite sent');
+							if(postResponse) {
+								console.log('invite sent');
+								ChatroomFactory.invite_friend(response._id);
+							}
 							else console.log('invite not sent');
 						}); 
 					}

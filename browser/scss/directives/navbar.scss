@@ -31,3 +31,24 @@ navbar {
   }
 
 }
+
+navbar-itineraries{
+  background-color: rgba(156, 156, 156, 0.90);
+
+  span{
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  a{
+    text-decoration: none;
+  }
+  a:hover,
+  a:visited,
+  a:link{
+    text-decoration: none;
+  }
+  a:active{
+    color: #43ac6a;
+  }
+}

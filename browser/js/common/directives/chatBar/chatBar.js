@@ -7,20 +7,20 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 			scope.current_message = "";
 			scope.message_to_display = [];
 			scope.invitations = [];
-
 			//button functions
-			scope.submit_message = function(){
-				ChatroomFactory.send_message_to_server(scope.current_message)
+			scope.submit_message = function(message){
+				//change to scope.user.firstName later
+				ChatroomFactory.send_message_to_server(scope.user.firstName, message);
 				scope.current_message = "";
-				scope.message_to_display.push(scope.current_message);
+				scope.message_to_display.push({name:"me",message:message});
 			};
 			scope.open_invitation = ChatroomFactory.open_invitation;
 			scope.close_invitation = ChatroomFactory.close_invitation;
-			scope.create_room = function(){
-				ChatroomFactory.create_room(scope.roomName);
-			};
-			scope.join_room = function(){
-				ChatroomFactory.join_room(scope.roomName);
+			// scope.create_room = function(){
+			// 	ChatroomFactory.create_room(scope.roomName);
+			// };
+			scope.join_room = function(roomName){
+				ChatroomFactory.join_room(roomName);
 			};
 
 			//all socket.on reactions

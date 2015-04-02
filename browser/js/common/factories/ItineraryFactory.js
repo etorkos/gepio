@@ -103,8 +103,8 @@ app.factory('ItineraryFactory', function ($http){
 			console.log("Itinerary successfully deleted.");
 		});
 	};
-	factory.finishItinerary = function(itineraryId){
-		return $http.put('/api/itinerary/'+itineraryId).then(function (res){
+	factory.finishItinerary = function(finalItinerary){
+		return $http.put('/api/itinerary/', finalItinerary).then(function (res){
 			console.log("Itinerary successfully completed");
 		});
 	};

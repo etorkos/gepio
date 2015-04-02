@@ -10,20 +10,24 @@
 		</div>
 	</div>
 	<div class="panel-success">
-		<div class="panel-heading"><h4>Restaurant: {{finalVenue.venue[0].title}}</h4></div>
+		<div class="panel-heading"><h4><b>Restaurant:</b> {{finalVenue.venue[0].title}}</h4></div>
 		<div class="panel-body">
+			<h4>Votes: {{finalVenue.votes}}</h4>
 			<h4>{{finalVenue.venue[0].description}}</h4>
 			<h4>{{finalVenue.venue[0].location}}</h4>
 		</div>
 	</div>
 	<div class="panel-success" ng-show="showEvents">
-		<div class="panel-heading"><h4>Event: {{finalEvent.event[0].title}}</h4></div>
+		<div class="panel-heading"><h4><b>Event:</b> {{finalEvent.event[0].title}}</h4></div>
 		<div class="panel-body">
+			<h4>Votes: {{finalEvent.votes}}</h4>
 			<h4>{{finalEvent.event[0].description}}</h4>
 			<h4>{{finalEvent.event[0].location}}</h4>
 		</div>
 	</div>
-	<button class="btn btn-success" ng-click="goBack()">Edit Itinerary</button>
-	<button class="btn btn-success" ng-click="finishItn()">Finish Itinerary</button>
-	<button class="btn btn-success" ng-click="deleteItn()">Delete Itinerary</button>
+	<div ng-show="!isClosed">
+		<button class="btn btn-success" ng-click="goBack()">Edit Itinerary</button>
+		<button class="btn btn-success" ng-click="finishItn()">Finish Itinerary</button>
+		<button class="btn btn-success" ng-click="deleteItn()">Delete Itinerary</button>
+	</div>
 </main>

@@ -40,10 +40,15 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 			$scope.finalIt = returnedData;
 			$scope.itinTitle = returnedData.title;
 			$scope.itinDate = fixDate(returnedData.date);
-			console.log(fixDate(returnedData.date));
 			$scope.id = returnedData._id;
 			$scope.finalVenue = filterFinal(returnedData.otherVenues);
 			$scope.finalEvent = filterFinal(returnedData.otherEvents);
+
+			//whether to show buttons or not
+			if($scope.finalIt.finishStatus == 'closed')
+				$scope.isClosed = true;
+			else
+				$scope.isClosed = false;
 		});
 	};
 
@@ -56,7 +61,7 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 		$scope.finalIt.otherVenues = $scope.finalVenue;
 		$scope.finalIt.otherEvents = $scope.finalEvent;
 		$scope.finalIt.finishStatus = 'closed';
-		ItineraryFactory.finishItinerary($scope.id);
+		ItineraryFactory.finishItinerary($scope.finalIt);
 	};
 
 	$scope.deleteItn = function(){

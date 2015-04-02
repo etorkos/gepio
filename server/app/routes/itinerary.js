@@ -31,6 +31,14 @@ router.post('/', function(req, res, next){
 	});	
 });
 
+router.put('/', function (req, res, next){
+	Itinerary.findOneAndUpdate({_id: req.body.id}, req.body)
+	.then(function (err, item){
+		console.log('out of the search', 'item', item, 'err', err);
+		res.json(item);
+	});
+});
+
 router.get('/:id', function (req, res, next ){
 	var itineraryId = req.params.id;
 	// console.log('arrived here ok', itineraryId);
@@ -40,19 +48,11 @@ router.get('/:id', function (req, res, next ){
 	});
 });
 
-router.put('/:id', function (req, res, next){
-	var itineraryId = req.params.id;
-	Itinerary.findOneAndUpdate(itineraryId, function(err, item){
-		console.log('out of the search', 'item', item, 'err', err);
-		res.json(item);
-	});
-});
-
 router.delete('/:id', function (req, res, next){
 	var itineraryId = req.params.id;
 	Itinerary.findOneAndRemove(itineraryId, function(err, item){
 		console.log('out of the search', 'item', item, 'err', err);
-		res.send(200);
+		res.sendStatus(200);
 	});
 });
 
@@ -78,10 +78,10 @@ router.post('/invite', function (req, res, next){
 					itinerary.update({ $push: {users: userInvitee}}, function (err, modCount2){
 						if (err) return next(err);
 						res.send(true);
-					})
+					});
 					
-				})
-			})
+				});
+			});
 		}
 	});
 });
@@ -105,7 +105,7 @@ router.post('/toggleSetting', function (req, res, next){
 		}
 	});
 	
-})
+});
 
 router.put('/add', function (req, res){
 	Itinerary.addEvents(req.body).then(function (result){

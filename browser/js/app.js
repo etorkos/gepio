@@ -83,7 +83,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                 });
             }
             else {
-                console.log('User has preferences');
+                // console.log('User has preferences');
                 $scope.dataSet.movies = null;
                 $scope.totals = 0;
                 var preferences = UserFactory.parseUserPreferences($scope.user);

@@ -1,5 +1,5 @@
 'use strict';
-app.factory('VotingFactory', function ($http, ItineraryFactory){
+app.factory('VotingFactory', function ($http, ItineraryFactory, DataSetFactory){
 	var removeItem = function (scopeDataset, item){
 		var loc = -1;
 		for(var a = 0, len = scopeDataset.length; a < len; a++){
@@ -37,6 +37,15 @@ app.factory('VotingFactory', function ($http, ItineraryFactory){
 			else data.type = 'event';
 			return $http.put('/api/itinerary/vote', data).then(function (res){
 				console.log(res.data);
+				return res.data;
+			});
+		},
+		sortDatabase: function (sorted){
+			var data = { data: [], id: ItineraryFactory.setActiveParams.id, type: sorted.type };
+			for (var i = 0; i < 8; i++){
+				data.data.push(sorted.data[i]);
+			};
+			return $http.put('/api/itinerary/sort', data).then(function (res){
 				return res.data;
 			});
 		}

@@ -55,7 +55,6 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$state.go('final-itinerary');
 	}
 
-	//wait to response for upvote and downvote
 	SocketReaction.socket_on_vote(socket);
 
 	// setTimeout(function(){

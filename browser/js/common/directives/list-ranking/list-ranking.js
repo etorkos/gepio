@@ -5,14 +5,16 @@ app.directive('listRanking', function(){
 		scope: {
 			myPlace: '='
 		},
-		controller: function($scope, VotingFactory){
+		controller: function($scope, VotingFactory, ChatroomFactory){
 
 			$scope.downvote = function(item){
 				VotingFactory.downVote(item);
+				ChatroomFactory.down_vote(item);
 			};
 
 			$scope.upvote = function(item){
 				VotingFactory.upVote(item);
+				ChatroomFactory.up_vote(item);
 			};
 
 		},

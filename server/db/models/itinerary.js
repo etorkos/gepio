@@ -24,11 +24,11 @@ schema.methods.updateVotes = function (params){
 		else search = { set: self.otherEvents, property: 'event' };
 		var property = search.property;
 		var changed;
+		console.log(search.set[property]);
 		for (var i = 0; i < search.set.length; i++){
 			if (search.set[i][property][0].title == params.name){
-				changed = search.set[i];
 				search.set[i].votes = params.votes;
-				break;
+				changed = search.set[i];
 			} 
 		}
 		if (params.type === 'venue') self.otherVenues = search.set;
@@ -36,6 +36,44 @@ schema.methods.updateVotes = function (params){
 		return self.save(function (err, itinerary){
 			if (err) reject(err);
 			else resolve({ type: search.property, item: changed });
+		});
+	});
+}
+
+schema.statics.replaceItinerary = function (params){
+	var self = this;
+	return new Promise(function (resolve, reject){
+		self.findById(params.id, function (err, itinerary){
+			if (err) reject(err);
+			else {
+				if (params.type == 'venue') {
+					var embedVenues = [];
+					for (var i = 0; i < 8; i++){
+						var embed = new Event();
+						embed.title = params.data[i].name;
+						embed.description = params.data[i].category.name;
+						embed.location = { lat: params.data[i].location.lat, lon: params.data[i].location.lng };
+						embedVenues.push({ venue: embed, votes: params.data[i].votes });
+					}
+					itinerary.otherVenues = embedVenues;
+				}
+				else {
+					var embedEvents = [];
+					for (var i = 0; i < 8; i++){
+						var embed = new Event();
+						embed.title = params.data[i].name;
+						embed.description = params.data[i].description.text;
+						embed.location = { lat: params.data[i].venue.latitude, lon: params.data[i].venue.longitude };
+						embedEvents.push({ event: embed, votes: params.data[i].votes });
+					}
+					console.log("EVENTEMBED", embedEvents);
+					itinerary.otherEvents = embedEvents;
+				}
+				return itinerary.save(function (err, itin){
+					if (err) reject(err);
+					else resolve(itin);
+				});
+			}
 		});
 	});
 }

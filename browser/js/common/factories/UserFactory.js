@@ -78,7 +78,7 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				});
 			});
 		},
-		generateInitialCustomPOIs: function (event, venue){
+		generateInitialCustomPOIs: function (event, venue, night){
 			return EventsFactory.getEvents(event).then(function (e){
 				var data = { events: [], venues: [], totals: 0 };
 				data.events = data.events.concat(e);
@@ -90,16 +90,22 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 					data.totals += v.length;
 					return data;
 				});
-			});
+			}).then(function (data){
+				return VenuesFactory.getVenues(night).then(function (n){
+					data.venues = data.venues.concat(n);
+					data.totals += n.length;
+					return data;
+				});
+			})
 		},
 		parseUserPreferences: function (user){
-			var preferences = { events: [], foods: [], hasMovies: false };
+			var preferences = { events: [], foods: [], nights: [], hasMovies: false };
 			user.preferences.events.forEach(function (event){
                 if (JSON.parse(event).id === 'movie') preferences.hasMovies = true;
                 else preferences.events.push(JSON.parse(event).id);
             });
             user.preferences.nights.forEach(function (night){
-                preferences.foods.push(JSON.parse(night).id);
+                preferences.nights.push(JSON.parse(night).id);
             });
             user.preferences.foods.forEach(function (food){
                 preferences.foods.push(JSON.parse(food).id);

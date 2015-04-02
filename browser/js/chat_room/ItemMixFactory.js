@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('ItemMixFactory', function (ItineraryFactory){
+app.factory('ItemMixFactory', function (){
 
 	return {
 		blend: function(categoriesArray, dataSet){
@@ -20,8 +20,9 @@ app.factory('ItemMixFactory', function (ItineraryFactory){
 			while( newDataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
 				for( var catIndex = 0 ; catIndex < len; catIndex++ ){ //loop through categories
 					for(var arrItem = 0, dlen = newDataSet.length; arrItem < dlen; arrItem++){
-						console.log('midloop', categoriesArray[catIndex], newDataSet[arrItem].category.id)
-						if(categoriesArray[catIndex]['id'] === newDataSet[arrItem].category.id) {
+						// console.log('midloop', categoriesArray[catIndex].toString() === newDataSet[arrItem].category.id.toString(), typeof categoriesArray[catIndex], categoriesArray[catIndex], typeof newDataSet[arrItem].category.id, newDataSet[arrItem].category.id)
+						if(categoriesArray[catIndex].toString() === newDataSet[arrItem].category.id.toString()) {
+							console.log('same category', categoriesArray[catIndex]);
 							newSortedArray.push(newDataSet.splice(arrItem, 1)[0]);
 							infiniteLoop = 0;
 							break; //up to catIndex loop
@@ -32,6 +33,7 @@ app.factory('ItemMixFactory', function (ItineraryFactory){
 			};
 			console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
 			dataSet = newSortedArray.concat(newDataSet);
+			console.log(dataSet);
 			return dataSet;
 		},
 		shuffle: function (orderedList, type, id){
@@ -46,10 +48,10 @@ app.factory('ItemMixFactory', function (ItineraryFactory){
 			}
 			var list = orderedList.splice(0, 8);
 			console.log(list);
-			ItineraryFactory.updateDataSet(type, id, list).then(function (res){
-				console.log("Updated", res);
-				return list;
-			});
+			// ItineraryFactory.updateDataSet(type, id, list).then(function (res){
+			// 	console.log("Updated", res);
+			// 	return list;
+			// });
 		},
 		removeDuplicates: function (listOfObjects, type){ //type = event or venue
 			var arrResult = {},

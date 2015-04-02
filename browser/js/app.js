@@ -78,7 +78,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                 $scope.dataSet.movies = null;
                 $scope.totals = 0;
                 var preferences = UserFactory.parseUserPreferences($scope.user);
-                UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
+                UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0], preferences.nights[0]).then(function (data){
                     $scope.dataSet.events = data.events;
                     $scope.dataSet.venues = data.venues;
                     DataSetFactory.events = data.events;

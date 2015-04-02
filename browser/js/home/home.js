@@ -31,10 +31,10 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 
 	$scope.options = [
 		//should make it so that we pass a kind of parameter that will do search instead
-		{name: 'Whats for lunch?', type: 'config1'},
-		{name: 'Reunion with Friends', type: 'config2'},
-		{name: 'Romantic Night Out', type: 'config2'},
-		{name: 'Lets go out tonight', type: 'config2'}];
+		{name: 'Whats for lunch?', type: 'config1', search: 'foods'},
+		{name: 'Reunion with Friends', type: 'config2', search: 'foods'},
+		{name: 'Romantic Night Out', type: 'config2', search: 'foods'},
+		{name: 'Lets go out tonight', type: 'config1', search: 'nights'}];
 
 	$scope.redirect = function(){
 		AuthService.getLoggedInUser().then(function(user){
@@ -44,7 +44,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					alert('Please set a few preferences first, so we can give you better reccommendations');
 					$state.go('preferences', {user: user._id}) }
 			else{
-				var dataForItinerary = ItineraryFactory.createDataSet($scope.selectedOption.name, $scope.dataSet);
+				var dataForItinerary = ItineraryFactory.createDataSet( user, $scope.selectedOption.type, $scope.selectedOption.search ,$scope.dataSet);
 				ItineraryFactory.createItinerary({ user: user, title: $scope.selectedOption.name, events: dataForItinerary , type: $scope.selectedOption }).then(function(itinerary){
 					ItineraryFactory.setActiveParams = { id: itinerary._id, type: $scope.selectedOption.type };
 					DataSetFactory.isNew = true;

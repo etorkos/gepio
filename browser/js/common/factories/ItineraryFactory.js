@@ -67,8 +67,9 @@ app.factory('ItineraryFactory', function ($http){
 	};
 	factory.inviteUser = function (itineraryId, userId){
 		var body = { itineraryId: itineraryId, userId: userId };
-		return $http.post('/api/itinerary/invite').then(function (res){
-			return res.data;
+		console.log('inviteUser', body);
+		return $http.post('/api/itinerary/invite', body).then(function (res){
+			return res;
 		});
 	};
 	factory.toggleInviteStatus = function (itineraryId){
@@ -91,7 +92,7 @@ app.factory('ItineraryFactory', function ($http){
 				}
 				if (events.length >= 8) break;
 			}
-			var update = { id: factory.setActiveParams.id, data: events };
+			var update = { id: factory.setActiveParams.id, data: events, date: day };
 			$http.put('/api/itinerary/day', update).then(function (res){
 				console.log("Events Updated", res.data);
 			});

@@ -6,18 +6,18 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     }
     $scope.invite = false;
     $scope.invite_friends = function(){
-        //$scope.invite = !$scope.invite;
+        $scope.invite = !$scope.invite;
         console.log($scope.invite);
-        // var itinerary_id = ChatroomFactory.get_itinerary_id();
-        // ChatroomFactory.open_invitation(itinerary_id);
+        var itinerary_id = ChatroomFactory.get_itinerary_id();
+        ChatroomFactory.open_invitation(itinerary_id);
     };
 
     $scope.inviteStatus = 'closed'; //needs to be dynamically set
 
     $scope.inviteToggle = function (){
         ItineraryFactory.toggleInviteStatus($rootScope.ItineraryId).then(function (response){
-            console.log('The new invite status is', response);
-            if(response == 'closed') $scope.inviteStatus = 'closed';
+            console.log('The new invite status is', response.status);
+            if(response.status == 'closed') $scope.inviteStatus = 'closed';
             else $scope.inviteStatus = 'open';
         })
     }
@@ -27,10 +27,14 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     };
 
     $scope.today = function() {
-        $scope.dt = new Date(); //date object we are using
-        POIFactory.date = $scope.dt;
+        $scope.dt = POIFactory.date; //date object we are using
     };
     $scope.today();
+
+    $rootScope.$on('changeTheDate', function (event, args){
+        console.log("CHANGE THE DATE!", args.date);
+        $scope.dt = args.date;
+    });
 
     $scope.exportDate = function(){
         ItineraryFactory.changeEventsDate($scope.dt, $scope.dataSet.events);

@@ -42,13 +42,12 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 	factory.insertAndUpdate = function (venues, events){
 		factory.venues = factory.genericVenues;
 		factory.events = factory.genericEvents;
+		console.log("FROM DATABASE", venues, events);
 		var venueData = [];
 		venues.forEach(function (venue){
 			var data = {};
-			var wasFound = false;
 			for (var i = 0; i < factory.venues.length; i++){	
 				if (factory.venues[i].name === venue.venue[0].title){
-					wasFound = true;
 					for (var key in factory.venues[i]){
 						if (factory.venues[i].hasOwnProperty(key)){
 							data[key] = factory.venues[i][key];
@@ -58,7 +57,7 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 					break;
 				}
 			}
-			if (!wasFound){
+			if (!data.name){
 				data.name = venue.venue[0].title;
 				data.location = { lat: venue.venue[0].location.lat, lng: venue.venue[0].location.lon };
 			}
@@ -68,9 +67,7 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		var eventData = [];
 		events.forEach(function (event){
 			var data = {};
-			var wasFound = false;
 			for (var i = 0; i < factory.events.length; i++){
-				var wasFound = true;
 				if (factory.events[i].name === event.event[0].title){
 					for (var key in factory.events[i]){
 						if (factory.events[i].hasOwnProperty(key)){
@@ -81,7 +78,7 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 					break;
 				}
 			}
-			if (!wasFound){
+			if (!data.name){
 				data.name = event.event[0].title;
 				data.venue = { latitude: event.event[0].location.lat, longitude: event.event[0].location.lon };
 			}

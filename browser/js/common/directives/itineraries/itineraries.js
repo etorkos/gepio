@@ -18,8 +18,10 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 
 			AuthService.getLoggedInUser().then(function(user){
 				// console.log('sending the request');
-				$scope.user = user;
-				$scope.getUserItineraries(user);
+				if(user){
+					$scope.user = user;
+					$scope.getUserItineraries(user);
+				}
 			})
 
 			$scope.getUserItineraries = function (user){

@@ -88,7 +88,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                 $scope.dataSet.movies = null;
                 $scope.totals = 0;
                 var preferences = UserFactory.parseUserPreferences($scope.user);
-                UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
+                UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0], preferences.nights[0]).then(function (data){
                     $scope.dataSet.events = data.events;
                     $scope.dataSet.venues = data.venues;
                     DataSetFactory.events = data.events;
@@ -99,7 +99,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                     preferences.events.unshift();
                     preferences.foods.unshift();
                 }).then(function (){
-                    UserFactory.generateMorePOIs(preferences.events, preferences.foods).then(function (data){
+                    UserFactory.generateMorePOIs(preferences.events, preferences.foods, preferences.nights).then(function (data){
                         if (ItineraryFactory.setActiveParams) ItineraryFactory.updateEventsSet(data.events);
                         data.events.forEach(function (arr){
                             $scope.totals += arr.length;

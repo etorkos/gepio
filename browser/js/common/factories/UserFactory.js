@@ -2,7 +2,7 @@
 app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, VenuesFactory, $q){
 	return {
 		updateUser: function(user){
-			return $http.put('/api/user/' + user._id + '/preferences', user).then(function (response){
+			return $http.put('/api/user/' + user._id, user).then(function (response){
 				return response.data;
 			});
 		},

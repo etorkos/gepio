@@ -1,4 +1,4 @@
-app.service('SocketReaction',function(ChatroomFactory){
+app.service('SocketReaction',function(ChatroomFactory, $rootScope){
 	return {
 		socket_on : function(socket,scope){
 			socket.on('new_message',function(data){
@@ -15,14 +15,19 @@ app.service('SocketReaction',function(ChatroomFactory){
 				scope.$digest();
 			});
 		},
-		socket_on_vote : function(socket){
+		socket_on_vote : function(socket,scope){
 			socket.on('up_vote',function(data){
-				alert(data.name + "   "+data.vote);
+				// alert(data.name + "   "+data.vote);
+				console.log(data)
 				ChatroomFactory.update_vote(data);
+				scope.$digest();
+				$rootScope.$broadcast('SetVotes');
 			});
 			socket.on('down_vote',function(data){
-				alert(data.name + "   "+data.vote);
+				// alert(data.name + "   "+data.vote);
 				ChatroomFactory.update_vote(data);
+				scope.$digest();
+				$rootScope.$broadcast('SetVotes');
 			});
 		}
 	};

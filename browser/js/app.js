@@ -21,6 +21,8 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
         saveUserToScope();
     })
 
+    $rootScope.socket_ever_on = false;
+
     $rootScope.$on(AUTH_EVENTS.loginSuccess,function(){
         saveUserToScope();
     });

@@ -42,6 +42,45 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
         { label: 'Login', state:'home.login' }
     ];
 
+    var runPreferences = function (){
+        var preferences = UserFactory.parseUserPreferences($scope.user);
+        UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
+            $scope.dataSet.events = data.events;
+            $scope.dataSet.venues = data.venues;
+            DataSetFactory.events = data.events;
+            DataSetFactory.venues = data.venues;
+            DataSetFactory.genericEvents = data.events;
+            DataSetFactory.genericVenues = data.venues;
+            $scope.totals += data.totals;
+            preferences.events.unshift();
+            preferences.foods.unshift();
+        }).then(function (){
+            UserFactory.generateMorePOIs(preferences.events, preferences.foods).then(function (data){
+                if (ItineraryFactory.setActiveParams) ItineraryFactory.updateEventsSet(data.events);
+                data.events.forEach(function (arr){
+                    $scope.totals += arr.length;
+                    $scope.dataSet.events = $scope.dataSet.events.concat(arr);
+                    DataSetFactory.events = DataSetFactory.events.concat(arr);
+                    DataSetFactory.genericEvents = DataSetFactory.genericEvents.concat(arr);
+                });
+                data.venues.forEach(function (arr){
+                    $scope.totals += arr.length;
+                    $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
+                    DataSetFactory.venues = DataSetFactory.venues.concat(arr);
+                    DataSetFactory.genericVenues = DataSetFactory.genericVenues.concat(arr);
+                });
+            }).then(function (){
+                POIFactory.allPOIsReturned = true;
+                $rootScope.$broadcast('allDataReturned');
+                $rootScope.$broadcast('SetVotes');
+            });
+        });
+    };
+
+    $rootScope.$on("PreferencesAdded", function (event, args){
+        runPreferences();
+    });
+
     $scope.editProfile = 
         { label: 'Edit Profile', state: 'edit' };
 
@@ -81,56 +120,15 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                         });
                         POIFactory.allPOIsReturned = true;
                         $rootScope.$broadcast('allDataReturned');
-                        $rootScope.$bootstrap('SetVotes');
+                        $rootScope.$broadcast('SetVotes');
                     });
                 });
             }
             else {
-                console.log('User has preferences');
+                // console.log('User has preferences');
                 $scope.dataSet.movies = null;
                 $scope.totals = 0;
-                var preferences = UserFactory.parseUserPreferences($scope.user);
-                UserFactory.generateInitialCustomPOIs(preferences.events[0], preferences.foods[0]).then(function (data){
-                    $scope.dataSet.events = data.events;
-                    $scope.dataSet.venues = data.venues;
-                    DataSetFactory.events = data.events;
-                    DataSetFactory.venues = data.venues;
-                    DataSetFactory.genericEvents = data.events;
-                    DataSetFactory.genericVenues = data.venues;
-                    $scope.totals += data.totals;
-                    preferences.events.unshift();
-                    preferences.foods.unshift();
-                }).then(function (){
-                    UserFactory.generateMorePOIs(preferences.events, preferences.foods).then(function (data){
-                        if (ItineraryFactory.setActiveParams) ItineraryFactory.updateEventsSet(data.events);
-                        data.events.forEach(function (arr){
-                            $scope.totals += arr.length;
-                            $scope.dataSet.events = $scope.dataSet.events.concat(arr);
-                            DataSetFactory.events = DataSetFactory.events.concat(arr);
-                            DataSetFactory.genericEvents = DataSetFactory.genericEvents.concat(arr);
-                        });
-                        data.venues.forEach(function (arr){
-                            $scope.totals += arr.length;
-                            $scope.dataSet.venues = $scope.dataSet.venues.concat(arr);
-                            DataSetFactory.venues = DataSetFactory.venues.concat(arr);
-                            DataSetFactory.genericVenues = DataSetFactory.genericVenues.concat(arr);
-                        });
-                    }).then(function (){
-                        // if (preferences.hasMovies){
-                        //     MoviesFactory.getMovies().then(function (movies){
-                        //         $scope.dataSet.movies = movies;
-                        //         $scope.totals += movies.length;
-                        //         POIFactory.allPOIsReturned = true;
-                        //         DataSetFactory.movies = movies;
-                        //     });
-                        // }
-                        // else {
-                            POIFactory.allPOIsReturned = true;
-                            $rootScope.$broadcast('allDataReturned');
-                            $rootScope.$broadcast('SetVotes');
-                        //}
-                    });
-                });
+                runPreferences();
             }
         };
     });

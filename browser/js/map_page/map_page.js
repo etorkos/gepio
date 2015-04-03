@@ -7,13 +7,16 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, passService, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction){
+
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },
 			zoom: 13
 		};
 	});
+
+	console.log($stateParams.type);
 	$scope.user_location = { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude };
 	$scope.active = MessageFactory.active;
 	$scope.messages = MessageFactory.messages;
@@ -28,6 +31,7 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	$scope.date = POIFactory.date;
 
 	$scope.data = $scope.dataSet;
+
 	// console.log($scope.data.venues);
 
 	$scope.goToPlan = function (){
@@ -36,25 +40,29 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 
 	$scope.finalizeItinerary = function(){
 
-		var mData = $scope.dataSet;
+		// var mData = $scope.dataSet;
 
-		$scope.finalData = {
-			venues: [],
-			events: []
-		};
-		for(var v = 0; v < mData.venues.length; v++){
-			if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
-				$scope.finalData.venues.push(mData.venues[v]);
-		}
-		for(var e = 0; e < mData.events.length; e++){
-			if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
-				$scope.finalData.events.push(mData.events[e]);	
-		};
-		// console.log($scope.finalData);
-		passService.addFinal($scope.finalData);
-		$state.go('final-itinerary');
+		// $scope.finalData = {
+		// 	venues: [],
+		// 	events: []
+		// };
+		// for(var v = 0; v < mData.venues.length; v++){
+		// 	if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
+		// 		$scope.finalData.venues.push(mData.venues[v]);
+		// }
+		// for(var e = 0; e < mData.events.length; e++){
+		// 	if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
+		// 		$scope.finalData.events.push(mData.events[e]);	
+		// };
+		// // console.log($scope.finalData);
+		// passService.addFinal($scope.finalData);
+		$state.go('final-itinerary', { id: $stateParams.id, type: $stateParams.type });
 	}
 
+	if($stateParams.type == 'config1')
+		$scope.showEvents = false;
+	else
+		$scope.showEvents = true;
 	SocketReaction.socket_on_vote(socket);
 
 	// setTimeout(function(){

@@ -31,13 +31,30 @@ router.post('/', function(req, res, next){
 	});	
 });
 
+router.put('/', function (req, res, next){
+	Itinerary.findOneAndUpdate({_id: req.body._id}, req.body)
+		.exec(function (err, itinerary){
+			// console.log(itinerary);
+			if (err) next (err);
+			res.send(itinerary);
+		});
+});
+
 router.get('/:id', function (req, res, next ){
 	var itineraryId = req.params.id;
 	// console.log('arrived here ok', itineraryId);
 	Itinerary.findById(itineraryId, function(err, item){
 		console.log('out of the search', 'item', item, 'err', err);
 		res.json(item);
-	})
+	});
+});
+
+router.delete('/:id', function (req, res, next){
+	var itineraryId = req.params.id;
+	Itinerary.findOneAndRemove(itineraryId, function(err, item){
+		console.log('out of the search', 'item', item, 'err', err);
+		res.sendStatus(200);
+	});
 });
 
 router.post('/invite', function (req, res, next){
@@ -62,10 +79,10 @@ router.post('/invite', function (req, res, next){
 					itinerary.update({ $push: {users: userInvitee}}, function (err, modCount2){
 						if (err) return next(err);
 						res.send(true);
-					})
+					});
 					
-				})
-			})
+				});
+			});
 		}
 	});
 });
@@ -89,7 +106,7 @@ router.post('/toggleSetting', function (req, res, next){
 		}
 	});
 	
-})
+});
 
 router.put('/add', function (req, res){
 	Itinerary.addEvents(req.body).then(function (result){

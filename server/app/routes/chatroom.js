@@ -27,8 +27,9 @@ router.post('/create',function(req,res,next){
 	})
 });
 
-router.post('/:id/message',function(req,res,next){
+router.post('/message',function(req,res,next){
 	//update message
+	console.log(req.params);
 	var id = req.params.id;
 	var message = req.body.message; // this should contain user and message
 	Chatroom.findById(id,function(err,chatroom){

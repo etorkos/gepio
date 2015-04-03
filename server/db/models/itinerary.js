@@ -57,6 +57,7 @@ schema.statics.replaceItinerary = function (params){
 						embedVenues.push({ venue: embed, votes: params.data[i].votes });
 					}
 					itinerary.otherVenues = embedVenues;
+
 				}
 				else {
 					var embedEvents = [];
@@ -90,7 +91,7 @@ schema.methods.setOtherData = function (data){
 					data[key].forEach(function (venue){
 						var embed = new Event();
 						embed.title = venue.name;
-						if(venue.category) embed.description = venue.category.name;
+						if (venue.category) embed.description = venue.category.name;
 						embed.location = { lat: venue.location.lat, lon: venue.location.lng };
 						embedVenues.push({ venue: embed, votes: 0});
 					});
@@ -100,7 +101,7 @@ schema.methods.setOtherData = function (data){
 						if (event.name !== 'test'){ 
 							var embed = new Event();
 							embed.title = event.name;
-							if(event.description) embed.description = event.description.text;
+							if (event.description) embed.description = event.description.text;
 							embed.location = { lat: event.venue.latitude, lon: event.venue.longitude };
 							embedEvents.push({ event: embed, votes: 0});
 						}
@@ -128,7 +129,7 @@ schema.statics.addEvents = function (data){
 					if (data.data[i].name !== 'test'){
 						var embed = new Event();
 						embed.title = data.data[i].name;
-						if( data.data[i].description) embed.description = data.data[i].description.text;
+						if (data.data[i].description) embed.description = data.data[i].description.text;
 						embed.location = { lat: data.data[i].venue.latitude, lon: data.data[i].venue.longitude };
 						events.push({ event: embed, votes: 0 });
 					}
@@ -157,7 +158,7 @@ schema.statics.changeDay = function (data){
 					if (data.data[i].name !== 'test'){
 						var embed = new Event();
 						embed.title = data.data[i].name;
-						if( data.data[i].description ) embed.description= data.data[i].description.text;
+						if (data.data[i].description) embed.description = data.data[i].description.text;
 						embed.location = { lat: data.data[i].venue.latitude, lon: data.data[i].venue.longitude };
 						events.push({ event: embed, votes: 0 });
 					}

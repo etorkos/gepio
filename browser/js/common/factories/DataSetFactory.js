@@ -16,7 +16,6 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		console.log("SET GENERIC", { events: factory.events, venues: factory.venues });
 	};
 	factory.setBlended = function (data){
-		factory.events = factory.genericEvents;
 		factory.venues = factory.genericVenues;
 		var data = data;
 		return $q(function (resolve, reject){

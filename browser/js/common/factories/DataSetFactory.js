@@ -7,8 +7,6 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 	factory.genericVenues = undefined;
 	factory.genericEvents = undefined;
 	factory.setUnmodifiedItinerary = function(){
-		factory.events = factory.genericEvents;
-		factory.venues = factory.genericVenues;
 		factory.events.forEach(function (event){
 			event.votes = 0;
 		});
@@ -16,6 +14,24 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 			venue.votes = 0;
 		});
 		console.log("SET GENERIC", { events: factory.events, venues: factory.venues });
+	};
+	factory.setBlended = function (data){
+		factory.events = factory.genericEvents;
+		factory.venues = factory.genericVenues;
+		var data = data;
+		return $q(function (resolve, reject){
+				data.venues.forEach(function (venue){
+				factory.venues.forEach(function (v, index){
+					if (venue.name === v.name){
+						factory.venues.splice(index, 1);
+					}
+				});
+			});
+			for (var i = data.venues.length; i > 0; i--){
+				factory.venues.unshift(data.venues[i-1]);
+			}
+			resolve();
+		});
 	};
 	factory.reorderData = function (item){
 		var item = item;
@@ -46,15 +62,11 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		});
 	};
 	factory.insertAndUpdate = function (venues, events){
-		// factory.venues = factory.genericVenues;
-		// factory.events = factory.genericEvents;
 		if(factory.events){
 			factory.events.forEach(function (event){
 				event.votes = 0;
 			});
 		}
-		
-
 		factory.venues.forEach(function (venue){
 			venue.votes = 0;
 		});

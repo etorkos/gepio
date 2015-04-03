@@ -16,17 +16,6 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationFactory, ItineraryFactory, AuthService, DataSetFactory, $rootScope, POIFactory) {
 
-	// $scope.myInterval = 5000;
-	// var slides = $scope.slides = [{
-	// 	image: 'http://blog.goodmeasuremeals.com/wp-content/uploads/NYC-food-market.jpg',
-	// 	text: 'Engage local culture with NYC community markets'
-	// },
-	// {
-	// 	image:'http://www.musicalamerica.com/mablogs/wp-content/uploads/2011/06/MG_4338smaller1.jpg',
- //   text: 'Explore family friendly culture'
-	// }];
-
-
 	$scope.city = "New York";
 
 	$scope.options = [
@@ -58,7 +47,9 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					ItineraryFactory.setActiveParams = { id: itinerary._id, type: $scope.selectedOption.type };
 					DataSetFactory.isNew = true;
 					POIFactory.date = new Date();
-					$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
+					DataSetFactory.setBlended(dataForItinerary).then(function (){
+						$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
+					});
 				});	
 			}
 		})

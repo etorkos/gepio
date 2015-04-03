@@ -105,7 +105,7 @@ app.factory('ItineraryFactory', function ($http){
 	};
 	factory.finishItinerary = function(finalItinerary){
 		return $http.put('/api/itinerary/', finalItinerary).then(function (res){
-			console.log("Itinerary successfully completed");
+			console.log(res);
 		});
 	};
 	factory.setActiveParams = undefined;

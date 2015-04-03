@@ -58,8 +58,8 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 
 	$scope.finishItn = function(){
 		//Will need an emitter to close event for others
-		$scope.finalIt.otherVenues = $scope.finalVenue;
-		$scope.finalIt.otherEvents = $scope.finalEvent;
+		$scope.finalIt.otherVenues = [$scope.finalVenue];
+		$scope.finalIt.otherEvents = [$scope.finalEvent];
 		$scope.finalIt.finishStatus = 'closed';
 		ItineraryFactory.finishItinerary($scope.finalIt);
 	};

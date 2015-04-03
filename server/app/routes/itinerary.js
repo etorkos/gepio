@@ -32,11 +32,12 @@ router.post('/', function(req, res, next){
 });
 
 router.put('/', function (req, res, next){
-	Itinerary.findOneAndUpdate({_id: req.body.id}, req.body)
-	.then(function (err, item){
-		console.log('out of the search', 'item', item, 'err', err);
-		res.json(item);
-	});
+	Itinerary.findOneAndUpdate({_id: req.body._id}, req.body)
+		.exec(function (err, itinerary){
+			// console.log(itinerary);
+			if (err) next (err);
+			res.send(itinerary);
+		});
 });
 
 router.get('/:id', function (req, res, next ){

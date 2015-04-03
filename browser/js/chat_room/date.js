@@ -27,7 +27,13 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	//socket reaction 
 	ChatroomFactory.set_itinerary_id($stateParams.id);
 	ChatroomFactory.join_room();
-	ChatroomFactory.bind_user_id($scope.user._id);
+	if($scope.user){
+		ChatroomFactory.bind_user_id($scope.user._id);
+	}
+	else{
+		var temp_id = Math.floor(Math.random * 100000000000);
+		ChatroomFactory.bind_user_id(temp_id);
+	}
 	
 	if(!$rootScope.socket_ever_on){
 		SocketReaction.socket_on_vote(socket,$scope);

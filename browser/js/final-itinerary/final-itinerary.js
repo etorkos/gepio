@@ -52,9 +52,14 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 		});
 	};
 
+	var captialization = function(name){
+		return name.charAt(0).toUpperCase() + name.slice(1);
+	};
+
 	var formatUsers = function(){//function(users){
 		//Will need to get all users from itinerary, populate based on name and then display all with users.forEach()
-		$scope.finalOctos = $scope.user.firstName + " " + $scope.user.lastName;
+
+		$scope.finalOctos = captialization($scope.user.firstName) + " " + captialization($scope.user.lastName);
 	};
 
 	$scope.goBack = function(){

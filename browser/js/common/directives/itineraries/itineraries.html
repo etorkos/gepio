@@ -3,7 +3,7 @@
 		<div class='bump col-md-7'>
 			<span> Current Invites </span>
 			<form class="form-group" ng-repeat='item in invites'>
-				<a ng-click='toItinerary(item)'>{{item.title}}</a>
+				<a ng-click='toItinerary(item)' style="cursor: pointer">{{item.title}}</a>
 				<button ng-click= 'acceptInvite(item)' class='btn btn-xs btn-success'>+</button>
 				<button ng-click= 'rejectInvite(item)' class='btn btn-xs btn-danger'>-</button>
 			</form>
@@ -11,7 +11,7 @@
 		<div class='bump col-md-4 col-md-offset-1'> 
 			<span> Active Itineraries </span>
 			<form class="form-group" ng-repeat='item in itineraries'>
-				<a ng-click='toItinerary(item)'>{{item.title}}</a>
+				<a ng-click='toItinerary(item)' style="cursor: pointer;">{{item.title}}</a>
 			</form>
 		</div>
 	</div>

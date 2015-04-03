@@ -100,6 +100,16 @@ app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 			});
 		}
 	};
+	factory.deleteItinerary = function(itineraryId){
+		return $http.delete('/api/itinerary/'+itineraryId).then(function (res){
+			console.log("Itinerary successfully deleted.");
+		});
+	};
+	factory.finishItinerary = function(finalItinerary){
+		return $http.put('/api/itinerary/', finalItinerary).then(function (res){
+			console.log(res);
+		});
+	};
 	factory.setActiveParams = undefined;
 	// updateDataSet: function (type, id, set){
 	// 	var data = { type: type, id: id, data: set };

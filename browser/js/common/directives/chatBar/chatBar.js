@@ -4,9 +4,10 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 		restrict: 'E',
 		templateUrl: 'js/common/directives/chatBar/chatBar.html',
 		link: function(scope,element,attribute){
-			scope.current_message = "";
 			scope.message_to_display = [];
-			scope.invitations = [];
+			ChatroomFactory.sync_messages_from_db(scope.message_to_display);
+			scope.current_message = "";
+			// scope.invitations = [];
 			//button functions
 			scope.submit_message = function(message){
 				//change to scope.user.firstName later
@@ -14,8 +15,8 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 				scope.current_message = "";
 				scope.message_to_display.push({name:"me",message:message});
 			};
-			scope.open_invitation = ChatroomFactory.open_invitation;
-			scope.close_invitation = ChatroomFactory.close_invitation;
+			// scope.open_invitation = ChatroomFactory.open_invitation;
+			// scope.close_invitation = ChatroomFactory.close_invitation;
 			// scope.create_room = function(){
 			// 	ChatroomFactory.create_room(scope.roomName);
 			// };

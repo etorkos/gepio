@@ -53,6 +53,7 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 	};
 
 	var formatUsers = function(){//function(users){
+		//Will need to get all users from itinerary, populate based on name and then display all with users.forEach()
 		$scope.finalOctos = $scope.user.firstName + " " + $scope.user.lastName;
 	};
 
@@ -68,6 +69,7 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 			$scope.finalIt.otherEvents = [$scope.finalEvent];
 			$scope.finalIt.finishStatus = 'closed';
 			ItineraryFactory.finishItinerary($scope.finalIt);
+			interpretIntinerary();
 		};
 	};
 
@@ -80,7 +82,6 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 		};
 	};
 
-	// $scope.finalOctos = $scope.user.firstName + " " + $scope.user.lastName;
 	formatUsers();
 	interpretIntinerary();
 });

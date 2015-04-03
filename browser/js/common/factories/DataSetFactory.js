@@ -46,9 +46,14 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		});
 	};
 	factory.insertAndUpdate = function (venues, events){
-		factory.venues = factory.genericVenues;
-		factory.events = factory.genericEvents;
-		console.log("FROM DATABASE", venues, events);
+		// factory.venues = factory.genericVenues;
+		// factory.events = factory.genericEvents;
+		factory.events.forEach(function (event){
+			event.votes = 0;
+		});
+		factory.venues.forEach(function (venue){
+			venue.votes = 0;
+		});
 		var venueData = [];
 		venues.forEach(function (venue){
 			var data = {};

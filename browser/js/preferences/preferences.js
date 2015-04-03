@@ -22,6 +22,7 @@ app.controller('PrefCtrl', function (AUTH_EVENTS, $rootScope, $scope, $state, $s
 		PreferenceFactory.savePreference($scope.user._id, $scope.preferences).then(function (data){
 			console.log(data);
 			$rootScope.$broadcast(AUTH_EVENTS.userUpdated);
+			$rootScope.$broadcast("PreferencesAdded");
 			$state.go('home');
 		});
 	};

@@ -25,7 +25,12 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 			$scope.getUserItineraries = function (user){
 				UserFactory.getItineraries(user._id).then(function(data){
 					$scope.invites = data.invites;
-					$scope.itineraries = data.itineraries;
+					var openItins = [];
+					data.itineraries.forEach(function (element){
+						if(element.finishStatus != 'closed')
+							openItins.push(element);
+					});
+					$scope.itineraries = openItins;
 					// console.log('data', data);
 				})
 			}

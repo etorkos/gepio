@@ -1,5 +1,5 @@
 'use strict';
-app.directive('preferencesEdit', function (PrefBuilder, PreferenceFactory, AuthService, $timeout) {
+app.directive('preferencesEdit', function (PrefBuilder, PreferenceFactory, AuthService, $timeout, $rootScope) {
     return {
         restrict: 'E',
         templateUrl: 'js/common/directives/preferences-edit/preferences-edit.html',
@@ -12,6 +12,7 @@ app.directive('preferencesEdit', function (PrefBuilder, PreferenceFactory, AuthS
         		PreferenceFactory.updatePreferences(scope.user._id, PrefBuilder.preferenceInputs).then(function (data){
         			console.log(data);
         			scope.updated = true;
+                    $rootScope.$broadcast("PreferencesAdded");
         			$timeout(function (){ scope.updated = false }, 3000);
         		});
         	}

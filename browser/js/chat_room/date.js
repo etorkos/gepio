@@ -3,12 +3,12 @@
 app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService, POIFactory, $stateParams, roomType, 
 									DataSetFactory, $timeout, ItineraryFactory, $rootScope, ChatroomFactory, SocketReaction, $state){
 
-	DataSetFactory.isNew = false;
-	
 	$scope.hasReturned = POIFactory.allPOIsReturned;
-	if (!$scope.hasReturned) {
+	if (!$scope.hasReturned && !DataSetFactory.isNew) {
 		$state.go('loading', { id: $stateParams.id, type: $stateParams.type });
 	}
+	DataSetFactory.isNew = false;
+	
 
 	$rootScope.$on('allDataReturned', function (event, args){
 		$scope.events = DataSetFactory.events; 
@@ -34,18 +34,7 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	// console.log("Data Set", $scope.dataSet);
 
 	$scope.events = DataSetFactory.events;
-	$scope.venues = DataSetFactory.venues;
-
-	if(!$scope.dataSet){
-		$scope.dataSet.events = savedEvents.otherEvents;
-		$scope.dataSet.venues = savedEvents.otherVenues;
-	}
-	else{
-		// angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherEvents.concat($scope.dataSet.events)), $scope.dataSet.events);
-	 //    angular.copy( ItemMixFactory.removeDuplicates( savedEvents.otherVenues.concat($scope.dataSet.venues)), $scope.dataSet.venues);
-   		// angular.copy( savedEvents.otherEvents.concat($scope.dataSet.events), $scope.dataSet.events);
-	    // angular.copy( savedEvents.otherVenues.concat($scope.dataSet.venues), $scope.dataSet.venues);
-    }               
+	$scope.venues = DataSetFactory.venues;             
 
     $rootScope.ItineraryId = $stateParams.id;
 
@@ -56,19 +45,6 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 		var removed = removeFromList($scope.dataSet.venues, place);
 		console.log(removed[0].name, ' was removed from the array' );
 	}
-
-	// $scope.removeEvent = function(item){
-	// 	//cycle through all items in the dataset for the specific item
-	// 	//splice array
-	// 	//if we have less than 5 items, request a new call
-	// 	var removed = removeFromList($scope.dataSet.events, item);
-	// 	console.log(removed[0].name, ' was removed from the array' );
-	// }
-
-	// $scope.upvoteEvent = function (event){
-	// 	//for testing atm only
-	// 	console.log($filter('checkDate')(event.startTime), $filter('todate')($scope.dt));
-	// }
 
 	$scope.shuffle = function(type){
 		if (type == 'venues'){

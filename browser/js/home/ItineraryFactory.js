@@ -28,7 +28,7 @@ app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 		var blendedArray = ItemMixFactory.blend( userPreferences, data.venues );
 
 		if (type == 'config1'){
-			return { venues: blendedArray }; //need for you to have filtered out restaurants
+			return { venues: blendedArray.slice(0,8) }; //need for you to have filtered out restaurants
 		}
 		else {
 			var today = new Date();
@@ -42,7 +42,7 @@ app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 				}
 				if (events.length >= 8) break;
 			}
-			return { venues: blendedArray, events: events };
+			return { venues: blendedArray.slice(0,8) , events: events };
 		}
 	};
 	factory.updateEventsSet = function (data){

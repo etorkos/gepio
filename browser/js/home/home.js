@@ -47,7 +47,7 @@ app.controller('HomeCtrl', function ($scope, VenuesFactory, $state, GeolocationF
 					ItineraryFactory.setActiveParams = { id: itinerary._id, type: $scope.selectedOption.type };
 					DataSetFactory.isNew = true;
 					POIFactory.date = new Date();
-					//DataSetFactory.factorTheBlend(dataForItinerary);
+					DataSetFactory.factorTheBlend(dataForItinerary);
 					$state.go('room.sub', {id: itinerary._id, type: $scope.selectedOption.type});
 				});	
 			}

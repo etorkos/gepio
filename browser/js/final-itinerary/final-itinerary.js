@@ -52,27 +52,35 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 		});
 	};
 
+	var formatUsers = function(){//function(users){
+		$scope.finalOctos = $scope.user.firstName + " " + $scope.user.lastName;
+	};
+
 	$scope.goBack = function(){
 		$state.go('map', { id: $stateParams.id, type: $stateParams.type });
 	};
 
 	$scope.finishItn = function(){
 		//Will need an emitter to close event for others
-		$scope.finalIt.otherVenues = [$scope.finalVenue];
-		$scope.finalIt.otherEvents = [$scope.finalEvent];
-		$scope.finalIt.finishStatus = 'closed';
-		ItineraryFactory.finishItinerary($scope.finalIt);
+		var fconfirmation = confirm("Are you sure you want to finish this itinerary?");
+		if (fconfirmation === true){
+			$scope.finalIt.otherVenues = [$scope.finalVenue];
+			$scope.finalIt.otherEvents = [$scope.finalEvent];
+			$scope.finalIt.finishStatus = 'closed';
+			ItineraryFactory.finishItinerary($scope.finalIt);
+		};
 	};
 
 	$scope.deleteItn = function(){
 		//Will likely need emitter to close event on other people's windows
-		var confirmation = confirm("Are you sure you want to delete this itinerary?");
-		if (confirmation === true){
+		var dconfirmation = confirm("Are you sure you want to delete this itinerary?");
+		if (dconfirmation === true){
 			ItineraryFactory.deleteItinerary($scope.id);
 			$state.go('home')
 		};
 	};
 
+	// $scope.finalOctos = $scope.user.firstName + " " + $scope.user.lastName;
+	formatUsers();
 	interpretIntinerary();
 });
-

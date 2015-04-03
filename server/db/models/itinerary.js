@@ -157,7 +157,7 @@ schema.statics.changeDay = function (data){
 					if (data.data[i].name !== 'test'){
 						var embed = new Event();
 						embed.title = data.data[i].name;
-						if( data.data[i].description ) = data.data[i].description.text;
+						if( data.data[i].description ) embed.description= data.data[i].description.text;
 						embed.location = { lat: data.data[i].venue.latitude, lon: data.data[i].venue.longitude };
 						events.push({ event: embed, votes: 0 });
 					}

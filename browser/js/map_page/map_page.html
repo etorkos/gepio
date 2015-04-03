@@ -37,7 +37,7 @@
 				<div class="panel-body" ng-repeat='place in dataSet.venues | limitTo:8 |orderBy: ranking' ><list-ranking my-place='place'></list-ranking></div>
 			</div>
 		</div>
-		<div class="panel-success">
+		<div class="panel-success" ng-show="showEvents">
 			<div class="panel-heading">
 				<h4><a data-toggle="collapse" data-target="#collapseEvent" aria-expanded="true">Events</a></h4>
 			</div>
@@ -45,16 +45,6 @@
 				<div class="panel-body" ng-repeat='event in dataSet.events | limitTo: 8 | orderBy: ranking' ><list-ranking my-place='event'></list-ranking></div>
 			</div>
 		</div>
-		<div class="panel-success">
-			<div class="panel-heading">
-				<h4><a data-toggle="collapse" data-target="#collapseDrink" aria-expanded="true">Drinks</h4>
-			</div>
-			<div id="collapseDrink" class="panel-collapse collapse">
-				<div class="panel-body">Location Data</div>
-			</div>
-		</div>
-	</aside>
-</main>
 <chat-bar></chat-bar>
 
 

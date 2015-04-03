@@ -79,7 +79,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                         });
                         POIFactory.allPOIsReturned = true;
                         $rootScope.$broadcast('allDataReturned');
-                        $rootScope.$bootstrap('SetVotes');
+                        $rootScope.$broadcast('SetVotes');
                     });
                 });
             }

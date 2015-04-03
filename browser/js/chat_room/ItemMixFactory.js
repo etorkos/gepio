@@ -10,31 +10,32 @@ app.factory('ItemMixFactory', function (){
 			var len = categoriesArray.length;
 			var infiniteLoop = 0;
 			var newDataSet = dataSet.slice();
-			console.log('categoriesArray', typeof categoriesArray);
+			// console.log('categoriesArray', typeof categoriesArray);
 				var categoriesArray = categoriesArray.map(function(thing){
 					var newThing;
 					if(typeof thing === 'string') return JSON.parse(thing);
 					return thing;
 				});
 
-			console.log((categoriesArray[0]), 'category', newDataSet.length, newDataSet);
+			console.log((categoriesArray[0].id), 'category', newDataSet.length, newDataSet[0].category.id);
 
 			while( newDataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
 				for( var catIndex = 0 ; catIndex < len; catIndex++ ){ //loop through categories
 					for(var arrItem = 0, dlen = newDataSet.length; arrItem < dlen; arrItem++){
+						// console.log(newDataSet[arrItem]);
 						 // console.log('midloop', categoriesArray[catIndex].id === newDataSet[arrItem].category.id, (categoriesArray[catIndex]), newDataSet[arrItem].category.id)
-						if( categoriesArray[catIndex].id === newDataSet[arrItem].category.id) {
+						if( newDataSet[arrItem].category && categoriesArray[catIndex].id === newDataSet[arrItem].category.id) {
 						    console.log('query correct ++++?+??++++', newDataSet[arrItem]);
 							newSortedArray.push(newDataSet.splice(arrItem, 1)[0]);
 							infiniteLoop = 0;
 							arrItem--;
-							// break; //up to catIndex loop
+							break; //up to catIndex loop
 						}
 					}	
 				}
 				infiniteLoop++;
 			};
-			// console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
+			console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
 			dataSet = newSortedArray.concat(newDataSet);
 			return dataSet;
 		},

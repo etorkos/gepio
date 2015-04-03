@@ -81,6 +81,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                         });
                         POIFactory.allPOIsReturned = true;
                         $rootScope.$broadcast('allDataReturned');
+                        $rootScope.$bootstrap('SetVotes');
                     });
                 });
             }
@@ -126,6 +127,7 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
                         // else {
                             POIFactory.allPOIsReturned = true;
                             $rootScope.$broadcast('allDataReturned');
+                            $rootScope.$broadcast('SetVotes');
                         //}
                     });
                 });

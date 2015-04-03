@@ -31,10 +31,14 @@
 		<button class="btn btn-primary" ng-click="finalizeItinerary()">Finalize Information</button>
 		<div class="panel-success">
 			<div class="panel-heading">
-				<h4><a data-toggle="collapse" data-target="#collapsePlace" aria-expanded="true">Restaurants</a></h4>
+				<h4><a data-toggle="collapse" data-target="#collapsePlace" aria-expanded="true">Venues</a></h4>
 			</div>
 			<div id="collapsePlace" class="panel-collapse collapse" >
-				<div class="panel-body" ng-repeat='place in dataSet.venues | limitTo:8 |orderBy: ranking' ><list-ranking my-place='place'></list-ranking></div>
+				<div class="panel-body">
+					<div ng-repeat='place in data.venues | limitTo:8'>
+						<list-ranking my-place='place' ng-click='centerAndZoom(place)'></list-ranking>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="panel-success" ng-show="showEvents">
@@ -42,7 +46,11 @@
 				<h4><a data-toggle="collapse" data-target="#collapseEvent" aria-expanded="true">Events</a></h4>
 			</div>
 			<div id="collapseEvent" class="panel-collapse collapse" >
-				<div class="panel-body" ng-repeat='event in dataSet.events | limitTo: 8 | orderBy: ranking' ><list-ranking my-place='event'></list-ranking></div>
+				<div class="panel-body">
+					<div ng-repeat='event in data.events | checkDate:date | limitTo:8'>
+						<list-ranking my-place='event' ng-click='centerAndZoom(event)'></list-ranking>
+					</div>
+				</div>
 			</div>
 		</div>
 <chat-bar></chat-bar>

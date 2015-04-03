@@ -52,7 +52,7 @@ schema.statics.replaceItinerary = function (params){
 					for (var i = 0; i < 8; i++){
 						var embed = new Event();
 						embed.title = params.data[i].name;
-						embed.description = params.data[i].category.name;
+						if (params.data[i].category) embed.description = params.data[i].category.name;
 						embed.location = { lat: params.data[i].location.lat, lon: params.data[i].location.lng };
 						embedVenues.push({ venue: embed, votes: params.data[i].votes });
 					}
@@ -63,7 +63,7 @@ schema.statics.replaceItinerary = function (params){
 					for (var i = 0; i < 8; i++){
 						var embed = new Event();
 						embed.title = params.data[i].name;
-						embed.description = params.data[i].description.text;
+						if (params.data[i].description) embed.description = params.data[i].description.text;
 						embed.location = { lat: params.data[i].venue.latitude, lon: params.data[i].venue.longitude };
 						embedEvents.push({ event: embed, votes: params.data[i].votes });
 					}

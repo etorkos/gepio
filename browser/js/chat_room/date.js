@@ -25,7 +25,11 @@ app.controller('DateCtrl', function($scope, $filter, ItemMixFactory, AuthService
 	ChatroomFactory.set_itinerary_id($stateParams.id);
 	ChatroomFactory.join_room();
 	ChatroomFactory.bind_user_id($scope.user._id);
-	SocketReaction.socket_on_vote(socket,$scope);
+	
+	if(!$rootScope.socket_ever_on){
+		SocketReaction.socket_on_vote(socket,$scope);
+		$rootScope.socket_ever_on = true;
+	}
 
 	$scope.config1 = ( roomType === 'config1' );
 	// console.log("Data Set", $scope.dataSet);

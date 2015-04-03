@@ -30,7 +30,7 @@ module.exports = function (server) {
 		});
 
 		client.on('join_room',function(room_name){
-			if(room_name !== null){
+			if(room_name !== null && room_name !== client.room){
 				client.room = room_name;
 				client.join(client.room);
 				// console.log(client.room);

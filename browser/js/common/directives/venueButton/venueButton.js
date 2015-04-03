@@ -37,7 +37,9 @@ app.directive('venueButton', function (PrefBuilder) {
             };
             $scope.upvoteVenue = function(item){
                 //upvote by sockets
+                console.log('click on up')
                 ChatroomFactory.up_vote(item);
+
                 VotingFactory.upVote(item).then(function (item){
                     DataSetFactory.reorderData(item).then(function (sorted){
                         $rootScope.$broadcast('SetVotes');
@@ -46,7 +48,6 @@ app.directive('venueButton', function (PrefBuilder) {
                         });
                     });
                 });
-                ChatroomFactory.up_vote(item);
             };
         }
     };

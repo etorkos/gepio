@@ -65,7 +65,7 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 		leave_room : function(){
 			socket.emit('leave_room');
 		},
-		up_vote: function(event){
+		up_vote: function(event,eights){
 			var obj = {};
 			obj.type = event.type;
 			obj.name = event.name;
@@ -78,9 +78,11 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 				obj.lat = event.venue.latitude,
 				obj.lng = event.venue.longitude
 			}
-			socket.emit('up_vote', obj);
+			socket.emit('up_vote', {
+				obj : obj,
+				eights : eights});
 		},
-		down_vote : function(event){
+		down_vote : function(event, eights){
 			var obj = {};
 			obj.type = event.type;
 			obj.name = event.name;
@@ -93,7 +95,9 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 				obj.lat = event.venue.latitude,
 				obj.lng = event.venue.longitude
 			}
-			socket.emit('down_vote', obj);
+			socket.emit('up_vote', {
+				obj : obj,
+				eights : eights});
 		},
 		top_eights : function(eights){
 			socket.emit('top_eights',eights);
@@ -104,23 +108,21 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 		bind_user_id : function(user_id){
 			socket.emit('bind_user_id',user_id);
 		},
-		update_vote : function(data){
+		update_vote : function(vote){
+			var data = vote.obj;
+			var eights = vote.eights;
 			var type = data.type;
 			var vote = data.vote;
-			if(type == 'event'){
-				DataSetFactory.events.forEach(function(a){
-					if(a.name == data.name){
-						a.vote += vote
-					}
-				})
-			}
-			else if(type == 'venue'){
-				DataSetFactory.venues.forEach(function(a){
-					if(a.name == data.name){
-						a.vote += vote
-					}
-				})
-			}
+			DataSetFactory.events.forEach(function(a){
+				if(a.name == data.name){
+					a.votes += vote
+				}
+			})
+			DataSetFactory.venues.forEach(function(a){
+				if(a.name == data.name){
+					a.votes += vote
+				}
+			})
 		}
 	}
 });

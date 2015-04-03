@@ -97,6 +97,23 @@ router.post('/acceptInvite', function (req, res, next){
 	});
 });
 
+router.put('/:id', function (req, res, next){
+	User.findById(req.params.id, function (err, user){
+		if (err) next(err);
+		else {
+			user.firstName = req.body.firstName;
+			user.lastName = req.body.lastName;
+			user.email = req.body.email;
+			user.save(function (err, returned){
+				if (err) next(err);
+				else {
+					res.json(returned);
+				}
+			})
+		}
+	});
+})
+
 router.put('/:id/preferences', function (req, res, next){
 	User.findById(req.params.id, function (err, user){
 		if (err) console.log(err);

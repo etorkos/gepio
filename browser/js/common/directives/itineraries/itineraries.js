@@ -5,6 +5,7 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 		templateUrl : "js/common/directives/itineraries/itineraries.html",
 		link : function (scope, element, attribute){
 			scope.toItinerary = function(dir){
+				scope.itinerariesClicked = false;
 				if (dir.title === 'Whats for lunch?' || dir.title === 'Lets go out tonight') dir.type = 'config1';
 				else dir.type = 'config2';
 				if (POIFactory.allPOIsReturned) $state.go('room.sub', { type: dir.type, id: dir._id });

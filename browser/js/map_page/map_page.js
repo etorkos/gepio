@@ -8,7 +8,7 @@ app.config(function ($stateProvider){
 });
 
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction){
+app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction, DataSetFactory, $rootScope){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },
@@ -30,7 +30,7 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 
 	$scope.date = POIFactory.date;
 
-	$scope.data = $scope.dataSet;
+	$scope.data = { events: DataSetFactory.events, venues: DataSetFactory.venues };
 
 	// console.log($scope.data.venues);
 
@@ -39,24 +39,13 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	}
 
 	$scope.finalizeItinerary = function(){
-
-		// var mData = $scope.dataSet;
-
-		// $scope.finalData = {
-		// 	venues: [],
-		// 	events: []
-		// };
-		// for(var v = 0; v < mData.venues.length; v++){
-		// 	if(mData.venues[v].hasOwnProperty('votes') && mData.venues[v].votes > 0)
-		// 		$scope.finalData.venues.push(mData.venues[v]);
-		// }
-		// for(var e = 0; e < mData.events.length; e++){
-		// 	if(mData.events[e].hasOwnProperty('votes') && mData.events[e].votes > 0)
-		// 		$scope.finalData.events.push(mData.events[e]);	
-		// };
-		// // console.log($scope.finalData);
-		// passService.addFinal($scope.finalData);
 		$state.go('final-itinerary', { id: $stateParams.id, type: $stateParams.type });
+	}
+
+	$scope.centerAndZoom = function (item){
+		if (item.location) $scope.map.center = { latitude: item.location.lat, longitude: item.location.lng };
+		else $scope.map.center = { latitude: item.venue.latitude, longitude: item.venue.longitude };
+		$scope.map.zoom = 18;
 	}
 
 	if($stateParams.type == 'config1')
@@ -65,10 +54,6 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 		$scope.showEvents = true;
 	SocketReaction.socket_on_vote(socket);
 
-	// setTimeout(function(){
-		// VotingFactory.setUpVotes($scope.dataSet.venues);
-		// VotingFactory.setUpVotes($scope.dataSet.events);
-	// },5000);
 });
 
 app.service('passService', function(){

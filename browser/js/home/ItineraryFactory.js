@@ -1,5 +1,5 @@
 'use strict';
-app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
+app.factory('ItineraryFactory', function ($http){
 	var factory = {};
 	factory.createItinerary = function (data){
 		return $http.post('/api/itinerary', data).then(function(response){
@@ -19,16 +19,14 @@ app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 			return response.data;
 		});
 	};
-	factory.createDataSet = function (type, data, userPreferences){
+	factory.createDataSet = function (type, data){
 		var venues = [];
 		var events = [];
 		for (var i = 0; i < 8; i++){
 			venues.push(data.venues[i]);
 		}
-		var blendedArray = ItemMixFactory.blend( userPreferences, data.venues );
-
 		if (type == 'config1'){
-			return { venues: blendedArray.slice(0,8) }; //need for you to have filtered out restaurants
+			return { venues: venues };
 		}
 		else {
 			var today = new Date();
@@ -42,7 +40,7 @@ app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 				}
 				if (events.length >= 8) break;
 			}
-			return { venues: blendedArray.slice(0,8) , events: events };
+			return { venues: venues, events: events };
 		}
 	};
 	factory.updateEventsSet = function (data){
@@ -99,16 +97,6 @@ app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 				console.log("Events Updated", res.data);
 			});
 		}
-	};
-	factory.deleteItinerary = function(itineraryId){
-		return $http.delete('/api/itinerary/'+itineraryId).then(function (res){
-			console.log("Itinerary successfully deleted.");
-		});
-	};
-	factory.finishItinerary = function(finalItinerary){
-		return $http.put('/api/itinerary/', finalItinerary).then(function (res){
-			console.log(res);
-		});
 	};
 	factory.setActiveParams = undefined;
 	// updateDataSet: function (type, id, set){

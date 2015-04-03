@@ -31,6 +31,7 @@ app.config(function ($stateProvider) {
             // savedEvents: function($stateParams, ResolveUserFactory, ItemMixFactory, $scope){
             savedEvents: function ($stateParams, ResolveUserFactory, ItemMixFactory, ItineraryFactory, DataSetFactory, POIFactory){   
                 if (!DataSetFactory.isNew){
+                    console.log('in saved events');
                     ItineraryFactory.setActiveParams = { id: $stateParams.id, type: $stateParams.type };
                     ItineraryFactory.getItinerary($stateParams.id).then(function (itinerary){
                         POIFactory.setItineraryDate(itinerary.date);

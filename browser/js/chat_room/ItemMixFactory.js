@@ -1,29 +1,34 @@
 'use strict';
 
-app.factory('ItemMixFactory', function (ItineraryFactory){
+app.factory('ItemMixFactory', function (){
 
 	return {
 		blend: function(categoriesArray, dataSet){
-			console.log('called blend with', categoriesArray, 'categories and ', dataSet, 'data');
+			// console.log('called blend with', categoriesArray, 'categories and ', dataSet, 'data');
 			if(categoriesArray.length < 1) return dataSet;
 			var newSortedArray = [];
 			var len = categoriesArray.length;
 			var infiniteLoop = 0;
 			var newDataSet = dataSet.slice();
-			if( typeof categoriesArray === 'string'){
+			// console.log('categoriesArray', typeof categoriesArray);
 				var categoriesArray = categoriesArray.map(function(thing){
-					return JSON.parse(thing);
+					var newThing;
+					if(typeof thing === 'string') return JSON.parse(thing);
+					return thing;
 				});
-			}
 
-			console.log(categoriesArray[0], 'category', newDataSet);
+			console.log((categoriesArray[0].id), 'category', newDataSet.length, newDataSet[0].category.id);
+
 			while( newDataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
 				for( var catIndex = 0 ; catIndex < len; catIndex++ ){ //loop through categories
 					for(var arrItem = 0, dlen = newDataSet.length; arrItem < dlen; arrItem++){
-						console.log('midloop', categoriesArray[catIndex], newDataSet[arrItem].category.id)
-						if(categoriesArray[catIndex]['id'] === newDataSet[arrItem].category.id) {
+						// console.log(newDataSet[arrItem]);
+						 // console.log('midloop', categoriesArray[catIndex].id === newDataSet[arrItem].category.id, (categoriesArray[catIndex]), newDataSet[arrItem].category.id)
+						if( newDataSet[arrItem].category && categoriesArray[catIndex].id === newDataSet[arrItem].category.id) {
+						    console.log('query correct ++++?+??++++', newDataSet[arrItem]);
 							newSortedArray.push(newDataSet.splice(arrItem, 1)[0]);
 							infiniteLoop = 0;
+							arrItem--;
 							break; //up to catIndex loop
 						}
 					}	
@@ -46,10 +51,10 @@ app.factory('ItemMixFactory', function (ItineraryFactory){
 			}
 			var list = orderedList.splice(0, 8);
 			console.log(list);
-			ItineraryFactory.updateDataSet(type, id, list).then(function (res){
-				console.log("Updated", res);
-				return list;
-			});
+			// ItineraryFactory.updateDataSet(type, id, list).then(function (res){
+			// 	console.log("Updated", res);
+			// 	return list;
+			// });
 		},
 		removeDuplicates: function (listOfObjects, type){ //type = event or venue
 			var arrResult = {},

@@ -12,8 +12,8 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 				//change to scope.user.firstName later
 				console.log('message', $scope);
 				ChatroomFactory.send_message_to_server($scope.user.firstName, message);
-				$scope.current_message = "";
 				$scope.message_to_display.push({name:"me",message:message});
+				message = '';
 			};
 
 			$scope.join_room = function(roomName){

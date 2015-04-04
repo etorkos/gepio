@@ -3,7 +3,6 @@ app.service('SocketReaction',function(ChatroomFactory, $rootScope){
 		socket_on : function(socket,scope){
 			socket.on('new_message',function(data){
 				scope.message_to_display.push(data);
-				scope.current_message='';
 				scope.$digest();
 			});
 

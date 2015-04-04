@@ -10,7 +10,7 @@
 @for $i from 300px through 1500px {
 	@media (max-height: ($i + px)) and (min-height: (($i - 0.5) + px)) {
 		.chatBarActive {
-			bottom: (-($i / 2.5) + px);
+			bottom: (-($i / 2) + px);
 		};
 		.chatBarInactive {
 			bottom: (-($i - 30) + px);

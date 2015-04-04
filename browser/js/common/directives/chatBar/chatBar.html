@@ -2,19 +2,19 @@
 	<div class="col-lg-12 align_center" ng-click="makeActive()">
 		<button id="activeChatButton" class="btn btn-warning"></button>
 	</div>
-	<div class="row" ng-if="active">
+	<div class="row housing" ng-if="active">
 		<div class="col-lg-4">
 			<div class="col-lg-12">
 				<p ng-repeat="message in message_to_display">{{message.name}} : {{message.message}}</p>
 			</div>
 		</div>
-		<div class="col-lg-4">
+		<div class="col-lg-4 top-spacing">
 			<form name="textForm">
 				<div class="form-group">
 					<textarea class="form-control" ng-model="current_message" placeholder="Enter text here..."></textarea>
 				</div>
 				<button ng-click="submit_message(current_message)">Submit</button>
-			<!-- 	<pre>{{current_message}}</pre> -->
+				<pre>{{current_message}}</pre>
 			</form>
 		</div>
 		<div class="col-lg-4">

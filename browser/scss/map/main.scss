@@ -38,12 +38,30 @@
 	form text-area {
 		height: 100%;
 	}
+	.housing {
+		background: rgba(249,250,249, 1.0);
+		min-height: 100vh;
+		border-radius: 2px;
+	}
 	div {
+		.top-spacing{
+			padding-top:10px;
+		}
 		div {
+
 			color: black;
-			border: 3px inset #F7F7F7;
+			border: 3px #F7F7F7;
 			background-color: #FAFAFA;
 			padding-left: 1%;
+
+			p{
+				background: rgba(64,170,98, 0.8);
+				border-radius: 5px;
+				padding: 5px 8px;
+				margin: 7px 0px 3px 0px;
+				clear: both;
+				float: left;
+			}
 		}
 	}
 }

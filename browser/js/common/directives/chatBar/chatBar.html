@@ -3,21 +3,21 @@
 		<button id="activeChatButton" class="btn btn-warning"></button>
 	</div>
 	<div class="row housing" ng-if="active">
-		<div class="col-lg-4">
-			<div class="col-lg-12">
-				<p ng-repeat="message in message_to_display">{{message.name}} : {{message.message}}</p>
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+			<div class="col-lg-12" auto-scroll='message_to_display'>
+				<p ng-repeat="message in message_to_display" ng-class="{ otherUser: message.name != 'me'}">{{message.name}} : {{message.message}}</p>
 			</div>
 		</div>
-		<div class="col-lg-4 top-spacing">
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 top-spacing">
 			<form name="textForm">
 				<div class="form-group">
-					<textarea class="form-control" ng-model="current_message" placeholder="Enter text here..."></textarea>
+					<textarea class="form-control" ng-model="$parent.current_message" placeholder="Enter text here..."></textarea>
 				</div>
-				<button ng-click="submit_message(current_message)">Submit</button>
-				<pre>{{current_message}}</pre>
+				<button ng-click="submit_message()">Submit</button>
+				<!-- <pre>{{current_message}}</pre> -->
 			</form>
 		</div>
-		<div class="col-lg-4">
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 right">
 			<div class="col-lg-12">
 				<h5>{{user.firstName}} <span style="opacity: 0.7">--active</span></h5>
 			</div>

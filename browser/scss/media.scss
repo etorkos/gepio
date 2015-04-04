@@ -10,13 +10,24 @@
 @for $i from 300px through 1500px {
 	@media (max-height: ($i + px)) and (min-height: (($i - 0.5) + px)) {
 		.chatBarActive {
-			bottom: (-($i / 2) + px);
+			bottom: (-($i / 1.70) + px);
 		};
+		.chat_placeholder div div {
+			max-height: ($i / 3) + px ;
+		}
 		.chatBarInactive {
 			bottom: (-($i - 30) + px);
 		};
 		.angular-google-map-container {
 			height: ($i - 95) + px;
+		}
+	}
+}
+
+@for $b from 300px through 600px {
+	@media (max-height: ($i + px)) and (min-height: (($i - 0.5) + px)) {
+		.chat_placeholder div div {
+			max-height: ($i / 4) + px ;
 		}
 	}
 }

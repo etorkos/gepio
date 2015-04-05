@@ -9,7 +9,7 @@
   },
   "engines": {
     "npm": "2.1.x"
-  }
+  },
   "dependencies": {
     "bluebird": "^2.9.21",
     "body-parser": "^1.12.0",

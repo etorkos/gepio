@@ -5,6 +5,7 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 		templateUrl : "js/common/directives/itineraries/itineraries.html",
 		link : function (scope, element, attribute){
 			scope.toItinerary = function(dir){
+				scope.itinerariesClicked = false;
 				if (dir.title === 'Whats for lunch?' || dir.title === 'Lets go out tonight') dir.type = 'config1';
 				else dir.type = 'config2';
 				if (POIFactory.allPOIsReturned) $state.go('room.sub', { type: dir.type, id: dir._id });
@@ -21,8 +22,8 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 				if(user){
 					$scope.user = user;
 					$scope.getUserItineraries(user);
-				}
-			})
+				};
+			});
 
 			$scope.getUserItineraries = function (user){
 				UserFactory.getItineraries(user._id).then(function(data){
@@ -33,9 +34,8 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 							openItins.push(element);
 					});
 					$scope.itineraries = openItins;
-					// console.log('data', data);
-				})
-			}
+				});
+			};
 
 			socket.on('invitation',function(){
 				//there is another receiver at maincontroller
@@ -46,15 +46,15 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
 						// console.log(response);
 						$scope.getUserItineraries($scope.user);
-				})
-			}
+				});
+			};
 
 			$scope.rejectInvite = function (invite){
 				UserFactory.removeInvite($scope.user, invite._id ).then(function (response){
 						// console.log(response);
 						$scope.getUserItineraries($scope.user);
-				})
-			}
+				});
+			};
 		}
 	};
 });

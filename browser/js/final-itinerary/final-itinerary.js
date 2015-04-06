@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFactory, ItineraryFactory){
+app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFactory, ItineraryFactory, UserFactory){
 
 	if($stateParams.type == 'config1')
 		$scope.showEvents = false;
@@ -50,6 +50,17 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 			else
 				$scope.isClosed = false;
 		});
+		
+	};
+
+	var captialization = function(name){
+		return name.charAt(0).toUpperCase() + name.slice(1);
+	};
+
+	var formatUsers = function(){//function(users){
+		//Will need to get all users from itinerary, populate based on name and then display all with users.forEach()
+
+		$scope.finalOctos = captialization($scope.user.firstName) + " " + captialization($scope.user.lastName);
 	};
 
 	$scope.goBack = function(){
@@ -58,21 +69,26 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 
 	$scope.finishItn = function(){
 		//Will need an emitter to close event for others
-		$scope.finalIt.otherVenues = [$scope.finalVenue];
-		$scope.finalIt.otherEvents = [$scope.finalEvent];
-		$scope.finalIt.finishStatus = 'closed';
-		ItineraryFactory.finishItinerary($scope.finalIt);
+		var fconfirmation = confirm("Are you sure you want to finish this itinerary?");
+		if (fconfirmation === true){
+			$scope.finalIt.otherVenues = [$scope.finalVenue];
+			$scope.finalIt.otherEvents = [$scope.finalEvent];
+			$scope.finalIt.finishStatus = 'closed';
+			$scope.finalIt.evType = $stateParams.type;
+			ItineraryFactory.finishItinerary($scope.finalIt);
+			interpretIntinerary();
+		};
 	};
 
 	$scope.deleteItn = function(){
 		//Will likely need emitter to close event on other people's windows
-		var confirmation = confirm("Are you sure you want to delete this itinerary?");
-		if (confirmation === true){
+		var dconfirmation = confirm("Are you sure you want to delete this itinerary?");
+		if (dconfirmation === true){
 			ItineraryFactory.deleteItinerary($scope.id);
 			$state.go('home')
 		};
 	};
 
+	formatUsers();
 	interpretIntinerary();
 });
-

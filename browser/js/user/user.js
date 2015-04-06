@@ -17,11 +17,21 @@ app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFac
 		AuthService.getLoggedInUser().then(function (user){
 			if(user){
 				UserFactory.updateUser(user).then(function (user){
-					console.log(user);
+					// console.log(user);
 				});
 			}
-		})
-		
+		});
+	};
+
+	var getFinUserItineraries = function (user){
+		UserFactory.getItineraries(user._id).then(function(data){
+			var finishedItins = [];
+			data.itineraries.forEach(function (element){
+				if(element.finishStatus == 'closed')
+					finishedItins.push(element);
+			});
+			$scope.finItin = finishedItins;
+		});
 	};
 
 	if($scope.user){
@@ -30,5 +40,6 @@ app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFac
 		$http.get(path_to_preferences).then(function (response){
 			$scope.user.preferences = response.data;
 		});	
+		getFinUserItineraries($scope.user);
 	}
 });

@@ -1,5 +1,5 @@
 .full {
-  background: url('http://cdn.wonderfulengineering.com/wp-content/uploads/2014/05/city-wallpaper-4.jpg') no-repeat center center fixed; 
+  background: url('/img/Gep_bg.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -67,10 +67,10 @@ body {
   }
 }
 
-.givebg{
-	background-color: rgba(156, 156, 156, 0.50);
-	padding: 2%;
+.abouts p {
+	font-size: large;
 }
+
 // .cursor-pointer {
 // 	cursor: pointer;
 // }

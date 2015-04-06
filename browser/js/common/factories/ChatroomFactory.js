@@ -95,7 +95,7 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 				obj.lat = event.venue.latitude,
 				obj.lng = event.venue.longitude
 			}
-			socket.emit('up_vote', {
+			socket.emit('down_vote', {
 				obj : obj,
 				eights : eights});
 		},
@@ -111,9 +111,9 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 		update_vote : function(vote){
 			var data = vote.obj;
 			var eights = vote.eights;
+			console.log(eights);
 			var type = data.type;
 			var vote = data.vote;
-			console.log(eights, "this is the eights")
 			DataSetFactory.events.forEach(function(a){
 				if(a.name == data.name){
 					a.votes += vote
@@ -121,24 +121,26 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 			})
 			DataSetFactory.venues.forEach(function(a){
 				if(a.name == data.name){
-					a.votes += vote
+					// console.log(a, vote);
+					a.votes += vote;
+					type = 'venue';
 				}
 			})
-			console.log(eights, "this is the eights")
-			if(type == "venue"){
-				for(var i = 7; i > 0; i--){
+			if(type == "venue"){//tears
+				// console.log('start here')
+				for(var i = 7; i >= 0; i--){
 					var set = DataSetFactory.venues;
 					for(var j =0; j < set.length; j++){
 						if(set[j].name == eights[i].name){
 							var temp = set[j];
-							console.log(temp)
+							// console.log(temp)
 							set.splice(j,1)
 							set.unshift(temp);
 							break
 						}
 					}
 				}
-				console.log(DataSetFactory.venues.slice(0,8))
+				// console.log(DataSetFactory.venues.slice(0,8))
 			}
 		}
 	}

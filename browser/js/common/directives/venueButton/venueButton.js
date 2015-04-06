@@ -39,37 +39,47 @@ app.directive('venueButton', function (PrefBuilder) {
             }
             $scope.downvoteVenue = function(item){
                 // console.log(item);
-                var eights = DataSetFactory.
-                ChatroomFactory.down_vote(item);
                 // scope.votes--;
                 VotingFactory.downVote(item).then(function (item){
                     DataSetFactory.reorderData(item).then(function (sorted){       
                         $rootScope.$broadcast('SetVotes');
                         VotingFactory.sortDatabase(sorted).then(function (response){
                             // console.log(response.data);
+                            //only venues top eights are sent
+                            if(!item.eventId){
+                                var eights = $scope.top_eights(DataSetFactory.venues)
+                                ChatroomFactory.down_vote(item,eights);
+                            }
+                            else{
+                                //events
+                                ChatroomFactory.down_vote(item);
+                            }
                         });
                     });
                 });
+
             };
             $scope.upvoteVenue = function(item){
                 //upvote by sockets
-                console.log('click on up')
-                if(item.type == "venue"){
-                    var eights = $scope.top_eights(DataSetFactory.venues)
-                    ChatroomFactory.up_vote(item,eights);
-                }
-                else{
-                    ChatroomFactory.up_vote(item);
-                }
 
                 VotingFactory.upVote(item).then(function (item){
                     DataSetFactory.reorderData(item).then(function (sorted){
                         $rootScope.$broadcast('SetVotes');
                         VotingFactory.sortDatabase(sorted).then(function (response){
                             // console.log(response.data);
+                            // console.log(item)
+                            if(!item.eventId){
+                                var eights = $scope.top_eights(DataSetFactory.venues)
+                                ChatroomFactory.up_vote(item,eights);
+                            }
+                            else{
+                                //events
+                                ChatroomFactory.down_vote(item);
+                            }
                         });
                     });
                 });
+
             };
         }
     };

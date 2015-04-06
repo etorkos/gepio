@@ -6,6 +6,7 @@ var Promise = require('bluebird');
 var schema = new mongoose.Schema({
 	users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	title: {type: String, required: true},
+	evType: String,
 	// type: String,
 	finishStatus: {type: String, default: 'open'},
 	date: {type: Date, default: Date.now},

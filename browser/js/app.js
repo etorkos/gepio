@@ -14,7 +14,6 @@ app.controller('MainController', function ($scope, $rootScope, AuthService, AUTH
     }
     saveUserToScope();
 
-
     //check invitation
     socket.on('invitation',function(data){
         alert('invitation received');

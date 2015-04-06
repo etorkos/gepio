@@ -29,6 +29,10 @@ app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMa
 	$scope.hasEvents = POIFactory.hasEvents;
 
 	$scope.date = POIFactory.date;
+	POIFactory.setMapDate();
+	$rootScope.$on('mapDateSet', function (event, args){
+		$scope.date = args.date;
+	});	
 
 	$scope.data = { events: DataSetFactory.events, venues: DataSetFactory.venues };
 

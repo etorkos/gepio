@@ -7,8 +7,6 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 	factory.genericVenues = undefined;
 	factory.genericEvents = undefined;
 	factory.setUnmodifiedItinerary = function(){
-		factory.events = factory.genericEvents;
-		factory.venues = factory.genericVenues;
 		factory.events.forEach(function (event){
 			event.votes = 0;
 		});
@@ -16,6 +14,23 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 			venue.votes = 0;
 		});
 		console.log("SET GENERIC", { events: factory.events, venues: factory.venues });
+	};
+	factory.setBlended = function (data){
+		factory.venues = factory.genericVenues;
+		var data = data;
+		return $q(function (resolve, reject){
+				data.venues.forEach(function (venue){
+				factory.venues.forEach(function (v, index){
+					if (venue.name === v.name){
+						factory.venues.splice(index, 1);
+					}
+				});
+			});
+			for (var i = data.venues.length; i > 0; i--){
+				factory.venues.unshift(data.venues[i-1]);
+			}
+			resolve();
+		});
 	};
 	factory.reorderData = function (item){
 		var item = item;
@@ -46,11 +61,11 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 		});
 	};
 	factory.insertAndUpdate = function (venues, events){
-		// factory.venues = factory.genericVenues;
-		// factory.events = factory.genericEvents;
-		factory.events.forEach(function (event){
-			event.votes = 0;
-		});
+		if(factory.events){
+			factory.events.forEach(function (event){
+				event.votes = 0;
+			});
+		}
 		factory.venues.forEach(function (venue){
 			venue.votes = 0;
 		});
@@ -76,26 +91,29 @@ app.factory('DataSetFactory', function (POIFactory, $rootScope, $q){
 			venueData.push(data);
 		});
 		var eventData = [];
-		events.forEach(function (event){
-			var data = {};
-			for (var i = 0; i < factory.events.length; i++){
-				if (factory.events[i].name === event.event[0].title){
-					for (var key in factory.events[i]){
-						if (factory.events[i].hasOwnProperty(key)){
-							data[key] = factory.events[i][key];
+		if(events){
+			events.forEach(function (event){
+				var data = {};
+				for (var i = 0; i < factory.events.length; i++){
+					if (factory.events[i].name === event.event[0].title){
+						for (var key in factory.events[i]){
+							if (factory.events[i].hasOwnProperty(key)){
+								data[key] = factory.events[i][key];
+							}
 						}
+						factory.events.splice(i, 1);
+						break;
 					}
-					factory.events.splice(i, 1);
-					break;
 				}
-			}
-			if (!data.name){
-				data.name = event.event[0].title;
-				data.venue = { latitude: event.event[0].location.lat, longitude: event.event[0].location.lon };
-			}
-			data.votes = event.votes;
-			eventData.push(data);
-		});
+				if (!data.name){
+					data.name = event.event[0].title;
+					data.venue = { latitude: event.event[0].location.lat, longitude: event.event[0].location.lon };
+				}
+				data.votes = event.votes;
+				eventData.push(data);
+			});
+		}
+		
 		for (var i = venueData.length; i > 0; i--){
 			factory.venues.unshift(venueData[i-1]);
 		}

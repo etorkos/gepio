@@ -1,5 +1,5 @@
 'use strict';
-app.factory('ItineraryFactory', function ($http){
+app.factory('ItineraryFactory', function ($http, ItemMixFactory ){
 	var factory = {};
 	factory.createItinerary = function (data){
 		return $http.post('/api/itinerary', data).then(function(response){
@@ -19,14 +19,16 @@ app.factory('ItineraryFactory', function ($http){
 			return response.data;
 		});
 	};
-	factory.createDataSet = function (type, data){
+	factory.createDataSet = function (type, data, userPreferences){
 		var venues = [];
 		var events = [];
 		for (var i = 0; i < 8; i++){
 			venues.push(data.venues[i]);
 		}
+		var blendedArray = ItemMixFactory.blend( userPreferences, data.venues );
+
 		if (type == 'config1'){
-			return { venues: venues };
+			return { venues: blendedArray.slice(0,8) }; //need for you to have filtered out restaurants
 		}
 		else {
 			var today = new Date();
@@ -40,7 +42,7 @@ app.factory('ItineraryFactory', function ($http){
 				}
 				if (events.length >= 8) break;
 			}
-			return { venues: venues, events: events };
+			return { venues: blendedArray.slice(0,8) , events: events };
 		}
 	};
 	factory.updateEventsSet = function (data){

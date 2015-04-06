@@ -2,7 +2,7 @@
 app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, VenuesFactory, $q){
 	return {
 		updateUser: function(user){
-			$http.put('/api/user', user).then(function (response){
+			return $http.put('/api/user/' + user._id, user).then(function (response){
 				return response.data;
 			});
 		},
@@ -56,11 +56,17 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 					data.totals += venues.length;
 					return data;
 				});
+			}).then(function (data){
+				return VenuesFactory.getVenues('4bf58dd8d48988d1e9931735').then(function (venues){
+					data.venues = data.venues.concat(venues);
+					data.totals += venues.length;
+					return data;
+				});
 			});
 		},
-		generateMorePOIs: function (events, venues){
+		generateMorePOIs: function (events, venues, nights){
 			var eventCategories = events;
-			var venueCategories = venues;
+			var venueCategories = venues.concat(nights);
 			var data = { events: [], venues: [], totals: 0 };
 			var events = eventCategories.map(function (cat){
 				return EventsFactory.getEvents(cat);
@@ -78,28 +84,34 @@ app.factory('UserFactory', function ($http, MoviesFactory, EventsFactory, Venues
 				});
 			});
 		},
-		generateInitialCustomPOIs: function (event, venue){
+		generateInitialCustomPOIs: function (event, food, night){
 			return EventsFactory.getEvents(event).then(function (e){
 				var data = { events: [], venues: [], totals: 0 };
 				data.events = data.events.concat(e);
 				data.totals += e.length;
 				return data;
 			}).then(function (data){
-				return VenuesFactory.getVenues(venue).then(function (v){
+				return VenuesFactory.getVenues(food).then(function (v){
 					data.venues = data.venues.concat(v);
 					data.totals += v.length;
+					return data;
+				});
+			}).then(function (data){
+				return VenuesFactory.getVenues(night).then(function (n){
+					data.venues = data.venues.concat(n);
+					data.totals += n.length;
 					return data;
 				});
 			});
 		},
 		parseUserPreferences: function (user){
-			var preferences = { events: [], foods: [], hasMovies: false };
+			var preferences = { events: [], foods: [], nights: [], hasMovies: false };
 			user.preferences.events.forEach(function (event){
                 if (JSON.parse(event).id === 'movie') preferences.hasMovies = true;
                 else preferences.events.push(JSON.parse(event).id);
             });
             user.preferences.nights.forEach(function (night){
-                preferences.foods.push(JSON.parse(night).id);
+                preferences.nights.push(JSON.parse(night).id);
             });
             user.preferences.foods.forEach(function (food){
                 preferences.foods.push(JSON.parse(food).id);

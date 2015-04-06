@@ -35,9 +35,7 @@
 			</div>
 			<div id="collapsePlace" class="panel-collapse collapse" >
 				<div class="panel-body">
-					<div ng-repeat='place in data.venues | limitTo:8'>
-						<list-ranking my-place='place' ng-click='centerAndZoom(place)'></list-ranking>
-					</div>
+					<list-ranking my-place='place' ng-repeat='place in data.venues | limitTo:8' ng-click='centerAndZoom(place)'></list-ranking>
 				</div>
 			</div>
 		</div>
@@ -47,9 +45,7 @@
 			</div>
 			<div id="collapseEvent" class="panel-collapse collapse" >
 				<div class="panel-body">
-					<div ng-repeat='event in data.events | checkDate:date | limitTo:8'>
-						<list-ranking my-place='event' ng-click='centerAndZoom(event)'></list-ranking>
-					</div>
+					<list-ranking my-place='event' ng-repeat='event in data.events | checkDate:date | limitTo:8' ng-click='centerAndZoom(event)'></list-ranking>
 				</div>
 			</div>
 		</div>

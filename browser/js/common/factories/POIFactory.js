@@ -8,5 +8,8 @@ app.factory('POIFactory', function ($rootScope){
 		factory.date = new Date(date);
 		$rootScope.$broadcast('changeTheDate', { date: factory.date });
 	};
+	factory.setMapDate = function (){
+		$rootScope.$broadcast('mapDateSet', { date: factory.date });
+	}
 	return factory;
 });

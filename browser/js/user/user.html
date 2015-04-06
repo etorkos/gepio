@@ -32,8 +32,8 @@
 		<div class="panel-heading">Itineraries:</div>
 		<div class="panel-body">
 			<table class="table">
-				<!-- <tr ng-repeat="itinerary in user.itineraries"><td>List of Itineraries</td></tr> -->
-				<tr><td>Itinerary Data</td></tr>
+				<tr ng-repeat="itins in finItin"><td>{{$index+1}}</td><td>{{itins.title}}</td><td>{{itins.date}}</td></tr>
+				<!-- <tr ng-repeat="itins in finItin"><td>{{$index+1}}</td><td><a sref="/final-itinerary/"+{{evType}}+"/"+{{_id}}>{{itins.title}}</a></td><td>{{itins.date}}</td></tr> -->
 			</table>
 		</div>
 	</div>

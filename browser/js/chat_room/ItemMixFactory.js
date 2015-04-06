@@ -35,7 +35,7 @@ app.factory('ItemMixFactory', function (){
 				}
 				infiniteLoop++;
 			};
-			console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
+			// console.log('dataSet', newDataSet.length, 'newArray', newSortedArray);
 			dataSet = newSortedArray.concat(newDataSet);
 			return dataSet;
 		},

@@ -7,7 +7,7 @@ app.config(function ($stateProvider){
 	});
 });
 
-app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFactory, ItineraryFactory){
+app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFactory, ItineraryFactory, UserFactory){
 
 	if($stateParams.type == 'config1')
 		$scope.showEvents = false;
@@ -50,6 +50,7 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 			else
 				$scope.isClosed = false;
 		});
+		
 	};
 
 	var captialization = function(name){
@@ -73,6 +74,7 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 			$scope.finalIt.otherVenues = [$scope.finalVenue];
 			$scope.finalIt.otherEvents = [$scope.finalEvent];
 			$scope.finalIt.finishStatus = 'closed';
+			$scope.finalIt.evType = $stateParams.type;
 			ItineraryFactory.finishItinerary($scope.finalIt);
 			interpretIntinerary();
 		};

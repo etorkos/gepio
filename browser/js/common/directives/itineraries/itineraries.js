@@ -22,8 +22,8 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 				if(user){
 					$scope.user = user;
 					$scope.getUserItineraries(user);
-				}
-			})
+				};
+			});
 
 			$scope.getUserItineraries = function (user){
 				UserFactory.getItineraries(user._id).then(function(data){
@@ -34,9 +34,8 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 							openItins.push(element);
 					});
 					$scope.itineraries = openItins;
-					// console.log('data', data);
-				})
-			}
+				});
+			};
 
 			socket.on('invitation',function(){
 				//there is another receiver at maincontroller
@@ -47,15 +46,15 @@ app.directive('navbarItineraries', function ($window, $state, POIFactory){
 				UserFactory.acceptInvite($scope.user, invite._id ).then(function (response){
 						// console.log(response);
 						$scope.getUserItineraries($scope.user);
-				})
-			}
+				});
+			};
 
 			$scope.rejectInvite = function (invite){
 				UserFactory.removeInvite($scope.user, invite._id ).then(function (response){
 						// console.log(response);
 						$scope.getUserItineraries($scope.user);
-				})
-			}
+				});
+			};
 		}
 	};
 });

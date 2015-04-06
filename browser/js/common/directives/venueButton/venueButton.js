@@ -30,7 +30,7 @@ app.directive('venueButton', function (PrefBuilder) {
                     DataSetFactory.reorderData(item).then(function (sorted){       
                         $rootScope.$broadcast('SetVotes');
                         VotingFactory.sortDatabase(sorted).then(function (response){
-                            console.log(response.data);
+                            // console.log(response.data);
                         });
                     });
                 });
@@ -44,7 +44,7 @@ app.directive('venueButton', function (PrefBuilder) {
                     DataSetFactory.reorderData(item).then(function (sorted){
                         $rootScope.$broadcast('SetVotes');
                         VotingFactory.sortDatabase(sorted).then(function (response){
-                            console.log(response.data);
+                            // console.log(response.data);
                         });
                     });
                 });

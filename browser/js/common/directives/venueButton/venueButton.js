@@ -22,8 +22,24 @@ app.directive('venueButton', function (PrefBuilder) {
             $scope.setClicked = function (){
                 $scope.isClicked = !$scope.isClicked;
             };
+            $scope.top_eights = function(arr){
+                var result = [];
+                for(var i = 0; i < arr.length; i++){
+                    var current = arr[i]
+                    if(result.length < 8){
+                        result.push(current);
+                        result.sort(function(a,b){return b.vote - a.vote})
+                    }
+                    else if(current.vote > result[result.length - 1].vote){
+                        result.push(current);
+                        result.sort(function(a,b){return b.vote - a.vote}).splice(result.length - 1, 1)
+                    }
+                }
+                return result;
+            }
             $scope.downvoteVenue = function(item){
                 // console.log(item);
+                var eights = DataSetFactory.
                 ChatroomFactory.down_vote(item);
                 // scope.votes--;
                 VotingFactory.downVote(item).then(function (item){
@@ -38,7 +54,13 @@ app.directive('venueButton', function (PrefBuilder) {
             $scope.upvoteVenue = function(item){
                 //upvote by sockets
                 console.log('click on up')
-                ChatroomFactory.up_vote(item);
+                if(item.type == "venue"){
+                    var eights = $scope.top_eights(DataSetFactory.venues)
+                    ChatroomFactory.up_vote(item,eights);
+                }
+                else{
+                    ChatroomFactory.up_vote(item);
+                }
 
                 VotingFactory.upVote(item).then(function (item){
                     DataSetFactory.reorderData(item).then(function (sorted){

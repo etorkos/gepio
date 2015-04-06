@@ -113,6 +113,7 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 			var eights = vote.eights;
 			var type = data.type;
 			var vote = data.vote;
+			console.log(eights, "this is the eights")
 			DataSetFactory.events.forEach(function(a){
 				if(a.name == data.name){
 					a.votes += vote
@@ -123,6 +124,22 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 					a.votes += vote
 				}
 			})
+			console.log(eights, "this is the eights")
+			if(type == "venue"){
+				for(var i = 7; i > 0; i--){
+					var set = DataSetFactory.venues;
+					for(var j =0; j < set.length; j++){
+						if(set[j].name == eights[i].name){
+							var temp = set[j];
+							console.log(temp)
+							set.splice(j,1)
+							set.unshift(temp);
+							break
+						}
+					}
+				}
+				console.log(DataSetFactory.venues.slice(0,8))
+			}
 		}
 	}
 });

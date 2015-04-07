@@ -18,7 +18,6 @@ app.controller('FIntineraryCtrl', function ($scope, $state, $stateParams, POIFac
 		//Takes highest voted place/venue and then returns it
 		//Or else it will take the first value of the array
 		var highestVoted = placeArr[0];
-		console.log(highestVoted.address.address_1);
 		placeArr.forEach(function(el){
 			if (highestVoted.votes < el.votes)
 				highestVoted = el;

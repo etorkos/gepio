@@ -45,12 +45,6 @@ __Note:__ If you encounter errors in the installation process for npm, it is rec
 
 ### Roadmap
 
-#### Features
-
-* Voting on events and venues.
-* Chatroom to discuss ideas.
-* Google Map to see the locations for each.
-
 #### Known bugs
 
 - Votes may not update as desired on client pages.

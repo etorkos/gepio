@@ -32,8 +32,7 @@
 		<div class="panel-heading">Itineraries:</div>
 		<div class="panel-body">
 			<table class="table">
-				<tr ng-repeat="itins in finItin"><td>{{$index+1}}</td><td>{{itins.title}}</td><td>{{itins.date}}</td></tr>
-				<!-- <tr ng-repeat="itins in finItin"><td>{{$index+1}}</td><td><a sref="/final-itinerary/"+{{evType}}+"/"+{{_id}}>{{itins.title}}</a></td><td>{{itins.date}}</td></tr> -->
+				<tr ng-repeat="itins in finItin"><td>{{$index+1}}</td><td><a ng-click='viewFullItin(itins)'>{{itins.title}}</a></td><td>{{itins.date | date:'MM/dd/yyyy'}}</td></tr>
 			</table>
 		</div>
 	</div>

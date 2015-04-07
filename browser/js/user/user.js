@@ -27,19 +27,25 @@ app.controller('UserCtrl', function ($scope, $state, $http, AuthService, UserFac
 		UserFactory.getItineraries(user._id).then(function(data){
 			var finishedItins = [];
 			data.itineraries.forEach(function (element){
-				if(element.finishStatus == 'closed')
+				if(element.finishStatus == 'closed'){
 					finishedItins.push(element);
+				}
 			});
 			$scope.finItin = finishedItins;
 		});
 	};
+
+	$scope.viewFullItin = function(itinerary){
+		 $state.go('final-itinerary', {id: itinerary._id, type: itinerary.evType});
+	}
 
 	if($scope.user){
 		if ($scope.raw) $scope.pictureURL = $scope.raw.response.user.photo.prefix+"150x150" + $scope.raw.response.user.photo.suffix;
 		var path_to_preferences = "/api/user/"+ $scope.user._id+'/preferences';
 		$http.get(path_to_preferences).then(function (response){
 			$scope.user.preferences = response.data;
+			getFinUserItineraries($scope.user);
 		});	
-		getFinUserItineraries($scope.user);
 	}
+	
 });

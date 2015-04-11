@@ -32,13 +32,14 @@ See a live version of the app [here](gep.io).
 1. Clone the repository
 
 	```bash
-	git clone https://github.com/etorkos/Spectaculum.git
+	git clone https://github.com/etorkos/gepio.git
 	```
 2.	Install dependencies
 
 	```bash
 	npm install    # installs node packages
 	bower install  # installs bower dependencies
+	gulp build     # puts things together and sets up your public directory
 	```
 
 __Note:__ If you encounter errors in the installation process for npm, it is recommended that you try running the install command with `sudo`

@@ -42,6 +42,7 @@ See a live version of the app [here](gep.io).
 	gulp build     # puts things together and sets up your public directory
 	```
 3.      Modify /browser/socket/client_side_socket.js 
+
         Make sure socket connection to localhost is commented in and the connection to gepio.herokuapp.com is commented out
 
 

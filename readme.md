@@ -41,7 +41,10 @@ See a live version of the app [here](gep.io).
 	bower install  # installs bower dependencies
 	gulp build     # puts things together and sets up your public directory
 	```
-
+3.      Modify /browser/socket/client_side_socket.js 
+        ```bash
+        make sure socket connection to localhost is commented in and the connection to gepio.herokuapp.com is commented out
+        ```
 __Note:__ If you encounter errors in the installation process for npm, it is recommended that you try running the install command with `sudo`
 
 ### Roadmap
@@ -49,6 +52,7 @@ __Note:__ If you encounter errors in the installation process for npm, it is rec
 #### Known bugs
 
 - Votes may not update as desired on client pages.
+- bug with full functionality on gep.io, gepio.herokuapp.com is stable
 
 ## Contributors
 * __Evan Torkos__ - Project Lead [LinkedIn](https://www.linkedin.com/profile/view?id=126096400) | [GitHub](https://github.com/etorkos)

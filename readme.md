@@ -42,9 +42,9 @@ See a live version of the app [here](gep.io).
 	gulp build     # puts things together and sets up your public directory
 	```
 3.      Modify /browser/socket/client_side_socket.js 
-        ```bash
-        make sure socket connection to localhost is commented in and the connection to gepio.herokuapp.com is commented out
-        ```
+        Make sure socket connection to localhost is commented in and the connection to gepio.herokuapp.com is commented out
+
+
 __Note:__ If you encounter errors in the installation process for npm, it is recommended that you try running the install command with `sudo`
 
 ### Roadmap

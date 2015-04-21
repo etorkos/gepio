@@ -3,6 +3,7 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
     //save the id to chatroom factory
     if($rootScope.ItineraryId){
         ChatroomFactory.set_itinerary_id($rootScope.ItineraryId);
+        ChatroomFactory.get_or_create_room()
     }
     
     $scope.invite = false;

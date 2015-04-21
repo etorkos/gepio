@@ -123,6 +123,16 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 					a.votes += vote
 				}
 			})
+		},
+		get_or_create_room : function ( ){
+			socket.emit('join_room',room_name);
+			$http.post('/api/chatroom/getOrCreate',{
+				chatroom:{
+					name : room_name
+				}
+			}).then(function(response){
+				return(response.data);
+			});
 		}
 	}
 });

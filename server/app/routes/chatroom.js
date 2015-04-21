@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model("User");
 var Chatroom = mongoose.model("Chatroom");
 var Message = mongoose.model("Message");
+var Itinerary = mongoose.model("Itinerary");
 var _ = require('lodash');
 
 // api/chatroom/
@@ -27,6 +28,29 @@ router.post('/create',function(req,res,next){
 		else res.send("saved");
 	})
 });
+
+router.post('/getOrCreate', function (req, res, next){
+	var itineraryId = req.body.id;
+	Itinerary.findById(itineraryId, function (err, itinerary){
+		if (err) return next(err);
+		if (itinerary.chatroom){
+			Chatroom.findById(itinerary.chatroom, function (err, myChatRoom){
+				if (err) return next(err);
+				res.send(myChatRoom);
+			})
+		}
+		else {
+			Chatroom.create({}, function (err, newChatRoom){
+				if (err) return next(err);
+				itinerary.chatroom = newChatRoom._id;
+				itinerary.save(function (err, dunce){
+					if(err) return next(err);
+					res.send(newChatRoom);
+				});	
+			});
+		}
+	})
+})
 
 router.post('/message',function(req,res,next){
 	//update message

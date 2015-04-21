@@ -55,19 +55,38 @@ router.post('/getOrCreate', function (req, res, next){
 	})
 })
 
-router.post('/message',function(req,res,next){
+// router.post('/message', function(req,res,next){
+// 	//update message
+// 	console.log(req.body);
+// 	var id = req.body.room_id;
+// 	var message = req.body.message; // this should contain user and message
+// 	Chatroom.findById(id,function(err,chatroom){
+// 		if(err) next(err);
+// 		else if(chatroom == null) res.sendStatus(404);
+// 		else{
+// 			chatroom.messages.push(message);
+// 			chatroom.save();
+// 			res.sendStatus(200);
+// 		}
+// 	});
+// });
+
+router.post('/message', function(req,res,next){
 	//update message
-	console.log(req.body);
 	var id = req.body.room_id;
-	var message = req.body.message; // this should contain user and message
-	Chatroom.findById(id,function(err,chatroom){
-		if(err) next(err);
-		else if(chatroom == null) res.sendStatus(404);
-		else{
-			chatroom.messages.push(message);
-			chatroom.save();
-			res.sendStatus(200);
-		}
+	var message = req.body.message;
+	console.log('found messages');
+	Message.create({user: req.user.id, message: message}, function (err, messageFromDb){
+		if(err) return next(err);
+		Chatroom.findById(id,function(err,chatroom){
+			if(err) next(err);
+			else if(chatroom == null) res.sendStatus(404);
+			else {
+				chatroom.messages.push(messageFromDb._id);
+				chatroom.save();
+				res.sendStatus(200);
+			}
+		});
 	});
 });
 

@@ -12,6 +12,7 @@ var _ = require('lodash');
 // api/chatroom/
 router.get('/:id',function(req,res,next){
 	var id = req.params.id;
+	// console.log('into get');
 	Chatroom.findById(id,function(err,chatroom){
 		if(err) next(err);
 		else res.json(chatroom);
@@ -29,8 +30,8 @@ router.post('/create',function(req,res,next){
 
 router.post('/message',function(req,res,next){
 	//update message
-	console.log(req.params);
-	var id = req.params.id;
+	console.log(req.body);
+	var id = req.body.room_id;
 	var message = req.body.message; // this should contain user and message
 	Chatroom.findById(id,function(err,chatroom){
 		if(err) next(err);

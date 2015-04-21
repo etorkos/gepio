@@ -4,7 +4,7 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 		restrict: 'E',
 		templateUrl: 'js/common/directives/chatBar/chatBar.html',
 		controller: function($scope){
-			$scope.message_to_display = [];
+			$scope.message_to_display = $scope.message_to_display ? $scope.message_to_display : [];
 			ChatroomFactory.sync_messages_from_db($scope.message_to_display);
 
 			$scope.submit_message = function(){

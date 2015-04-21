@@ -125,14 +125,11 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 			})
 		},
 		get_or_create_room : function ( ){
-			socket.emit('join_room',room_name);
 			$http.post('/api/chatroom/getOrCreate',{
-				chatroom:{
-					name : room_name
-				}
-			}).then(function(response){
-				return(response.data);
-			});
+					id : this.current_itinerary_id
+				}).then(function(response){
+					return(response.data);
+				});
 		}
 	}
 });

@@ -36,7 +36,10 @@ router.post('/getOrCreate', function (req, res, next){
 		if (itinerary.chatroom){
 			Chatroom.findById(itinerary.chatroom, function (err, myChatRoom){
 				if (err) return next(err);
-				res.send(myChatRoom);
+				myChatRoom.populate('messages', function (err, fullDoc){
+					if(err) return next(err);
+					else res.send(myChatRoom);
+				});
 			})
 		}
 		else {

@@ -48,7 +48,12 @@ app.config(function ($stateProvider) {
     $stateProvider.state('loading', {
         url: '/:type/:id/redirect',
         controller: 'LoadingCtrl',
-        templateUrl: 'js/chat_room/loading.html'
+        templateUrl: 'js/chat_room/loading.html',
+        resolve: {
+            getItineraryId : function ($stateParams, $rootScope){
+                $rootScope.ItineraryId = $stateParams.id;
+            }
+        }
     });
 
 });

@@ -2,12 +2,20 @@
 app.factory('ChatroomFactory', function ($http, DataSetFactory){
 	return {
 		current_itinerary_id : null,
+		current_chatroom_id: null,
 		set_itinerary_id : function(id){
 			// console.log(id, "set id")
 			this.current_itinerary_id = id;
 		},
 		get_itinerary_id : function(){
 			return this.current_itinerary_id;
+		},
+		set_chatroom_id : function(id){
+			// console.log(id, "set id")
+			this.current_chatroom_id = id;
+		},
+		get_chatroom_id : function(){
+			return this.current_chatroom_id;
 		},
 		sync_messages_from_db : function(message_array){
 			$http.get('api/')
@@ -29,7 +37,7 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 		save_message_to_database : function(message){
 			//will get itinerary id from req.user at server
 			$http.post('/api/chatroom/message',{
-				room_id : this.current_itinerary_id,   
+				room_id : this.current_chatroom_id,   
 				message : message
 			});
 		},
@@ -125,10 +133,14 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 			})
 		},
 		get_or_create_room : function ( ){
-			$http.post('/api/chatroom/getOrCreate',{
-					id : this.current_itinerary_id
+			var temp = this;
+			return $http.post('/api/chatroom/getOrCreate',{
+					id : temp.current_itinerary_id
 				}).then(function(response){
+					temp.current_chatroom_id = response.data._id;
+					console.log(response.data);
 					return(response.data);
+
 				});
 		}
 	}

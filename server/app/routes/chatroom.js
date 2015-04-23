@@ -32,11 +32,13 @@ router.post('/create',function(req,res,next){
 router.post('/getOrCreate', function (req, res, next){
 	var itineraryId = req.body.id;
 	Itinerary.findById(itineraryId, function (err, itinerary){
+		console.log('get or create', itinerary);
 		if (err) return next(err);
 		if (itinerary.chatroom){
 			Chatroom.findById(itinerary.chatroom, function (err, myChatRoom){
 				if (err) return next(err);
 				myChatRoom.populate('messages', function (err, fullDoc){
+					console.log('already exists', fullDoc);
 					if(err) return next(err);
 					else res.send(myChatRoom);
 				});
@@ -45,8 +47,8 @@ router.post('/getOrCreate', function (req, res, next){
 		else {
 			Chatroom.create({}, function (err, newChatRoom){
 				if (err) return next(err);
-				itinerary.chatroom = newChatRoom._id;
-				itinerary.save(function (err, dunce){
+				itinerary.update({$set: {chatroom: newChatRoom._id}}, function (err, dunce){
+					console.log('new chatrom', dunce);
 					if(err) return next(err);
 					res.send(newChatRoom);
 				});	
@@ -55,35 +57,22 @@ router.post('/getOrCreate', function (req, res, next){
 	})
 })
 
-// router.post('/message', function(req,res,next){
-// 	//update message
-// 	console.log(req.body);
-// 	var id = req.body.room_id;
-// 	var message = req.body.message; // this should contain user and message
-// 	Chatroom.findById(id,function(err,chatroom){
-// 		if(err) next(err);
-// 		else if(chatroom == null) res.sendStatus(404);
-// 		else{
-// 			chatroom.messages.push(message);
-// 			chatroom.save();
-// 			res.sendStatus(200);
-// 		}
-// 	});
-// });
-
 router.post('/message', function(req,res,next){
 	//update message
 	var id = req.body.room_id;
 	var message = req.body.message;
-	console.log('found messages');
+	console.log('found messages', id, message);
 	Message.create({user: req.user.id, message: message}, function (err, messageFromDb){
 		if(err) return next(err);
-		Chatroom.findById(id,function(err,chatroom){
+		console.log('message creation', messageFromDb);
+		Chatroom.findById(id, function(err,chatroom){
+			console.log('chatroom from db', chatroom);
 			if(err) next(err);
 			else if(chatroom == null) res.sendStatus(404);
 			else {
 				chatroom.messages.push(messageFromDb._id);
 				chatroom.save();
+				console.log('finished save', chatroom);
 				res.sendStatus(200);
 			}
 		});

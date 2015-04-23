@@ -13,7 +13,6 @@ var _ = require('lodash');
 // api/chatroom/
 router.get('/:id',function(req,res,next){
 	var id = req.params.id;
-	// console.log('into get');
 	Chatroom.findById(id,function(err,chatroom){
 		if(err) next(err);
 		else res.json(chatroom);
@@ -40,7 +39,11 @@ router.post('/getOrCreate', function (req, res, next){
 				myChatRoom.populate('messages', function (err, fullDoc){
 					console.log('already exists', fullDoc);
 					if(err) return next(err);
-					else res.send(myChatRoom);
+					User.populate(fullDoc, { path: 'messages.user', select: 'firstName'}, function(err, info){
+						var messageObj = { messages: formatChatroomForFrontend(fullDoc, req.user.id), _id: fullDoc._id };
+						res.send( messageObj );
+					})
+					
 				});
 			})
 		}
@@ -52,18 +55,19 @@ router.post('/getOrCreate', function (req, res, next){
 					if(err) return next(err);
 					res.send(newChatRoom);
 				});	
-				// itinerary.chatroom = newChatRoom._id;
-				// console.log(newChatRoom);
-				// itinerary.save(function (err){
-				// 	console.log('err', err);
-				// 	if (err) return next(err);
-				// 	res.send(newChatRoom);
-				// });
-				
 			});
 		}
 	})
 })
+
+function formatChatroomForFrontend ( populatedChatroom , myUser){
+	var newArray = populatedChatroom.messages.map(function (singleMessage){
+		// console.log('name check',singleMessage.user._id == myUser, typeof singleMessage.user._id, typeof myUser);
+		var myName = singleMessage.user._id.toString() === myUser ? 'me' : singleMessage.user.firstName;
+		return { name: myName, message: singleMessage.message };
+	});
+	return newArray
+}
 
 router.post('/message', function(req,res,next){
 	//update message

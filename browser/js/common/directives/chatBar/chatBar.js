@@ -8,7 +8,8 @@ app.directive('chatBar', function(ChatroomFactory,SocketReaction){
 			// ChatroomFactory.sync_messages_from_db($scope.message_to_display);
 
 			$scope.submit_message = function(){
-				ChatroomFactory.send_message_to_server($scope.user.firstName, $scope.current_message);
+				var userName = $scope.user ? $scope.user.firstName : 'temp user';
+				ChatroomFactory.send_message_to_server(userName, $scope.current_message);
 				ChatroomFactory.save_message_to_database($scope.current_message);
 				$scope.message_to_display.push({name:"me",message:$scope.current_message});
 				$scope.current_message = '';

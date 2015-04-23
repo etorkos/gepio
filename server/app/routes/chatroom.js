@@ -31,16 +31,16 @@ router.post('/create',function(req,res,next){
 router.post('/getOrCreate', function (req, res, next){
 	var itineraryId = req.body.id;
 	Itinerary.findById(itineraryId, function (err, itinerary){
-		console.log('get or create', itinerary);
+		// console.log('get or create', itinerary);
 		if (err) return next(err);
 		if (itinerary.chatRoom){
 			Chatroom.findById(itinerary.chatRoom, function (err, myChatRoom){
 				if (err) return next(err);
 				myChatRoom.populate('messages', function (err, fullDoc){
-					console.log('already exists', fullDoc);
 					if(err) return next(err);
 					User.populate(fullDoc, { path: 'messages.user', select: 'firstName'}, function(err, info){
-						var messageObj = { messages: formatChatroomForFrontend(fullDoc, req.user.id), _id: fullDoc._id };
+						var userId = req.user ? req.user.id : null;
+						var messageObj = { messages: formatChatroomForFrontend(fullDoc, userId), _id: fullDoc._id };
 						res.send( messageObj );
 					})
 					
@@ -51,7 +51,6 @@ router.post('/getOrCreate', function (req, res, next){
 			Chatroom.create({}, function (err, newChatRoom){
 				if (err) return next(err);
 				itinerary.update({$set: {chatRoom: newChatRoom._id}}, function (err, dunce){
-					console.log('new chatroom', 'err', err, 'response', dunce);
 					if(err) return next(err);
 					res.send(newChatRoom);
 				});	
@@ -62,29 +61,29 @@ router.post('/getOrCreate', function (req, res, next){
 
 function formatChatroomForFrontend ( populatedChatroom , myUser){
 	var newArray = populatedChatroom.messages.map(function (singleMessage){
-		// console.log('name check',singleMessage.user._id == myUser, typeof singleMessage.user._id, typeof myUser);
-		var myName = singleMessage.user._id.toString() === myUser ? 'me' : singleMessage.user.firstName;
-		return { name: myName, message: singleMessage.message };
+		if (!singleMessage.user) return { name: 'temp user', message: singleMessage.message };
+		else { 
+			var myName = singleMessage.user._id.toString() === myUser ? 'me' : singleMessage.user.firstName;
+			return { name: myName, message: singleMessage.message };
+		}
 	});
-	return newArray
+	return newArray;
 }
 
 router.post('/message', function(req,res,next){
 	//update message
 	var id = req.body.room_id;
 	var message = req.body.message;
-	console.log('found messages', id, message);
-	Message.create({user: req.user.id, message: message}, function (err, messageFromDb){
+	var obj = req.user ? { user: req.user.id, message: message } : { message: message };
+	Message.create(obj, function (err, messageFromDb){
 		if(err) return next(err);
-		console.log('message creation', messageFromDb);
 		Chatroom.findById(id, function(err,chatroom){
-			console.log('chatroom from db', chatroom);
 			if(err) next(err);
 			else if(chatroom == null) res.sendStatus(404);
 			else {
 				chatroom.messages.push(messageFromDb._id);
 				chatroom.save();
-				console.log('finished save', chatroom);
+				// console.log('finished save', chatroom);
 				res.sendStatus(200);
 			}
 		});

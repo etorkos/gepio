@@ -138,7 +138,7 @@ app.factory('ChatroomFactory', function ($http, DataSetFactory){
 					id : temp.current_itinerary_id
 				}).then(function(response){
 					temp.current_chatroom_id = response.data._id;
-					console.log(response.data);
+					// console.log(response.data);
 					return(response.data);
 
 				});

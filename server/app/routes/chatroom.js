@@ -34,8 +34,8 @@ router.post('/getOrCreate', function (req, res, next){
 	Itinerary.findById(itineraryId, function (err, itinerary){
 		console.log('get or create', itinerary);
 		if (err) return next(err);
-		if (itinerary.chatroom){
-			Chatroom.findById(itinerary.chatroom, function (err, myChatRoom){
+		if (itinerary.chatRoom){
+			Chatroom.findById(itinerary.chatRoom, function (err, myChatRoom){
 				if (err) return next(err);
 				myChatRoom.populate('messages', function (err, fullDoc){
 					console.log('already exists', fullDoc);
@@ -47,11 +47,19 @@ router.post('/getOrCreate', function (req, res, next){
 		else {
 			Chatroom.create({}, function (err, newChatRoom){
 				if (err) return next(err);
-				itinerary.update({$set: {chatroom: newChatRoom._id}}, function (err, dunce){
-					console.log('new chatrom', dunce);
+				itinerary.update({$set: {chatRoom: newChatRoom._id}}, function (err, dunce){
+					console.log('new chatroom', 'err', err, 'response', dunce);
 					if(err) return next(err);
 					res.send(newChatRoom);
 				});	
+				// itinerary.chatroom = newChatRoom._id;
+				// console.log(newChatRoom);
+				// itinerary.save(function (err){
+				// 	console.log('err', err);
+				// 	if (err) return next(err);
+				// 	res.send(newChatRoom);
+				// });
+				
 			});
 		}
 	})

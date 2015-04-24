@@ -8,15 +8,46 @@ app.config(function ($stateProvider){
 });
 
 
-app.controller('MapCtrl', function ($scope, $state, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction, DataSetFactory, $rootScope){
+app.controller('MapCtrl', function ($scope, $state, uiGmapIsReady, checkDateFilter, $stateParams, uiGmapGoogleMapApi, MessageFactory, VotingFactory, GeolocationFactory, POIFactory, $filter, ChatroomFactory, SocketReaction, DataSetFactory, $rootScope, $q){
 	uiGmapGoogleMapApi.then(function (maps){
 		$scope.map = { 
 			center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude },
 			zoom: 13
 		};
+
+		$scope.directionsService = new maps.DirectionsService();
+    	$scope.directionsDisplay = new maps.DirectionsRenderer();
+    	var mainEvent = checkDateFilter($scope.data.events, $scope.date);
+    	if(mainEvent.length){
+    		var request = {
+				origin: new maps.LatLng(
+					$scope.data.venues[0].location.lat,
+					$scope.data.venues[0].location.lng
+				),
+				destination: new maps.LatLng(
+					mainEvent[0].venue.latitude, 
+					mainEvent[0].venue.longitude
+				),
+				travelMode: maps.TravelMode['WALKING'],
+				optimizeWaypoints: true
+			};
+			uiGmapIsReady.promise(1)
+			.then(function(instances){
+				$scope.directionsDisplay.setMap(instances[0].map);
+				$scope.directionsService.route(request, function(response, status) {
+			        if (status == google.maps.DirectionsStatus.OK) {
+			        	console.log('finished directions with ', response, status);
+			        	console.log('you will go ', response.routes[0].legs[0].distance.text, 'in', response.routes[0].legs[0].duration.text);
+			            // $scope.directionsDisplay.setDirections(response);
+			        }
+			        
+			    });
+			})
+			
+    	}
 	});
 
-	console.log($stateParams.type);
+	// console.log($stateParams.type);
 	$scope.user_location = { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude };
 	$scope.active = MessageFactory.active;
 	$scope.messages = MessageFactory.messages;

@@ -1,8 +1,13 @@
 'use strict';
 app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFactory, ItineraryFactory, POIFactory, $rootScope){
     //save the id to chatroom factory
+    // console.log('into the chatroom', $rootScope.ItineraryId);
     if($rootScope.ItineraryId){
         ChatroomFactory.set_itinerary_id($rootScope.ItineraryId);
+        ChatroomFactory.get_or_create_room().then( function (data){
+            // console.log('current chatroom id', ChatroomFactory.current_chatroom_id);
+            $scope.message_to_display = data.messages;
+        })
     }
     
     $scope.invite = false;

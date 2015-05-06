@@ -8,22 +8,25 @@ app.factory('ResolveUserFactory', function(ItineraryFactory, $state, $http){
                 if(itinerary.users){
                     itinerary.users.forEach(function(userId){
                         if(userId === user._id){
-                            console.log('user is in the room');
+                            console.log('User is authorized');
                             auth = true;
                             return user;
                         }
                     });
                 }
-                if(!auth) $state.go('home');
+                if(!auth) {
+                    console.log('User is not authorized to enter room');
+                    $state.go('home');
+                }
             });
 		},
         getPastActions: function(itineraryId){
-            console.log('called getPastActions');
+            // console.log('called getPastActions');
             return ItineraryFactory.getItinerary(itineraryId).then(function(itinerary){
-                console.log('back into getPastActions with', itinerary);
+                // console.log('back into getPastActions with', itinerary);
                 return itinerary;
             }, function(reject) {
-                console.log("im rejected ", reject);
+                // console.log("im rejected ", reject);
             })
         }
     }

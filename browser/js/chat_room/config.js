@@ -19,19 +19,16 @@ app.config(function ($stateProvider) {
                 else POIFactory.hasEvents = true;
                 return $stateParams.type;
             },
-            // userValidation: function(AuthService, ResolveUserFactory, $stateParams){
-            //     console.log('resolve');
-            //     return AuthService.getLoggedInUser().then(function(user){
-            //         return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
-            //             console.log('finished first resolution');
-            //             return user;
-            //         })
-            //     });
-            // },
-            // savedEvents: function($stateParams, ResolveUserFactory, ItemMixFactory, $scope){
+            userValidation: function(AuthService, ResolveUserFactory, $stateParams){
+                return AuthService.getLoggedInUser().then(function(user){
+                    return ResolveUserFactory.resolve(user, $stateParams.id).then(function(thing){
+                        return user;
+                    })
+                });
+            },
             savedEvents: function ($stateParams, ResolveUserFactory, ItemMixFactory, ItineraryFactory, DataSetFactory, POIFactory){   
                 if (!DataSetFactory.isNew){
-                    console.log('in saved events');
+                    // console.log('in saved events');
                     ItineraryFactory.setActiveParams = { id: $stateParams.id, type: $stateParams.type };
                     ItineraryFactory.getItinerary($stateParams.id).then(function (itinerary){
                         POIFactory.setItineraryDate(itinerary.date);

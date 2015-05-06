@@ -7,7 +7,14 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
         ChatroomFactory.get_or_create_room().then( function (data){
             // console.log('current chatroom id', ChatroomFactory.current_chatroom_id);
             $scope.message_to_display = data.messages;
-        })
+        }).then(function(thing){
+            // console.log($rootScope.ItineraryId);
+            ItineraryFactory.getItinerary($rootScope.ItineraryId).then(function(itinerary){
+                // console.log('itinerary ',itinerary);
+                $scope.inviteStatus = itinerary.inviteStatus;
+                // console.log('now scope ',$scope.inviteStatus);
+            });
+        });
     }
     
     $scope.invite = false;
@@ -18,7 +25,8 @@ app.controller('RoomCtrl', function($scope, $state, MessageFactory, ChatroomFact
         // ChatroomFactory.open_invitation(itinerary_id);
     };
 
-    $scope.inviteStatus = 'closed'; //needs to be dynamically set
+
+     //needs to be dynamically set
 
     $scope.inviteToggle = function (){
         ItineraryFactory.toggleInviteStatus($rootScope.ItineraryId).then(function (response){

@@ -4,28 +4,24 @@ app.factory('ItemMixFactory', function (){
 
 	return {
 		blend: function(categoriesArray, dataSet){
-			// console.log('called blend with', categoriesArray, 'categories and ', dataSet, 'data');
 			if(categoriesArray.length < 1) return dataSet;
 			var newSortedArray = [];
 			var len = categoriesArray.length;
 			var infiniteLoop = 0;
 			var newDataSet = dataSet.slice();
-			// console.log('categoriesArray', typeof categoriesArray);
 				var categoriesArray = categoriesArray.map(function(thing){
 					var newThing;
 					if(typeof thing === 'string') return JSON.parse(thing);
 					return thing;
 				});
 
-			console.log((categoriesArray[0].id), 'category', newDataSet.length, newDataSet[0].category.id);
+			// console.log((categoriesArray[0].id), 'category', newDataSet.length, newDataSet[0].category.id);
 
 			while( newDataSet.length > 0 && infiniteLoop < 3){ //while we have unsorted elements
 				for( var catIndex = 0 ; catIndex < len; catIndex++ ){ //loop through categories
 					for(var arrItem = 0, dlen = newDataSet.length; arrItem < dlen; arrItem++){
-						// console.log(newDataSet[arrItem]);
-						 // console.log('midloop', categoriesArray[catIndex].id === newDataSet[arrItem].category.id, (categoriesArray[catIndex]), newDataSet[arrItem].category.id)
 						if( newDataSet[arrItem].category && categoriesArray[catIndex].id === newDataSet[arrItem].category.id) {
-						    console.log('query correct ++++?+??++++', newDataSet[arrItem]);
+						    // console.log('query correct ++++?+??++++', newDataSet[arrItem]);
 							newSortedArray.push(newDataSet.splice(arrItem, 1)[0]);
 							infiniteLoop = 0;
 							arrItem--;
@@ -50,7 +46,7 @@ app.factory('ItemMixFactory', function (){
 				orderedList[len] = temp;
 			}
 			var list = orderedList.splice(0, 8);
-			console.log(list);
+			// console.log(list);
 			// ItineraryFactory.updateDataSet(type, id, list).then(function (res){
 			// 	console.log("Updated", res);
 			// 	return list;
@@ -61,13 +57,13 @@ app.factory('ItemMixFactory', function (){
 			nonDuplicatedArray = [];
 			for ( var i = 0, n = listOfObjects.length; i < n ; i++) {
 			    var item = listOfObjects[i];
-			    console.log(item);
+			    // console.log(item);
 			    arrResult[item.name + " - " + item.description] = arrResult[item.name + " - " + item.description] || item; //sets name and object as the key and selects the first on the array or assigns
 			};
 			console.log('arrResult', arrResult);
 			i = 0;
 			for (var item in arrResult) {
-				console.log(arrResult[item]);
+				// console.log(arrResult[item]);
 			    nonDuplicatedArray[i++] = arrResult[item];
 			}
 			return nonDuplicatedArray;

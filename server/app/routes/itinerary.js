@@ -13,7 +13,7 @@ router.post('/', function(req, res, next){
 	obj.title = req.body.title;
 	obj.type = req.body.type;
 	obj.date = new Date();
-	if (user) obj.user = user;
+	if (user) obj.users = [user];
 	Itinerary.create(obj, function(err, itinerary){
 		if (err) res.status(500).send(err);
 		else {
